@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { BusinessValueAgentDemo } from '@/components/BusinessValueAgentDemo';
 import { DeploymentPlannerDemo } from '@/components/DeploymentPlannerDemo';
 import { AdditionalAgents } from '@/components/AdditionalAgents';
+import { SocialProofLogos } from '@/components/SocialProofLogos';
 
 // Simple SVG Icons to replace emojis without external dependencies
 const Icons = {
@@ -52,13 +53,13 @@ export default function Home() {
               Grow revenue across every touchpoint with customer facing agents and team copilots grounded in your value model.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/demo" className="btn-secondary w-full sm:w-auto px-8">
+              <Link href="/demo" className="btn-primary w-full sm:w-auto px-8 bg-ap-dark-blue hover:bg-black">
                 Request Demo
               </Link>
-              <Link href="/signup" className="btn-primary w-full sm:w-auto px-8 bg-ap-dark-blue hover:bg-black">
-                Start for Free →
-              </Link>
             </div>
+          </div>
+          
+          <div className="mt-20">
           </div>
           
           {/* Visual Divider / Breakage */}
@@ -131,6 +132,8 @@ export default function Home() {
           <BusinessValueAgentDemo />
         </div>
       </section>
+
+      <SocialProofLogos />
 
       {/* Deployment Planner Section - Full Width Background */}
       <DeploymentPlannerDemo />
