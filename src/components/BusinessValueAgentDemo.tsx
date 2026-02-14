@@ -10,8 +10,21 @@ export const BusinessValueAgentDemo = () => {
   const [researchMessage, setResearchMessage] = useState('Initializing research...');
   const [progress, setProgress] = useState(25);
   const [sliderValue, setSliderValue] = useState(40);
+  const [efficiencyValue, setEfficiencyValue] = useState(65);
   const [isNextClicked, setIsNextClicked] = useState(false);
   const reportRef = useRef<HTMLDivElement>(null);
+  const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const resetDemo = () => {
+    if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
+    setUrl('');
+    setStep('input');
+    setResearchMessage('Initializing research...');
+    setProgress(25);
+    setSliderValue(40);
+    setEfficiencyValue(65);
+    setIsNextClicked(false);
+  };
 
   useEffect(() => {
     if (step === 'input') {
@@ -61,13 +74,13 @@ export const BusinessValueAgentDemo = () => {
     if (step === 'results') {
       const timer = setTimeout(() => {
         setStep('financial_model');
-      }, 5000); // Pausing longer (1 beat = ~2s more)
+      }, 5000);
       return () => clearTimeout(timer);
     }
 
     if (step === 'financial_model') {
-      // Animate slider after a short delay
-      const timer = setTimeout(() => {
+      // First animation: Security slider up
+      const timer1 = setTimeout(() => {
         let current = 40;
         const target = 85;
         const interval = setInterval(() => {
@@ -76,31 +89,54 @@ export const BusinessValueAgentDemo = () => {
             setSliderValue(current);
           } else {
             clearInterval(interval);
-            // After slider finishes, wait a bit longer then "click" next
-            setTimeout(() => {
-              setIsNextClicked(true);
-              setTimeout(() => {
-                setStep('full_report');
-                setIsNextClicked(false);
-              }, 400);
-            }, 3000); // Pausing longer
+            
+            // Second animation: Efficiency slider down
+            let effCurrent = 65;
+            const effTarget = 32;
+            const effInterval = setInterval(() => {
+              if (effCurrent > effTarget) {
+                effCurrent -= 1;
+                setEfficiencyValue(effCurrent);
+              } else {
+                clearInterval(effInterval);
+                // Finish sequence
+                setTimeout(() => {
+                  setIsNextClicked(true);
+                  setTimeout(() => {
+                    setStep('full_report');
+                    setIsNextClicked(false);
+                  }, 400);
+                }, 1000);
+              }
+            }, 20);
           }
         }, 20);
       }, 1000);
-      return () => clearTimeout(timer);
+      return () => clearTimeout(timer1);
     }
 
     if (step === 'full_report') {
-      // Animate scroll after a short delay
+      // Very slow gradual scroll
       const timer = setTimeout(() => {
         if (reportRef.current) {
-          reportRef.current.scrollTo({
-            top: reportRef.current.scrollHeight,
-            behavior: 'smooth'
-          });
+          const container = reportRef.current;
+          const scrollSpeed = 0.68; // ~35% faster than 0.5
+          let currentScroll = 0;
+          
+          scrollIntervalRef.current = setInterval(() => {
+            if (currentScroll < container.scrollHeight - container.clientHeight) {
+              currentScroll += scrollSpeed;
+              container.scrollTop = currentScroll;
+            } else {
+              if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
+            }
+          }, 16); // ~60fps
         }
-      }, 2000);
-      return () => clearTimeout(timer);
+      }, 2500);
+      return () => {
+        clearTimeout(timer);
+        if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
+      };
     }
   }, [step]);
 
@@ -133,14 +169,19 @@ export const BusinessValueAgentDemo = () => {
         .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
         .animate-zoom-in { animation: zoomIn 0.5s ease-out forwards; }
       `}</style>
-      <div className="max-w-4xl mb-12 text-left">
+      <div className="max-w-4xl mb-12 text-left space-y-6">
+        <div className="flex flex-wrap gap-3">
+          <span className="badge bg-ap-blue/10 text-ap-blue border border-ap-blue/20">Marketing Website Lead Magnet</span>
+          <span className="badge bg-ap-teal/10 text-ap-teal border border-ap-teal/20">In App Agent</span>
+          <span className="badge bg-ap-purple-muted/10 text-ap-purple-muted border border-ap-purple-muted/20">Team Copilot</span>
+        </div>
         <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-ap-dark-blue leading-tight">
-          Our Business Value Agent researches your prospect, maps their needs to your value model, and generates a detailed business case.
+          Lift close rate and deal size with our Business Value Agent that researches prospects, maps their needs to your value model, and generates a detailed business case.
         </h2>
       </div>
 
-      {/* Interactive Demo Area */}
-      <div className="relative w-full aspect-[16/9] md:aspect-[21/9] bg-ap-dark-blue rounded-[2.5rem] shadow-2xl overflow-hidden border border-ap-blue/20 group text-white">
+      {/* Interactive Demo Area with FIXED HEIGHT to prevent jumping */}
+      <div className="relative w-full h-[500px] md:h-[650px] bg-ap-dark-blue rounded-[2.5rem] shadow-2xl overflow-hidden border border-ap-blue/20 group text-white">
         {/* Background Decorative Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-[-20%] right-[-10%] w-[50%] aspect-square bg-ap-blue/20 blur-[120px] rounded-full opacity-60 transition-all duration-1000 group-hover:opacity-80" />
@@ -148,7 +189,7 @@ export const BusinessValueAgentDemo = () => {
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-[0.03] pointer-events-none" />
         </div>
 
-        <div className="relative h-full flex flex-col items-center justify-center p-6 md:p-12 overflow-y-auto custom-scrollbar">
+        <div className="relative h-full flex flex-col items-center justify-center p-6 md:p-12">
           
           {step === 'input' && (
             <div className="w-full max-w-2xl bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.3)] animate-zoom-in">
@@ -233,7 +274,7 @@ export const BusinessValueAgentDemo = () => {
                     <span className="text-ap-teal text-[10px] font-bold uppercase tracking-[0.2em]">Analysis Complete</span>
                     <h3 className="text-2xl font-bold text-white">Acme Corp</h3>
                   </div>
-                  <div className="bg-ap-teal/10 text-ap-teal text-[10px] font-black px-3 py-1 rounded-full border border-ap-teal/20 uppercase">
+                  <div className="bg-ap-teal/10 text-ap-teal text-[10px] font-black px-3 py-1 rounded-full border border-ap-teal/20 uppercase tracking-widest">
                     98% Confidence
                   </div>
                 </div>
@@ -283,7 +324,7 @@ export const BusinessValueAgentDemo = () => {
           )}
 
           {step === 'financial_model' && (
-            <div className="w-full max-w-4xl bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] animate-zoom-in">
+            <div className="w-full max-w-4xl min-h-[560px] bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 md:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.3)] animate-zoom-in flex flex-col justify-between">
               <div className="flex flex-col gap-6">
                 <div className="flex items-center justify-between border-b border-white/10 pb-4">
                   <div className="space-y-1">
@@ -312,9 +353,14 @@ export const BusinessValueAgentDemo = () => {
                       <div className="space-y-3">
                         <div className="flex justify-between items-center">
                           <label className="text-xs font-medium text-white/80">Operational Efficiency Gain</label>
-                          <span className="text-ap-teal font-bold text-sm">22%</span>
+                          <span className="text-ap-teal font-bold text-sm">{efficiencyValue}%</span>
                         </div>
-                        <input type="range" className="w-full accent-ap-teal opacity-50 cursor-not-allowed" value="22" readOnly />
+                        <input 
+                          type="range" 
+                          className="w-full accent-ap-teal cursor-pointer" 
+                          value={efficiencyValue}
+                          onChange={(e) => setEfficiencyValue(parseInt(e.target.value))}
+                        />
                       </div>
 
                       <div className="space-y-3">
@@ -378,7 +424,7 @@ export const BusinessValueAgentDemo = () => {
           )}
 
           {step === 'full_report' && (
-            <div className="w-full max-w-5xl h-[90%] bg-ap-dark-blue/40 backdrop-blur-2xl border border-white/10 rounded-3xl p-0 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col animate-zoom-in text-white overflow-hidden">
+            <div className="w-full max-w-4xl h-[560px] bg-ap-dark-blue/40 backdrop-blur-2xl border border-white/10 rounded-3xl p-0 shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col animate-zoom-in text-white overflow-hidden">
               <div className="p-8 border-b border-white/10 flex items-center justify-between shrink-0">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center border border-white/10">
@@ -389,16 +435,37 @@ export const BusinessValueAgentDemo = () => {
                     <p className="text-xs text-white/40 uppercase tracking-widest font-bold">Generated by AgentPress AI</p>
                   </div>
                 </div>
-                <div className="flex gap-3">
-                   <div className="px-4 py-2 rounded-lg bg-ap-teal/10 text-ap-teal text-xs font-bold border border-ap-teal/20 uppercase tracking-widest">
-                     Business Case Ready
+                <div className="flex items-center gap-2">
+                   <div className="flex bg-white/5 rounded-lg border border-white/10 p-1">
+                     <button className="px-3 py-1.5 rounded-md hover:bg-white/5 text-[10px] font-bold uppercase tracking-wider flex items-center gap-2 transition-colors">
+                       <svg className="w-3 h-3 text-ap-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                       </svg>
+                       Export: PDF
+                     </button>
+                     <div className="w-[1px] bg-white/10 my-1 mx-1" />
+                     <button className="px-3 py-1.5 rounded-md hover:bg-white/5 text-[10px] font-bold uppercase tracking-wider flex items-center gap-2 transition-colors">
+                       <svg className="w-3 h-3 text-[#00A1E0]" fill="currentColor" viewBox="0 0 24 24">
+                         <path d="M13.04 14.34l.07.07c1.34 1.34 3.53 1.34 4.87 0l4.87-4.87c1.34-1.34 1.34-3.53 0-4.87l-.07-.07a3.444 3.444 0 00-4.87 0l-4.87 4.87c-1.35 1.34-1.35 3.53 0 4.87zm-6.09 3.04l.07.07c1.34 1.34 3.53 1.34 4.87 0l4.87-4.87c1.34-1.34 1.34-3.53 0-4.87l-.07-.07a3.444 3.444 0 00-4.87 0l-4.87 4.87c-1.34 1.34-1.34 3.53 0 4.87zm-4.87-4.87l.07.07c1.34 1.34 3.53 1.34 4.87 0l4.87-4.87c1.34-1.34 1.34-3.53 0-4.87l-.07-.07a3.444 3.444 0 00-4.87 0l-4.87 4.87c-1.34 1.34-1.34 3.53 0 4.87z" />
+                       </svg>
+                       Salesforce
+                     </button>
                    </div>
+                   <button 
+                     onClick={resetDemo}
+                     className="h-[38px] w-[38px] flex items-center justify-center rounded-lg bg-white/5 hover:bg-white/10 text-white/60 hover:text-white transition-all border border-white/10 group/reset"
+                     title="Re-run Demo"
+                   >
+                     <svg className="w-4 h-4 transition-transform group-hover/reset:rotate-180 duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                     </svg>
+                   </button>
                 </div>
               </div>
 
               <div 
                 ref={reportRef}
-                className="flex-1 overflow-y-auto p-8 space-y-12 custom-scrollbar"
+                className="flex-1 overflow-y-auto p-8 space-y-12 custom-scrollbar scroll-smooth"
               >
                 <div className="grid grid-cols-3 gap-6">
                   <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-1 text-center">
@@ -415,27 +482,30 @@ export const BusinessValueAgentDemo = () => {
                   </div>
                 </div>
 
-                <div className="space-y-8">
+                <div className="space-y-10">
                   <h4 className="text-sm font-black uppercase tracking-widest text-ap-teal-light border-b border-white/10 pb-2">Use Case Breakdown</h4>
                   
                   {useCases.map((useCase, i) => (
                     <div key={i} className="space-y-6">
-                      <div className="flex items-start justify-between">
+                      <div className="flex items-start justify-between gap-4">
                         <div className="space-y-1">
                           <h5 className="text-lg font-bold">{useCase.title}</h5>
                           <div className="flex items-center gap-3">
                             <span className="text-xs font-bold text-ap-teal uppercase">{useCase.driver}</span>
                             <span className="w-1 h-1 rounded-full bg-white/10" />
-                            <span className="text-xs font-medium text-white/60">Impact: {useCase.value}</span>
                           </div>
+                        </div>
+                        <div className="text-right shrink-0">
+                           <div className="text-[10px] uppercase tracking-widest text-white/40 font-bold mb-1">Annual Impact</div>
+                           <div className="text-3xl font-black text-ap-teal drop-shadow-[0_0_10px_rgba(45,196,168,0.3)]">{useCase.value}</div>
                         </div>
                       </div>
                       
-                      <div className="grid md:grid-cols-2 gap-8 bg-white/5 rounded-2xl p-6 border border-white/10">
-                        <div className="space-y-3">
+                      <div className="grid md:grid-cols-2 gap-8 bg-white/5 rounded-2xl p-8 border border-white/10">
+                        <div className="space-y-4">
                           <label className="text-[10px] font-black uppercase tracking-widest text-white/40">Calculated Drivers</label>
-                          <ul className="space-y-2">
-                            <li className="flex justify-between text-xs">
+                          <ul className="space-y-3">
+                            <li className="flex justify-between text-xs border-b border-white/5 pb-2">
                               <span className="text-white/80">Reduced Manual Review Time</span>
                               <span className="font-bold text-ap-teal">+45%</span>
                             </li>
@@ -445,9 +515,9 @@ export const BusinessValueAgentDemo = () => {
                             </li>
                           </ul>
                         </div>
-                        <div className="space-y-3">
+                        <div className="space-y-4">
                           <label className="text-[10px] font-black uppercase tracking-widest text-white/40">How We Can Help</label>
-                          <p className="text-xs leading-relaxed text-white/60 italic">
+                          <p className="text-sm leading-relaxed text-white/70 italic">
                             {useCase.help}
                           </p>
                         </div>
@@ -456,15 +526,15 @@ export const BusinessValueAgentDemo = () => {
                   ))}
                 </div>
 
-                <div className="pt-8 border-t border-white/10 flex items-center justify-center gap-6">
-                  <button className="flex-1 max-w-xs py-4 bg-white/10 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-white/20 border border-white/10 transition-all">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div className="pt-12 pb-8 border-t border-white/10 flex items-center justify-center gap-6">
+                  <button className="flex-1 max-w-xs py-5 bg-white/10 text-white rounded-xl font-bold text-sm flex items-center justify-center gap-3 hover:bg-white/20 border border-white/10 transition-all">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
                     </svg>
                     Export to PDF
                   </button>
-                  <button className="flex-1 max-w-xs py-4 bg-[#00A1E0] text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#0081B0] transition-colors shadow-lg shadow-[#00A1E0]/20">
-                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                  <button className="flex-1 max-w-xs py-5 bg-[#00A1E0] text-white rounded-xl font-bold text-sm flex items-center justify-center gap-3 hover:bg-[#0081B0] transition-colors shadow-lg shadow-[#00A1E0]/20">
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                        <path d="M13.04 14.34l.07.07c1.34 1.34 3.53 1.34 4.87 0l4.87-4.87c1.34-1.34 1.34-3.53 0-4.87l-.07-.07a3.444 3.444 0 00-4.87 0l-4.87 4.87c-1.35 1.34-1.35 3.53 0 4.87zm-6.09 3.04l.07.07c1.34 1.34 3.53 1.34 4.87 0l4.87-4.87c1.34-1.34 1.34-3.53 0-4.87l-.07-.07a3.444 3.444 0 00-4.87 0l-4.87 4.87c-1.34 1.34-1.34 3.53 0 4.87zm-4.87-4.87l.07.07c1.34 1.34 3.53 1.34 4.87 0l4.87-4.87c1.34-1.34 1.34-3.53 0-4.87l-.07-.07a3.444 3.444 0 00-4.87 0l-4.87 4.87c-1.34 1.34-1.34 3.53 0 4.87z" />
                     </svg>
                     Export to Salesforce

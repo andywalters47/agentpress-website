@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { BusinessValueAgentDemo } from '@/components/BusinessValueAgentDemo';
+import { DeploymentPlannerDemo } from '@/components/DeploymentPlannerDemo';
 
 // Simple SVG Icons to replace emojis without external dependencies
 const Icons = {
@@ -127,6 +128,16 @@ export default function Home() {
           </div>
 
           <BusinessValueAgentDemo />
+
+          {/* Visual Divider */}
+          <div className="mt-20 mb-20 flex justify-center">
+            <div className="relative">
+              <div className="w-1 h-24 bg-linear-to-b from-ap-teal to-transparent" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-ap-teal shadow-[0_0_15px_rgba(45,196,168,0.5)]" />
+            </div>
+          </div>
+
+          <DeploymentPlannerDemo />
           
           {/* Feature Grid (Hero Bottom) - Commented out
           <div className="mt-24 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
