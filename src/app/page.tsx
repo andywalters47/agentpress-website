@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { BusinessValueAgentDemo } from '@/components/BusinessValueAgentDemo';
 import { DeploymentPlannerDemo } from '@/components/DeploymentPlannerDemo';
+import { AdditionalAgents } from '@/components/AdditionalAgents';
 
 // Simple SVG Icons to replace emojis without external dependencies
 const Icons = {
@@ -41,7 +42,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative pt-20 pb-32 overflow-hidden">
+      <section className="relative pt-20 pb-0">
         <div className="section-container">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8">
@@ -128,18 +129,18 @@ export default function Home() {
           </div>
 
           <BusinessValueAgentDemo />
+        </div>
+      </section>
 
-          {/* Visual Divider */}
-          <div className="mt-20 mb-20 flex justify-center">
-            <div className="relative">
-              <div className="w-1 h-24 bg-linear-to-b from-ap-teal to-transparent" />
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-ap-teal shadow-[0_0_15px_rgba(45,196,168,0.5)]" />
-            </div>
-          </div>
+      {/* Deployment Planner Section - Full Width Background */}
+      <DeploymentPlannerDemo />
 
-          <DeploymentPlannerDemo />
-          
-          {/* Feature Grid (Hero Bottom) - Commented out
+      {/* Additional Agents Section */}
+      <AdditionalAgents />
+
+      {/* Feature Grid (Hero Bottom) - Commented out
+      <section className="relative overflow-hidden">
+        <div className="section-container">
           <div className="mt-24 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {['Deal Rooms', 'Enablement Agent', 'AI Documents', 'Content Library', 'Customer Onboarding', 'Learning Playbooks'].map((item) => (
               <div key={item} className="p-4 rounded-xl border border-border bg-white text-center hover:border-ap-teal transition-colors cursor-pointer group">
@@ -147,9 +148,9 @@ export default function Home() {
               </div>
             ))}
           </div>
-          */}
         </div>
       </section>
+      */}
 
       {/* Sections below are commented out
       <section className="bg-muted py-24">

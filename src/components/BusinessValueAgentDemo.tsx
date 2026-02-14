@@ -162,26 +162,27 @@ export const BusinessValueAgentDemo = () => {
   ];
 
   return (
-    <div className="py-12 bg-white overflow-hidden">
+    <div className="pt-24 pb-12 bg-white relative">
       <style jsx>{`
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
         .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
         .animate-zoom-in { animation: zoomIn 0.5s ease-out forwards; }
       `}</style>
-      <div className="max-w-4xl mb-12 text-left space-y-6">
+
+      <div className="max-w-4xl mb-12 text-left space-y-8 relative z-10">
         <div className="flex flex-wrap gap-3">
-          <span className="badge bg-ap-blue/10 text-ap-blue border border-ap-blue/20">Marketing Website Lead Magnet</span>
-          <span className="badge bg-ap-teal/10 text-ap-teal border border-ap-teal/20">In App Agent</span>
-          <span className="badge bg-ap-purple-muted/10 text-ap-purple-muted border border-ap-purple-muted/20">Team Copilot</span>
+          <span className="badge bg-white text-ap-blue border border-ap-blue/20 shadow-sm uppercase tracking-widest text-[10px] font-black px-4 py-1.5">Marketing Website Lead Magnet</span>
+          <span className="badge bg-white text-ap-teal border border-ap-teal/20 shadow-sm uppercase tracking-widest text-[10px] font-black px-4 py-1.5">In App Experience</span>
+          <span className="badge bg-white text-ap-purple-muted border border-ap-purple-muted/20 shadow-sm uppercase tracking-widest text-[10px] font-black px-4 py-1.5">Team Copilot</span>
         </div>
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-ap-dark-blue leading-tight">
-          Lift close rate and deal size with our Business Value Agent that researches prospects, maps their needs to your value model, and generates a detailed business case.
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-ap-dark-blue leading-[1.1]">
+          Lift win rate and ACV with our <span className="text-ap-blue">Business Value Agent</span> that researches accounts and generates detailed business cases.
         </h2>
       </div>
 
       {/* Interactive Demo Area with FIXED HEIGHT to prevent jumping */}
-      <div className="relative w-full h-[500px] md:h-[650px] bg-ap-dark-blue rounded-[2.5rem] shadow-2xl overflow-hidden border border-ap-blue/20 group text-white">
+      <div className="relative w-full h-[500px] md:h-[650px] bg-ap-dark-blue rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(2,11,38,0.4)] overflow-hidden border border-ap-blue/20 group text-white z-10">
         {/* Background Decorative Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-[-20%] right-[-10%] w-[50%] aspect-square bg-ap-blue/20 blur-[120px] rounded-full opacity-60 transition-all duration-1000 group-hover:opacity-80" />

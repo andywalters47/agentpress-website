@@ -89,23 +89,36 @@ export const DeploymentPlannerDemo = () => {
   ];
 
   return (
-    <div className="py-24 bg-white overflow-hidden">
+    <div className="pt-12 pb-32 bg-slate-50/50 overflow-hidden relative">
       <style jsx>{`
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        .bg-grid-slate-100 {
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32' width='32' height='32' fill='none' stroke='rgb(241 245 249 / 1)'%3E%3Cpath d='M0 .5H31.5V32'/%3E%3C/svg%3E");
+        }
       `}</style>
-      
-      <div className="max-w-4xl mb-12 text-left space-y-6">
-        <div className="flex flex-wrap gap-3">
-          <span className="badge bg-ap-teal/10 text-ap-teal border border-ap-teal/20 uppercase tracking-widest text-[10px] font-black">Customer Success Agent</span>
-          <span className="badge bg-ap-blue/10 text-ap-blue border border-ap-blue/20 uppercase tracking-widest text-[10px] font-black">Post-Sales Enablement</span>
-        </div>
-        <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-ap-dark-blue leading-tight">
-          Drive net revenue retention with a Deployment Planner that turns the value you sold into the value you deliver.
-        </h2>
-      </div>
 
-      <div className="relative w-full h-[600px] bg-ap-dark-blue rounded-[2.5rem] shadow-2xl overflow-hidden border border-ap-blue/20 group text-white">
+      {/* Unique Background Decorations for this section */}
+      <div className="absolute inset-0 bg-grid-slate-100 [mask-image:linear-gradient(to_bottom,transparent,black_15%,black_85%,transparent)] pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-white via-transparent to-white pointer-events-none" />
+      <div className="absolute top-0 left-1/4 w-96 h-96 bg-ap-teal/5 blur-3xl rounded-full pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-ap-blue/5 blur-3xl rounded-full pointer-events-none" />
+      
+      <div className="max-w-7xl mx-auto px-6 relative z-10">
+        <div className="max-w-4xl space-y-8 mb-20">
+          <div className="flex flex-wrap gap-3">
+            <span className="badge bg-white text-ap-teal border border-ap-teal/20 shadow-sm uppercase tracking-widest text-[10px] font-black px-4 py-1.5">In-App Experience</span>
+            <span className="badge bg-white text-ap-purple-muted border border-ap-purple-muted/20 shadow-sm uppercase tracking-widest text-[10px] font-black px-4 py-1.5">Team Copilot</span>
+          </div>
+          
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-ap-dark-blue leading-[1.1]">
+            Drive net revenue retention with a <span className="text-ap-teal">Deployment Planner</span> that turns the value you sold into the value you deliver.
+          </h2>
+        </div>
+
+        {/* Demo Area */}
+        <div className="relative group">
+          <div className="relative w-full h-[600px] bg-ap-dark-blue rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(2,11,38,0.4)] overflow-hidden border border-ap-blue/20 group text-white">
         {/* Background Decorative Elements */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-[-20%] left-[-10%] w-[50%] aspect-square bg-ap-teal/10 blur-[120px] rounded-full opacity-60" />
@@ -127,14 +140,22 @@ export const DeploymentPlannerDemo = () => {
                 <p className="text-xs text-ap-teal font-bold uppercase tracking-widest">Post-Sales Value Delivery</p>
               </div>
             </div>
-            <div className="hidden md:flex items-center gap-6">
-                <div className="text-right">
-                    <div className="text-[10px] text-white/40 uppercase font-black tracking-widest">Value Realized</div>
-                    <div className="text-xl font-black text-ap-teal">65%</div>
-                </div>
-                <div className="w-24 h-2 bg-white/10 rounded-full overflow-hidden">
-                    <div className="h-full bg-ap-teal w-[65%]" />
-                </div>
+            <div className="hidden md:flex items-center gap-3">
+              <div className="flex bg-white/5 rounded-lg border border-white/10 p-1">
+                <button className="px-3 py-1.5 rounded-md hover:bg-white/5 text-[10px] font-bold uppercase tracking-wider flex items-center gap-2 transition-colors">
+                  <svg className="w-3 h-3 text-ap-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                  </svg>
+                  Export: PDF
+                </button>
+                <div className="w-[1px] bg-white/10 my-1 mx-1" />
+                <button className="px-3 py-1.5 rounded-md hover:bg-white/5 text-[10px] font-bold uppercase tracking-wider flex items-center gap-2 transition-colors">
+                  <svg className="w-3 h-3 text-[#00A1E0]" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M13.04 14.34l.07.07c1.34 1.34 3.53 1.34 4.87 0l4.87-4.87c1.34-1.34 1.34-3.53 0-4.87l-.07-.07a3.444 3.444 0 00-4.87 0l-4.87 4.87c-1.35 1.34-1.35 3.53 0 4.87zm-6.09 3.04l.07.07c1.34 1.34 3.53 1.34 4.87 0l4.87-4.87c1.34-1.34 1.34-3.53 0-4.87l-.07-.07a3.444 3.444 0 00-4.87 0l-4.87 4.87c-1.34 1.34-1.34 3.53 0 4.87zm-4.87-4.87l.07.07c1.34 1.34 3.53 1.34 4.87 0l4.87-4.87c1.34-1.34 1.34-3.53 0-4.87l-.07-.07a3.444 3.444 0 00-4.87 0l-4.87 4.87c-1.34 1.34-1.34 3.53 0 4.87z" />
+                  </svg>
+                  Salesforce
+                </button>
+              </div>
             </div>
           </div>
 
@@ -145,15 +166,26 @@ export const DeploymentPlannerDemo = () => {
           >
             {milestones.map((milestone, idx) => (
               <div key={milestone.id} className="animate-fade-in" style={{ animationDelay: `${idx * 0.2}s` }}>
-                <div className="flex items-center justify-between mb-6 border-b border-white/10 pb-4">
+                <div className="flex flex-col md:flex-row md:items-center justify-between mb-6 border-b border-white/10 pb-4 gap-4">
                   <div className="flex items-center gap-4">
                     <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-sm font-bold border border-white/10">
                       {milestone.id}
                     </div>
                     <h4 className="text-xl font-bold text-white">{milestone.title}</h4>
                   </div>
-                  <div className="bg-ap-teal/20 text-ap-teal text-[10px] font-black px-4 py-1.5 rounded-full border border-ap-teal/20 uppercase tracking-widest">
-                    {milestone.valueProgress} Value reached
+                  <div className="flex items-center gap-4">
+                    <div className="flex flex-col items-end gap-1">
+                      <span className="text-[10px] text-white/40 uppercase font-black tracking-widest">Value Realized</span>
+                      <div className="flex items-center gap-3">
+                        <div className="w-24 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                          <div 
+                            className="h-full bg-ap-teal transition-all duration-1000" 
+                            style={{ width: milestone.valueProgress }} 
+                          />
+                        </div>
+                        <span className="text-ap-teal text-xs font-black">{milestone.valueProgress}</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
 
@@ -232,6 +264,8 @@ export const DeploymentPlannerDemo = () => {
           </div>
         </div>
       </div>
+    </div>
+  </div>
 
       <style jsx global>{`
         .custom-scrollbar::-webkit-scrollbar {
