@@ -2,25 +2,112 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0a0e28; /* --color-dark-blue */
+  
+  /* AgentPress Color Palette */
+  --color-white: #fff;
+  --color-gray-light: #cbccd4;
+  --color-dark-blue: #0a0e28;
+  --color-dark-bg: #05071a;
+  --color-darker-bg: #0d0515;
+  --color-teal: #2dc4a8;
+  --color-teal-light: #aef2c8;
+  --color-blue: #576df1;
+  --color-transparent-dark: #0a0e2900;
+  --color-purple-faded: #d0d0ff80;
+  --color-purple-muted: #959ccfcc;
+  --color-black: #000;
+  --color-dark-navy: #121426;
+  --color-periwinkle: #8aa5ff;
+  --color-sky-blue: #52aed9;
+
+  /* Semantic Light Theme */
+  --primary: var(--color-black);
+  --primary-foreground: var(--color-white);
+  --secondary: var(--color-white);
+  --secondary-foreground: var(--color-black);
+  --accent: var(--color-teal);
+  --accent-foreground: var(--color-white);
+  --muted: #f8fafc;
+  --muted-foreground: #64748b;
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: var(--color-blue);
+  
+  /* Typography */
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-heading: "Inter", system-ui, -apple-system, sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--color-muted-foreground);
+  --color-border: var(--border);
+  
+  --color-ap-white: var(--color-white);
+  --color-ap-gray-light: var(--color-gray-light);
+  --color-ap-dark-blue: var(--color-dark-blue);
+  --color-ap-dark-bg: var(--color-dark-bg);
+  --color-ap-darker-bg: var(--color-darker-bg);
+  --color-ap-teal: var(--color-teal);
+  --color-ap-teal-light: var(--color-teal-light);
+  --color-ap-blue: var(--color-blue);
+  --color-ap-purple-faded: var(--color-purple-faded);
+  --color-ap-purple-muted: var(--color-purple-muted);
+  --color-ap-black: var(--color-black);
+  --color-ap-dark-navy: var(--color-dark-navy);
+  --color-ap-periwinkle: var(--color-periwinkle);
+  --color-ap-sky-blue: var(--color-sky-blue);
+  
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading);
+  
+  --radius-lg: 0.5rem;
+  --radius-md: calc(0.5rem - 2px);
+  --radius-sm: calc(0.5rem - 4px);
+  --radius-full: 9999px;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+  }
+}
+
+/* Custom Utilities based on Dock.us vibe */
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-full bg-primary text-primary-foreground font-medium transition-colors hover:bg-zinc-800;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-full border border-border bg-white text-foreground font-medium transition-colors hover:bg-muted;
+  }
+  
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20;
+  }
+  
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-accent/10 text-accent;
+  }
 }
