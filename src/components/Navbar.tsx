@@ -30,9 +30,6 @@ export function Navbar() {
               <Link href="/pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground">
                 Pricing
               </Link>
-              <Link href="/customers" className="text-sm font-medium text-muted-foreground hover:text-foreground">
-                Customers
-              </Link>
               <div className="relative group">
                 <button className="text-sm font-medium text-muted-foreground hover:text-foreground flex items-center gap-1 cursor-pointer">
                   Resources

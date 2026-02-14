@@ -128,7 +128,7 @@ export default function Home() {
 
           <BusinessValueAgentDemo />
           
-          {/* Feature Grid (Hero Bottom) */}
+          {/* Feature Grid (Hero Bottom) - Commented out
           <div className="mt-24 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {['Deal Rooms', 'Enablement Agent', 'AI Documents', 'Content Library', 'Customer Onboarding', 'Learning Playbooks'].map((item) => (
               <div key={item} className="p-4 rounded-xl border border-border bg-white text-center hover:border-ap-teal transition-colors cursor-pointer group">
@@ -136,10 +136,11 @@ export default function Home() {
               </div>
             ))}
           </div>
+          */}
         </div>
       </section>
 
-      {/* Why AgentPress Section */}
+      {/* Sections below are commented out
       <section className="bg-muted py-24">
         <div className="section-container">
           <div className="text-center mb-16">
@@ -165,7 +166,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Repeating Process Section */}
       <section className="py-24">
         <div className="section-container">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
@@ -195,7 +195,6 @@ export default function Home() {
               </div>
             </div>
             <div className="bg-ap-gray-light/20 rounded-3xl aspect-square flex items-center justify-center border border-border relative overflow-hidden">
-               {/* Decorative elements representing a workspace */}
                <div className="w-[80%] h-[70%] bg-white rounded-xl shadow-2xl border border-border p-6">
                   <div className="w-1/3 h-4 bg-muted rounded mb-4" />
                   <div className="grid grid-cols-2 gap-4">
@@ -213,7 +212,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* AI Enablement Agent Section */}
       <section className="py-24 bg-ap-dark-blue text-white overflow-hidden">
         <div className="section-container">
           <div className="grid lg:grid-cols-2 gap-20 items-center">
@@ -232,7 +230,6 @@ export default function Home() {
                   <div className="bg-white/5 rounded-lg p-3 text-sm">Product FAQ</div>
                 </div>
               </div>
-              {/* Floating accents */}
               <div className="absolute -top-10 -left-10 w-40 h-40 bg-ap-blue/20 blur-3xl rounded-full" />
               <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-ap-teal/20 blur-3xl rounded-full" />
             </div>
@@ -257,7 +254,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className="py-32 text-center">
         <div className="section-container">
           <h2 className="text-4xl md:text-5xl font-bold mb-8">Ready to modernize your revenue enablement?</h2>
@@ -274,6 +270,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      */}
     </div>
   );
 }

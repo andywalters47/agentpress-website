@@ -12,6 +12,15 @@ export const BusinessValueAgentDemo = () => {
   const [sliderValue, setSliderValue] = useState(40);
   const [isNextClicked, setIsNextClicked] = useState(false);
 
+  const resetDemo = () => {
+    setUrl('');
+    setStep('input');
+    setResearchMessage('Initializing research...');
+    setProgress(25);
+    setSliderValue(40);
+    setIsNextClicked(false);
+  };
+
   useEffect(() => {
     if (step === 'input') {
       const targetUrl = 'acmecorp.com';
@@ -135,7 +144,19 @@ export const BusinessValueAgentDemo = () => {
         </div>
 
         <div className="relative h-full flex flex-col items-center justify-center p-6 md:p-12 overflow-y-auto custom-scrollbar">
-          
+          {/* Global Re-run Button */}
+          {step !== 'input' && (
+            <button 
+              onClick={resetDemo}
+              className="absolute top-6 right-6 z-20 p-2 rounded-full bg-white/10 hover:bg-white/20 text-white/60 hover:text-white transition-all backdrop-blur-md border border-white/10 group/reset"
+              title="Restart Demo"
+            >
+              <svg className="w-5 h-5 transition-transform group-hover/reset:rotate-180 duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+            </button>
+          )}
+
           {step === 'input' && (
             <div className="w-full max-w-2xl bg-white/5 backdrop-blur-2xl border border-white/10 rounded-3xl p-8 md:p-12 shadow-[0_20px_50px_rgba(0,0,0,0.3)] animate-zoom-in">
               <div className="flex flex-col gap-8">
@@ -252,7 +273,7 @@ export const BusinessValueAgentDemo = () => {
                 </div>
 
                 <button 
-                  className="w-full mt-4 py-5 bg-white text-ap-dark-blue font-black text-lg rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 hover:bg-ap-teal hover:shadow-[0_15px_30px_rgba(45,196,168,0.3)] group/btn"
+                  className="w-full mt-4 py-5 bg-ap-teal text-ap-dark-blue font-black text-lg rounded-2xl transition-all duration-300 flex items-center justify-center gap-3 hover:bg-ap-teal/90 hover:shadow-[0_15px_30px_rgba(45,196,168,0.3)] group/btn"
                 >
                   Next
                   <svg 
@@ -377,6 +398,15 @@ export const BusinessValueAgentDemo = () => {
                   </div>
                 </div>
                 <div className="flex gap-3">
+                   <button 
+                     onClick={resetDemo}
+                     className="px-4 py-2 rounded-lg bg-ap-dark-blue/5 hover:bg-ap-dark-blue/10 text-ap-dark-blue text-xs font-bold border border-ap-dark-blue/10 transition-colors flex items-center gap-2"
+                   >
+                     <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                     </svg>
+                     RE-RUN DEMO
+                   </button>
                    <div className="px-4 py-2 rounded-lg bg-ap-teal/10 text-ap-teal text-xs font-bold border border-ap-teal/20">
                      DRAFT READY
                    </div>
@@ -441,8 +471,8 @@ export const BusinessValueAgentDemo = () => {
                 </div>
               </div>
 
-              <div className="p-6 border-t border-border bg-muted/20 shrink-0 flex items-center justify-between">
-                <div className="flex gap-4 w-full max-w-xl">
+              <div className="p-6 border-t border-border bg-muted/20 shrink-0 flex items-center justify-center">
+                <div className="flex gap-4 w-full max-w-2xl">
                   <button className="flex-1 py-4 bg-ap-dark-blue text-white rounded-xl font-bold text-sm flex items-center justify-center gap-2 hover:bg-black transition-colors">
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
@@ -456,9 +486,6 @@ export const BusinessValueAgentDemo = () => {
                     Export to Salesforce
                   </button>
                 </div>
-                <button className="px-6 py-4 bg-ap-teal text-ap-dark-blue rounded-xl font-black text-sm hover:bg-ap-teal/90 transition-colors">
-                  Next Step
-                </button>
               </div>
             </div>
           )}

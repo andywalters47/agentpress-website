@@ -8,35 +8,23 @@ export function Footer() {
       links: [
         { label: 'Client-Facing Workspaces', href: '#' },
         { label: 'Sales Content Management', href: '#' },
-        { label: 'Dock AI', href: '#' },
-        { label: 'Order Forms & Price Quotes', href: '#' },
-        { label: 'Client Project Plans', href: '#' },
-        { label: 'Chrome Extension', href: '#' },
         { label: 'Integrations', href: '#' },
       ],
     },
     {
-      title: 'Sales',
+      title: 'Pricing',
       links: [
-        { label: 'Digital Sales Rooms', href: '#' },
-        { label: 'Mutual Action Plans', href: '#' },
-        { label: 'Sales Portals', href: '#' },
+        { label: 'Starter', href: '#' },
+        { label: 'Professional', href: '#' },
+        { label: 'Enterprise', href: '#' },
       ],
     },
     {
-      title: 'Enablement',
+      title: 'Resources',
       links: [
-        { label: 'Sales Enablement', href: '#' },
-        { label: 'Buyer Enablement', href: '#' },
-      ],
-    },
-    {
-      title: 'Customer Success',
-      links: [
-        { label: 'Customer Onboarding', href: '#' },
-        { label: 'Client Portals', href: '#' },
-        { label: 'White-Label Client Portals', href: '#' },
-        { label: 'Client Project Management', href: '#' },
+        { label: 'Documentation', href: '#' },
+        { label: 'Blog', href: '#' },
+        { label: 'Support', href: '#' },
       ],
     },
   ];
@@ -45,7 +33,7 @@ export function Footer() {
     <footer className="bg-white border-t border-border pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 mb-16">
-          <div className="col-span-2 lg:col-span-1">
+          <div className="col-span-2 lg:col-span-2">
             <Link href="/" className="flex items-center mb-6">
               <Image 
                 src="/AP_landscape.png" 
@@ -55,7 +43,7 @@ export function Footer() {
                 className="h-8 w-auto object-contain"
               />
             </Link>
-            <p className="text-sm text-muted-foreground mb-6">
+            <p className="text-sm text-muted-foreground mb-6 max-w-sm">
               Grow revenue across every touchpoint with customer agents and team copilots grounded in your value model.
             </p>
           </div>
