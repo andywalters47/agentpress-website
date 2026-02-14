@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { BusinessValueAgentDemo } from '@/components/BusinessValueAgentDemo';
 
 // Simple SVG Icons to replace emojis without external dependencies
 const Icons = {
@@ -67,7 +68,7 @@ export default function Home() {
           </div>
           
           {/* Value Story Highlight */}
-          <div className="mb-40 max-w-5xl mx-auto px-4">
+          <div className="mb-20 max-w-5xl mx-auto px-4">
             <div className="text-center mb-24">
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl mx-auto leading-[1.1]">
                 Your B2B revenue team is telling six different value stories. The result is <span className="relative inline-block whitespace-nowrap px-2">
@@ -98,7 +99,7 @@ export default function Home() {
                       </div>
                       <span className="font-bold text-xs uppercase tracking-[0.2em] text-muted-foreground">{item.role}</span>
                     </div>
-                    <p className="text-xl font-medium text-ap-dark-blue italic">"{item.story}"</p>
+                    <p className="text-xl font-medium text-ap-dark-blue italic">&quot;{item.story}&quot;</p>
                     
                     <div className="mt-6 flex justify-end opacity-0 group-hover:opacity-100 transition-opacity">
                        <svg className="w-5 h-5 text-red-400 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -115,13 +116,17 @@ export default function Home() {
                 <div className="absolute w-[700px] h-[700px] border-[2px] border-ap-dark-blue rounded-full animate-[spin_70s_linear_infinite_reverse]" />
               </div>
             </div>
-            
-            <div className="mt-24 text-center">
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Your SDR (human or AI) pitch one narrative. Your AE sells another. CS onboards a third. By renewal, nobody remembers what you promised.
-              </p>
+          </div>
+
+          {/* Visual Divider */}
+          <div className="mt-20 mb-20 flex justify-center">
+            <div className="relative">
+              <div className="w-1 h-24 bg-linear-to-b from-ap-teal to-transparent" />
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-ap-teal shadow-[0_0_15px_rgba(45,196,168,0.5)]" />
             </div>
           </div>
+
+          <BusinessValueAgentDemo />
           
           {/* Feature Grid (Hero Bottom) */}
           <div className="mt-24 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
