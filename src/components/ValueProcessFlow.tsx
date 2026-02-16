@@ -4,7 +4,7 @@ import React from 'react';
 
 export const ValueProcessFlow = () => {
   return (
-    <div className="pt-8 pb-12 bg-white overflow-hidden">
+    <div className="pt-8 pb-20 bg-white overflow-hidden">
       <div className="mb-12">
         <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-ap-dark-blue leading-tight">
           How it Works
