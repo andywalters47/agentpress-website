@@ -4,40 +4,7 @@ import { DeploymentPlannerDemo } from '@/components/DeploymentPlannerDemo';
 import { AdditionalAgents } from '@/components/AdditionalAgents';
 import { SocialProofLogos } from '@/components/SocialProofLogos';
 
-// Simple SVG Icons to replace emojis without external dependencies
-const Icons = {
-  Marketing: () => (
-    <svg className="w-5 h-5 text-ap-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
-    </svg>
-  ),
-  SDRs: () => (
-    <svg className="w-5 h-5 text-ap-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.948V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-    </svg>
-  ),
-  AEs: () => (
-    <svg className="w-5 h-5 text-ap-sky-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>
-  ),
-  CS: () => (
-    <svg className="w-5 h-5 text-ap-periwinkle" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-    </svg>
-  ),
-  Support: () => (
-    <svg className="w-5 h-5 text-ap-gray-light" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-    </svg>
-  ),
-  AI: () => (
-    <svg className="w-5 h-5 text-ap-purple-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-    </svg>
-  )
-};
+// Simple SVG Icons to replace emojis without external dependencies - REMOVED AS UNUSED
 
 export default function Home() {
   return (
@@ -50,7 +17,7 @@ export default function Home() {
               Win Bigger Deals Without Manually Building Business Cases
             </h1>
             <p className="text-xl text-muted-foreground mb-10 max-w-3xl mx-auto">
-              AgentPress helps AEs win sell on value by researching accounts and building custom business cases in seconds
+              AgentPress helps AEs sell on value by researching accounts and building custom business cases in seconds
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/demo" className="btn-primary w-full sm:w-auto px-8 bg-black hover:bg-zinc-800">
@@ -67,64 +34,50 @@ export default function Home() {
 
       <SocialProofLogos />
 
-      <section className="relative pt-20 pb-0">
+      <section className="relative pt-10 pb-0">
         <div className="section-container">
           {/* Visual Divider / Breakage */}
-          <div className="mt-40 mb-20 flex justify-center">
+          <div className="mt-16 mb-20 flex justify-center">
             <div className="relative">
               <div className="w-1 h-24 bg-linear-to-b from-ap-teal to-transparent" />
               <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-ap-teal shadow-[0_0_15px_rgba(45,196,168,0.5)]" />
             </div>
           </div>
           
-          {/* Value Story Highlight */}
+          {/* Revenue Leakage Highlight */}
           <div className="mb-20 max-w-5xl mx-auto px-4">
-            <div className="text-center mb-24">
+            <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl mx-auto leading-[1.1]">
-                Your B2B revenue team is telling six different value stories. The result is <span className="relative inline-block whitespace-nowrap px-2">
-                  <span className="relative z-10 text-ap-dark-blue">revenue leakage</span>
+                Your team is <span className="relative inline-block whitespace-nowrap px-2">
+                  <span className="relative z-10 text-ap-dark-blue">losing 35%</span>
                   <span className="absolute bottom-2 left-0 w-full h-[40%] bg-ap-teal/40 -rotate-1" />
-                </span>
+                </span> on every deal because no one has time to build a business case.
               </h2>
             </div>
 
-            {/* Visual: Six Fragmented Stories */}
-            <div className="relative">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
-                {[
-                  { role: 'MARKETING WEBSITE', story: 'The Visionary Narrative', color: 'bg-ap-blue', Icon: Icons.Marketing },
-                  { role: 'AI SDR', story: "The AI Prompt Story", color: 'bg-ap-teal', Icon: Icons.AI },
-                  { role: 'HUMAN SDR', story: 'The Feature-Rich Pitch', color: 'bg-ap-sky-blue', Icon: Icons.SDRs },
-                  { role: 'HUMAN CS', story: 'The Implementation Story', color: 'bg-ap-periwinkle', Icon: Icons.CS },
-                  { role: 'HUMAN SUPPORT', story: 'The Technical Reality', color: 'bg-ap-gray-light', Icon: Icons.Support },
-                  { role: 'SUPPORT BOT', story: "The Knowledge Base", color: 'bg-ap-purple-muted', Icon: Icons.AI },
-                ].map((item) => (
-                  <div key={item.role} 
-                    className="p-8 rounded-2xl border border-border bg-white shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 group relative overflow-hidden"
-                  >
-                    <div className={`absolute top-0 left-0 w-full h-[2px] ${item.color} opacity-30`} />
-                    <div className="flex items-center gap-4 mb-4">
-                      <div className={`p-2 rounded-lg bg-muted group-hover:bg-white group-hover:shadow-sm transition-colors`}>
-                        <item.Icon />
-                      </div>
-                      <span className="font-bold text-xs uppercase tracking-[0.2em] text-muted-foreground">{item.role}</span>
-                    </div>
-                    <p className="text-xl font-medium text-ap-dark-blue italic">&quot;{item.story}&quot;</p>
-                    
-                    <div className="mt-6 flex justify-end opacity-0 group-hover:opacity-100 transition-opacity">
-                       <svg className="w-5 h-5 text-red-400 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                      </svg>
-                    </div>
+            {/* Visual: Revenue Leakage Progress Bar */}
+            <div className="relative max-w-4xl mx-auto pt-0 pb-20">
+              
+              <div className="relative h-24 w-full bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-border overflow-hidden flex p-2">
+                <div className="h-full bg-ap-teal rounded-2xl relative flex items-center px-8 group transition-all duration-700 shadow-inner" style={{ width: '65%' }}>
+                   <div className="text-white">
+                      <div className="text-[10px] font-black uppercase tracking-widest opacity-60 mb-0.5">Revenue Captured</div>
+                      <div className="text-3xl font-black leading-none">$65,000</div>
+                   </div>
+                   {/* Decorative Shine */}
+                   <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1500" />
+                </div>
+                
+                <div className="h-full bg-slate-50 relative flex items-center px-8 overflow-hidden rounded-r-2xl" style={{ width: '35%' }}>
+                  {/* Stripes Pattern for "Lost" area */}
+                  <div className="absolute inset-0 opacity-[0.03] grayscale" style={{ backgroundImage: 'linear-gradient(45deg, #000 25%, transparent 25%, transparent 50%, #000 50%, #000 75%, transparent 75%, transparent)' , backgroundSize: '20px 20px' }} />
+                  <div className="relative z-10">
+                      <div className="text-red-500/60 text-[10px] font-black uppercase tracking-widest mb-0.5">Lost Opportunity</div>
+                      <div className="text-3xl font-black text-slate-300 leading-none">$35,000</div>
                   </div>
-                ))}
+                </div>
               </div>
               
-              {/* Background decorative elements to show fragmentation */}
-              <div className="absolute inset-0 -m-20 flex items-center justify-center -z-0 opacity-[0.03] pointer-events-none">
-                <div className="w-[1000px] h-[1000px] border-[2px] border-ap-dark-blue rounded-full animate-[spin_100s_linear_infinite]" />
-                <div className="absolute w-[700px] h-[700px] border-[2px] border-ap-dark-blue rounded-full animate-[spin_70s_linear_infinite_reverse]" />
-              </div>
             </div>
           </div>
 
