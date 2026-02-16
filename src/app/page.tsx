@@ -76,6 +76,12 @@ export default function Home() {
             </div>
           </div>
 
+          <div className="mb-12">
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-ap-dark-blue leading-tight">
+              AgentPress uses patented AI to generate accurate business cases that win
+            </h2>
+          </div>
+
           <ValueMetricCards />
 
           <ValueProcessFlow />
