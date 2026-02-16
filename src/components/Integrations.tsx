@@ -11,7 +11,7 @@ const integrations = [
 
 export const Integrations = () => {
   return (
-    <div className="py-24 bg-white overflow-hidden border-t border-slate-50">
+    <div className="py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div>
@@ -42,37 +42,38 @@ export const Integrations = () => {
           <div className="relative">
             {/* Visual Representation of Integrations */}
             <div className="relative aspect-video rounded-3xl bg-slate-50 border border-slate-100 overflow-hidden shadow-sm flex items-center justify-center p-12">
-               {/* Central AgentPress Logo/Icon Placeholder */}
-               <div className="relative z-10 w-24 h-24 bg-white rounded-3xl shadow-xl flex items-center justify-center border border-slate-100 p-2">
+               {/* Central AgentPress Logo */}
+               <div className="relative z-10 w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center border border-slate-100 p-2">
                   <div className="relative w-full h-full">
                     <Image 
                       src="/AP_icon_circle.png" 
                       alt="AgentPress Logo" 
                       fill 
-                      className="object-contain rounded-2xl" 
+                      className="object-contain rounded-xl" 
                     />
                   </div>
                </div>
 
-               {/* Connection Lines */}
+               {/* Hub & Spokes Connection Lines */}
                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-[85%] h-[1px] bg-linear-to-r from-transparent via-slate-200 to-transparent rotate-[30deg]" />
-                  <div className="w-[85%] h-[1px] bg-linear-to-r from-transparent via-slate-200 to-transparent -rotate-[30deg]" />
-                  <div className="w-[85%] h-[1px] bg-linear-to-r from-transparent via-slate-200 to-transparent rotate-90" />
+                  {/* Line connecting Salesforce (top-left) to HubSpot (bottom-right) */}
+                  <div className="absolute w-[60%] h-[1px] bg-linear-to-r from-transparent via-slate-200 to-transparent rotate-45" />
+                  {/* Line for Gong (top-right) */}
+                  <div className="absolute w-[60%] h-[1px] bg-linear-to-r from-transparent via-slate-200 to-transparent -rotate-45" />
                </div>
 
                {/* Orbital Logos */}
-               <div className="absolute top-1/4 left-1/4 w-16 h-16 bg-white rounded-2xl shadow-lg border border-slate-100 flex items-center justify-center p-3">
+               <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-2xl shadow-lg border border-slate-100 flex items-center justify-center p-3">
                   <div className="relative w-full h-full">
                     <Image src="/logos/salesforce_logomark.png" alt="Salesforce" fill className="object-contain" />
                   </div>
                </div>
-               <div className="absolute bottom-1/4 right-1/4 w-16 h-16 bg-white rounded-2xl shadow-lg border border-slate-100 flex items-center justify-center p-3">
+               <div className="absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-16 h-16 bg-white rounded-2xl shadow-lg border border-slate-100 flex items-center justify-center p-3">
                   <div className="relative w-full h-full">
                     <Image src="/logos/hubspot_logomark.png" alt="HubSpot" fill className="object-contain" />
                   </div>
                </div>
-               <div className="absolute top-1/4 right-1/4 w-16 h-16 bg-white rounded-2xl shadow-lg border border-slate-100 flex items-center justify-center p-3">
+               <div className="absolute top-1/4 right-1/4 translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-white rounded-2xl shadow-lg border border-slate-100 flex items-center justify-center p-3">
                   <div className="relative w-full h-full">
                     <Image src="/logos/gong_logomark.png" alt="Gong" fill className="object-contain" />
                   </div>

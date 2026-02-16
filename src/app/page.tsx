@@ -5,6 +5,7 @@ import { AdditionalAgents } from '@/components/AdditionalAgents';
 import { SocialProofLogos } from '@/components/SocialProofLogos';
 import { ValueMetricCards } from '@/components/ValueMetricCards';
 import { ValueProcessFlow } from '@/components/ValueProcessFlow';
+import { Testimonial } from '@/components/Testimonial';
 import { Integrations } from '@/components/Integrations';
 
 // Simple SVG Icons to replace emojis without external dependencies - REMOVED AS UNUSED
@@ -89,6 +90,8 @@ export default function Home() {
           <ValueMetricCards />
 
           <ValueProcessFlow />
+
+          <Testimonial />
 
           <Integrations />
 
