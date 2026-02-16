@@ -6,6 +6,7 @@ export function Footer() {
     {
       title: 'Product',
       links: [
+        { label: 'Deployment Planner', href: '/deployment-planner' },
         { label: 'Client-Facing Workspaces', href: '#' },
         { label: 'Sales Content Management', href: '#' },
         { label: 'Integrations', href: '#' },

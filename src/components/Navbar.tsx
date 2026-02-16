@@ -27,6 +27,9 @@ export function Navbar() {
                   </svg>
                 </button>
               </div>
+              <Link href="/deployment-planner" className="text-sm font-medium text-muted-foreground hover:text-foreground">
+                Deployment Planner
+              </Link>
               <Link href="/pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground">
                 Pricing
               </Link>

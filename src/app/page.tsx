@@ -1,12 +1,12 @@
 import Link from 'next/link';
 import { BusinessValueAgentDemo } from '@/components/BusinessValueAgentDemo';
-import { DeploymentPlannerDemo } from '@/components/DeploymentPlannerDemo';
 import { AdditionalAgents } from '@/components/AdditionalAgents';
 import { SocialProofLogos } from '@/components/SocialProofLogos';
 import { ValueMetricCards } from '@/components/ValueMetricCards';
 import { ValueProcessFlow } from '@/components/ValueProcessFlow';
 import { Testimonial } from '@/components/Testimonial';
 import { Integrations } from '@/components/Integrations';
+import { PersonaUseCases } from '@/components/PersonaUseCases';
 
 // Simple SVG Icons to replace emojis without external dependencies - REMOVED AS UNUSED
 
@@ -43,7 +43,7 @@ export default function Home() {
           
           {/* Revenue Leakage Highlight */}
           <div className="mb-20 max-w-5xl mx-auto px-4">
-            <div className="text-center mb-16 pt-10">
+            <div className="text-center mb-16 pt-24">
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl mx-auto leading-[1.1]">
                 Your team is <span className="relative inline-block whitespace-nowrap px-2">
                   <span className="relative z-10 text-ap-dark-blue">losing 35%</span>
@@ -97,70 +97,31 @@ export default function Home() {
 
       <Integrations />
 
-      <section className="relative pt-0 pb-0">
+      <PersonaUseCases />
+
+      <section className="pt-8 pb-32 text-center bg-slate-50/30">
         <div className="section-container !pt-0">
-          {/* CTA Section */}
-          <div className="mt-20">
-            <div className="flex flex-col items-center text-center gap-6 p-12 rounded-[3rem] bg-slate-50 border border-slate-100 w-full mx-auto">
-              <h3 className="text-2xl md:text-3xl font-bold text-ap-dark-blue">
-                Ready to win more deals with value?
-              </h3>
-              <p className="text-slate-500 text-lg max-w-xl">
-                Join the top-performing sales teams using AgentPress to build accurate business cases in seconds.
-              </p>
-              <Link 
-                href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" 
-                className="btn-primary px-10 py-4 bg-black hover:bg-zinc-800 text-lg shadow-xl shadow-black/5"
-              >
+          <div className="max-w-5xl mx-auto px-4">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl mx-auto leading-[1.1] mb-10">
+              Ready to win more with <span className="relative inline-block whitespace-nowrap px-2">
+                <span className="relative z-10 text-ap-dark-blue">value selling?</span>
+                <span className="absolute bottom-2 left-0 w-full h-[40%] bg-ap-teal/40 -rotate-1" />
+              </span>
+            </h2>
+            <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
+              Join the forward-thinking revenue teams that use AgentPress to close bigger deals faster.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" className="btn-primary w-full sm:w-auto px-10 bg-black hover:bg-zinc-800 text-lg">
                 Schedule Demo →
               </Link>
             </div>
           </div>
-
-          {/* Visual Divider */}
-          <div className="mt-20 mb-20 flex justify-center">
-            <div className="relative">
-              <div className="w-1 h-24 bg-linear-to-b from-ap-teal to-transparent" />
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-ap-teal shadow-[0_0_15px_rgba(45,196,168,0.5)]" />
-            </div>
-          </div>
-
         </div>
       </section>
-
-      {/* Deployment Planner Section - Full Width Background */}
-      <DeploymentPlannerDemo />
 
       {/* Additional Agents Section */}
       <AdditionalAgents />
-
-      {/* Feature Grid (Hero Bottom) - Commented out
-      <section className="relative overflow-hidden">
-        <div className="section-container">
-          <div className="mt-24 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {['Deal Rooms', 'Enablement Agent', 'AI Documents', 'Content Library', 'Customer Onboarding', 'Learning Playbooks'].map((item) => (
-              <div key={item} className="p-4 rounded-xl border border-border bg-white text-center hover:border-ap-teal transition-colors cursor-pointer group">
-                <span className="text-sm font-semibold group-hover:text-ap-teal">{item}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      */}
-
-      <section className="py-32 text-center">
-        <div className="section-container">
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">Ready to modernize your revenue enablement?</h2>
-          <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Join the forward-thinking revenue teams that use AgentPress to close deals faster and onboard customers better.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" className="btn-primary w-full sm:w-auto px-10 bg-black hover:bg-zinc-800 text-lg">
-              Schedule Demo
-            </Link>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

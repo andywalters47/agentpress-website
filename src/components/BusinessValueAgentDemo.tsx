@@ -13,10 +13,7 @@ export const BusinessValueAgentDemo = () => {
   const [efficiencyValue, setEfficiencyValue] = useState(65);
   const [isNextClicked, setIsNextClicked] = useState(false);
   const reportRef = useRef<HTMLDivElement>(null);
-  const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
-
   const resetDemo = () => {
-    if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
     setUrl('');
     setStep('input');
     setResearchMessage('Initializing research...');
@@ -116,30 +113,41 @@ export const BusinessValueAgentDemo = () => {
     }
 
     if (step === 'full_report') {
-      // Very slow gradual scroll
+      // Very slow gradual scroll using rAF
+      let rafId: number;
+      let lastTime: number | null = null;
+      const pixelsPerSecond = 42; // ~0.68px per 16ms frame
+
       const timer = setTimeout(() => {
         if (reportRef.current) {
           const container = reportRef.current;
-          const scrollSpeed = 0.68; // ~35% faster than 0.5
-          let currentScroll = 0;
-          
-          scrollIntervalRef.current = setInterval(() => {
-            if (currentScroll < container.scrollHeight - container.clientHeight) {
-              currentScroll += scrollSpeed;
-              container.scrollTop = currentScroll;
+
+          const tick = (now: number) => {
+            if (lastTime === null) { lastTime = now; }
+            const delta = now - lastTime;
+            lastTime = now;
+            // Cap delta to avoid huge jumps after tab re-focus
+            const clampedDelta = Math.min(delta, 100);
+            const increment = (pixelsPerSecond * clampedDelta) / 1000;
+
+            if (container.scrollTop + container.clientHeight < container.scrollHeight - 1) {
+              container.scrollTop += increment;
+              rafId = requestAnimationFrame(tick);
             } else {
-              if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
               // Loop back after a pause
               setTimeout(() => {
                 resetDemo();
               }, 4000);
             }
-          }, 16); // ~60fps
+          };
+
+          rafId = requestAnimationFrame(tick);
         }
       }, 2500);
+
       return () => {
         clearTimeout(timer);
-        if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
+        cancelAnimationFrame(rafId);
       };
     }
   }, [step]);
@@ -459,7 +467,7 @@ export const BusinessValueAgentDemo = () => {
 
               <div 
                 ref={reportRef}
-                className="flex-1 overflow-y-auto p-8 space-y-12 custom-scrollbar scroll-smooth"
+                className="flex-1 overflow-y-auto p-8 space-y-12 custom-scrollbar"
               >
                 <div className="grid grid-cols-3 gap-6">
                   <div className="p-6 rounded-2xl bg-white/5 border border-white/10 space-y-1 text-center">

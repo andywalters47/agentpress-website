@@ -11,34 +11,9 @@ const integrations = [
 
 export const Integrations = () => {
   return (
-    <div className="py-24 bg-white overflow-hidden">
+    <div className="pt-24 pb-12 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-ap-dark-blue leading-tight mb-6">
-              Fits into your existing tech stack
-            </h2>
-            <p className="text-slate-500 text-lg mb-8 max-w-xl">
-              AgentPress integrates directly with your CRM and revenue intelligence tools to automate data entry and keep your revenue model grounded in real-time reality.
-            </p>
-            
-            <div className="flex flex-wrap gap-4">
-              {integrations.map((item) => (
-                <div key={item.name} className="flex items-center gap-3 px-4 py-2 bg-slate-50 border border-slate-100 rounded-xl">
-                  <div className="relative w-6 h-6 shrink-0">
-                    <Image
-                      src={item.logo}
-                      alt={`${item.name} logomark`}
-                      fill
-                      className="object-contain"
-                    />
-                  </div>
-                  <span className="font-semibold text-ap-dark-blue">{item.name}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
           <div className="relative">
             {/* Visual Representation of Integrations */}
             <div className="relative aspect-video rounded-3xl bg-slate-50 border border-slate-100 overflow-hidden shadow-sm flex items-center justify-center p-12">
@@ -83,6 +58,31 @@ export const Integrations = () => {
             {/* Background Glow */}
             <div className="absolute -top-20 -right-20 w-64 h-64 bg-ap-blue/5 blur-[100px] rounded-full" />
             <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-ap-teal/5 blur-[100px] rounded-full" />
+          </div>
+
+          <div>
+            <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-ap-dark-blue leading-tight mb-6">
+              Fits into your existing tech stack
+            </h2>
+            <p className="text-slate-500 text-lg mb-8 max-w-xl">
+              AgentPress integrates directly with your CRM and revenue intelligence tools to automate data entry and keep your revenue model grounded in real-time reality.
+            </p>
+            
+            <div className="flex flex-wrap gap-4">
+              {integrations.map((item) => (
+                <div key={item.name} className="flex items-center gap-3 px-4 py-2 bg-slate-50 border border-slate-100 rounded-xl">
+                  <div className="relative w-6 h-6 shrink-0">
+                    <Image
+                      src={item.logo}
+                      alt={`${item.name} logomark`}
+                      fill
+                      className="object-contain"
+                    />
+                  </div>
+                  <span className="font-semibold text-ap-dark-blue">{item.name}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

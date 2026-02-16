@@ -4,39 +4,45 @@ import React, { useEffect, useRef } from 'react';
 
 export const DeploymentPlannerDemo = () => {
   const reportRef = useRef<HTMLDivElement>(null);
-  const scrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    // Gradual scroll through the deployment plan
+    // Gradual scroll through the deployment plan using rAF
+    let rafId: number;
+    let lastTime: number | null = null;
+    const pixelsPerSecond = 31; // ~0.5px per 16ms frame
+
     const timer = setTimeout(() => {
       if (reportRef.current) {
         const container = reportRef.current;
-        const scrollSpeed = 0.5; 
-        let currentScroll = 0;
-        
-        scrollIntervalRef.current = setInterval(() => {
-          if (currentScroll < container.scrollHeight - container.clientHeight) {
-            currentScroll += scrollSpeed;
-            container.scrollTop = currentScroll;
+
+        const tick = (now: number) => {
+          if (lastTime === null) { lastTime = now; }
+          const delta = now - lastTime;
+          lastTime = now;
+          // Cap delta to avoid huge jumps after tab re-focus
+          const clampedDelta = Math.min(delta, 100);
+          const increment = (pixelsPerSecond * clampedDelta) / 1000;
+
+          if (container.scrollTop + container.clientHeight < container.scrollHeight - 1) {
+            container.scrollTop += increment;
+            rafId = requestAnimationFrame(tick);
           } else {
-            // Pause at bottom for a bit then reset to top or just stop
-            if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
+            // Pause at bottom then reset to top
             setTimeout(() => {
-                if (reportRef.current) {
-                    reportRef.current.scrollTop = 0;
-                    currentScroll = 0;
-                    // Restart scroll after a pause
-                    // (Optional: loop it)
-                }
+              if (reportRef.current) {
+                reportRef.current.scrollTop = 0;
+              }
             }, 5000);
           }
-        }, 16);
+        };
+
+        rafId = requestAnimationFrame(tick);
       }
     }, 2000);
 
     return () => {
       clearTimeout(timer);
-      if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
+      cancelAnimationFrame(rafId);
     };
   }, []);
 
@@ -162,7 +168,7 @@ export const DeploymentPlannerDemo = () => {
           {/* Scrolling Content */}
           <div 
             ref={reportRef}
-            className="flex-1 overflow-y-auto p-8 space-y-12 custom-scrollbar scroll-smooth"
+            className="flex-1 overflow-y-auto p-8 space-y-12 custom-scrollbar"
           >
             {milestones.map((milestone, idx) => (
               <div key={milestone.id} className="animate-fade-in" style={{ animationDelay: `${idx * 0.2}s` }}>
