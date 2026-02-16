@@ -73,11 +73,11 @@ const metrics = [
 
 export const ValueMetricCards = () => {
   return (
-    <div className="grid lg:grid-cols-3 gap-12 lg:gap-8 mb-8">
+    <div className="grid lg:grid-cols-3 gap-6 lg:gap-8 mb-8">
       {metrics.map((metric, idx) => (
         <div 
           key={idx}
-          className="group relative flex flex-col h-[420px] p-12 rounded-[3rem] transition-all duration-700 overflow-hidden border border-slate-100 hover:border-transparent hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] bg-white"
+          className="group relative flex flex-col min-h-[320px] md:h-[420px] p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] transition-all duration-700 overflow-hidden border border-slate-100 hover:border-transparent hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.08)] bg-white"
         >
           {/* Giant Background Icon */}
           <div className={`absolute -right-12 -bottom-12 w-64 h-64 opacity-[0.03] group-hover:opacity-[0.07] group-hover:scale-110 transition-all duration-1000 pointer-events-none ${metric.color}`}>
@@ -88,19 +88,19 @@ export const ValueMetricCards = () => {
           <div className={`absolute top-0 left-0 w-full h-1.5 ${metric.bgColor} opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
 
           <div className="relative z-10">
-            <div className="mb-8">
-               <div className={`w-12 h-12 rounded-2xl ${metric.bgColor}/10 flex items-center justify-center p-2.5 ${metric.color}`}>
+            <div className="mb-6 md:mb-8">
+               <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl ${metric.bgColor}/10 flex items-center justify-center p-2 md:p-2.5 ${metric.color}`}>
                 <metric.Icon />
               </div>
             </div>
 
-            <h3 className="text-[32px] md:text-[44px] font-bold text-ap-dark-blue mb-6 tracking-tighter leading-none group-hover:translate-x-2 transition-transform duration-500">
+            <h3 className="text-3xl md:text-[44px] font-bold text-ap-dark-blue mb-4 md:mb-6 tracking-tighter leading-tight md:leading-none group-hover:translate-x-2 transition-transform duration-500">
               {metric.heading}
             </h3>
           </div>
 
           <div className="mt-auto relative z-10">
-            <h4 className="text-xl font-medium text-slate-500 leading-snug group-hover:text-slate-900 transition-colors duration-500">
+            <h4 className="text-lg md:text-xl font-medium text-slate-500 leading-snug group-hover:text-slate-900 transition-colors duration-500">
               {metric.subhead}
             </h4>
           </div>
