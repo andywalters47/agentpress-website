@@ -19,11 +19,11 @@ export const SocialProofLogos = () => {
         <p className="text-center text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/60 mb-6">
           Trusted by SaaS Companies
         </p>
-        <div className="flex flex-wrap justify-center items-center gap-x-10 md:gap-x-16 gap-y-6 opacity-80 transition-all duration-500">
+        <div className="flex flex-wrap justify-center items-center gap-x-8 sm:gap-x-12 md:gap-x-16 gap-y-8 opacity-80 transition-all duration-500 max-w-4xl mx-auto">
           {logos.map((logo) => (
             <div 
               key={logo.name} 
-              className={`relative h-10 w-28 md:w-36 flex items-center justify-center grayscale brightness-75 hover:grayscale-0 hover:brightness-100 transition-all duration-500 ${logo.extraClass || ''}`}
+              className={`relative h-8 sm:h-10 w-32 sm:w-36 md:w-40 flex items-center justify-center grayscale brightness-75 hover:grayscale-0 hover:brightness-100 transition-all duration-500 ${logo.extraClass || ''}`}
             >
               <Image
                 src={logo.src}
