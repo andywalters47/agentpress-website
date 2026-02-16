@@ -4,12 +4,13 @@ import Image from 'next/image';
 export function Footer() {
   const footerSections = [
     {
-      title: 'Product',
+      title: 'Agents',
       links: [
-        { label: 'Deployment Planner', href: '/deployment-planner' },
-        { label: 'Client-Facing Workspaces', href: '#' },
-        { label: 'Sales Content Management', href: '#' },
-        { label: 'Integrations', href: '#' },
+        { label: 'Business Case Agent', href: '#' },
+        { label: 'AI SDR', href: '#' },
+        { label: 'Team Copilot', href: '#' },
+        { label: 'Deployment Planner', href: '#' },
+        { label: 'Support Agent', href: '#' },
       ],
     },
     {
@@ -20,21 +21,13 @@ export function Footer() {
         { label: 'Enterprise', href: '#' },
       ],
     },
-    {
-      title: 'Resources',
-      links: [
-        { label: 'Documentation', href: '#' },
-        { label: 'Blog', href: '#' },
-        { label: 'Support', href: '#' },
-      ],
-    },
   ];
 
   return (
     <footer className="bg-white border-t border-border pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-12 mb-16">
-          <div className="col-span-2 lg:col-span-2">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+          <div className="md:col-span-2">
             <Link href="/" className="flex items-center mb-6">
               <Image 
                 src="/AP_landscape.png" 
