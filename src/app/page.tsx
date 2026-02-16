@@ -5,6 +5,7 @@ import { AdditionalAgents } from '@/components/AdditionalAgents';
 import { SocialProofLogos } from '@/components/SocialProofLogos';
 import { ValueMetricCards } from '@/components/ValueMetricCards';
 import { ValueProcessFlow } from '@/components/ValueProcessFlow';
+import { Integrations } from '@/components/Integrations';
 
 // Simple SVG Icons to replace emojis without external dependencies - REMOVED AS UNUSED
 
@@ -23,7 +24,7 @@ export default function Home() {
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" className="btn-primary w-full sm:w-auto px-8 bg-black hover:bg-zinc-800">
-                Request Demo →
+                Schedule Demo →
               </Link>
             </div>
           </div>
@@ -89,6 +90,26 @@ export default function Home() {
 
           <ValueProcessFlow />
 
+          <Integrations />
+
+          {/* CTA Section */}
+          <div className="mt-20">
+            <div className="flex flex-col items-center text-center gap-6 p-12 rounded-[3rem] bg-slate-50 border border-slate-100 w-full mx-auto">
+              <h3 className="text-2xl md:text-3xl font-bold text-ap-dark-blue">
+                Ready to win more deals with value?
+              </h3>
+              <p className="text-slate-500 text-lg max-w-xl">
+                Join the top-performing sales teams using AgentPress to build accurate business cases in seconds.
+              </p>
+              <Link 
+                href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" 
+                className="btn-primary px-10 py-4 bg-black hover:bg-zinc-800 text-lg shadow-xl shadow-black/5"
+              >
+                Schedule Demo →
+              </Link>
+            </div>
+          </div>
+
           {/* Visual Divider */}
           <div className="mt-20 mb-20 flex justify-center">
             <div className="relative">
@@ -128,7 +149,7 @@ export default function Home() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" className="btn-primary w-full sm:w-auto px-10 bg-black hover:bg-zinc-800 text-lg">
-              Request Demo
+              Schedule Demo
             </Link>
           </div>
         </div>

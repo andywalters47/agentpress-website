@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Logos
+/public/logos/gong_logomark.png
+/public/logos/hubspot_logomark.png
+/public/logos/salesforce_logomark.png
+/public/AP_icon_circle.png

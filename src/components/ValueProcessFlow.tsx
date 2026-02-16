@@ -1,7 +1,6 @@
 'use client';
 
 import React from 'react';
-import Link from 'next/link';
 
 export const ValueProcessFlow = () => {
   return (
@@ -44,24 +43,6 @@ export const ValueProcessFlow = () => {
               <p className="text-slate-500 text-lg">Present it live on a call or export a PDF they can take to their CFO.</p>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* CTA Section */}
-      <div className="mt-32">
-        <div className="flex flex-col items-center text-center gap-6 p-12 rounded-[3rem] bg-slate-50 border border-slate-100 w-full mx-auto">
-          <h3 className="text-2xl md:text-3xl font-bold text-ap-dark-blue">
-            Ready to win more deals with value?
-          </h3>
-          <p className="text-slate-500 text-lg max-w-xl">
-            Join the top-performing sales teams using AgentPress to build accurate business cases in seconds.
-          </p>
-          <Link 
-            href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" 
-            className="btn-primary px-10 py-4 bg-black hover:bg-zinc-800 text-lg shadow-xl shadow-black/5"
-          >
-            Request Demo →
-          </Link>
         </div>
       </div>
     </div>

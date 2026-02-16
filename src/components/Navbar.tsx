@@ -46,7 +46,7 @@ export function Navbar() {
               Log in
             </Link>
             <Link href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" className="btn-primary py-2 px-6 text-sm bg-black hover:bg-zinc-800">
-              Request Demo
+              Schedule Demo
             </Link>
           </div>
         </div>
