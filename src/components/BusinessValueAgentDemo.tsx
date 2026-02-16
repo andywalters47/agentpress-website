@@ -129,6 +129,10 @@ export const BusinessValueAgentDemo = () => {
               container.scrollTop = currentScroll;
             } else {
               if (scrollIntervalRef.current) clearInterval(scrollIntervalRef.current);
+              // Loop back after a pause
+              setTimeout(() => {
+                resetDemo();
+              }, 4000);
             }
           }, 16); // ~60fps
         }
@@ -169,17 +173,6 @@ export const BusinessValueAgentDemo = () => {
         .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }
         .animate-zoom-in { animation: zoomIn 0.5s ease-out forwards; }
       `}</style>
-
-      <div className="max-w-4xl mb-12 text-left space-y-8 relative z-10">
-        <div className="flex flex-wrap gap-3">
-          <span className="badge bg-white text-ap-blue border border-ap-blue/20 shadow-sm uppercase tracking-widest text-[10px] font-black px-4 py-1.5">Marketing Website Lead Magnet</span>
-          <span className="badge bg-white text-ap-teal border border-ap-teal/20 shadow-sm uppercase tracking-widest text-[10px] font-black px-4 py-1.5">In App Experience</span>
-          <span className="badge bg-white text-ap-purple-muted border border-ap-purple-muted/20 shadow-sm uppercase tracking-widest text-[10px] font-black px-4 py-1.5">Team Copilot</span>
-        </div>
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-ap-dark-blue leading-[1.1]">
-          Lift win rate and ACV with our <span className="text-ap-blue">Business Value Agent</span> that researches accounts and generates detailed business cases.
-        </h2>
-      </div>
 
       {/* Interactive Demo Area with FIXED HEIGHT to prevent jumping */}
       <div className="relative w-full h-[500px] md:h-[650px] bg-ap-dark-blue rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(2,11,38,0.4)] overflow-hidden border border-ap-blue/20 group text-white z-10">

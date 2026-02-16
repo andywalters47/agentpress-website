@@ -47,21 +47,28 @@ export default function Home() {
         <div className="section-container">
           <div className="text-center max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-8">
-              AI Agents <span className="text-ap-teal">Fluent In Your Value Story</span>, from Inbound to Renewal
+              Win Bigger Deals Without Manually Building Business Cases
             </h1>
-            <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Grow revenue across every touchpoint with customer facing agents and team copilots grounded in your value model.
+            <p className="text-xl text-muted-foreground mb-10 max-w-3xl mx-auto">
+              AgentPress helps AEs win sell on value by researching accounts and building custom business cases in seconds
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="/demo" className="btn-primary w-full sm:w-auto px-8 bg-ap-dark-blue hover:bg-black">
-                Request Demo
+              <Link href="/demo" className="btn-primary w-full sm:w-auto px-8 bg-black hover:bg-zinc-800">
+                Request Demo →
               </Link>
             </div>
           </div>
           
           <div className="mt-20">
+            <BusinessValueAgentDemo />
           </div>
-          
+        </div>
+      </section>
+
+      <SocialProofLogos />
+
+      <section className="relative pt-20 pb-0">
+        <div className="section-container">
           {/* Visual Divider / Breakage */}
           <div className="mt-40 mb-20 flex justify-center">
             <div className="relative">
@@ -85,12 +92,12 @@ export default function Home() {
             <div className="relative">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
                 {[
-                  { role: 'Marketing', story: 'The "Visionary" Narrative', color: 'bg-ap-blue', Icon: Icons.Marketing },
-                  { role: 'SDRs', story: 'The "Feature-Rich" Pitch', color: 'bg-ap-teal', Icon: Icons.SDRs },
-                  { role: 'AEs', story: 'The "ROI-First" Case', color: 'bg-ap-sky-blue', Icon: Icons.AEs },
-                  { role: 'CS', story: 'The "Implementation" Story', color: 'bg-ap-periwinkle', Icon: Icons.CS },
-                  { role: 'Support', story: 'The "Technical" Reality', color: 'bg-ap-gray-light', Icon: Icons.Support },
-                  { role: 'AI Point Solutions', story: 'The "Automated" Script', color: 'bg-ap-purple-muted', Icon: Icons.AI },
+                  { role: 'MARKETING WEBSITE', story: 'The Visionary Narrative', color: 'bg-ap-blue', Icon: Icons.Marketing },
+                  { role: 'AI SDR', story: "The AI Prompt Story", color: 'bg-ap-teal', Icon: Icons.AI },
+                  { role: 'HUMAN SDR', story: 'The Feature-Rich Pitch', color: 'bg-ap-sky-blue', Icon: Icons.SDRs },
+                  { role: 'HUMAN CS', story: 'The Implementation Story', color: 'bg-ap-periwinkle', Icon: Icons.CS },
+                  { role: 'HUMAN SUPPORT', story: 'The Technical Reality', color: 'bg-ap-gray-light', Icon: Icons.Support },
+                  { role: 'SUPPORT BOT', story: "The Knowledge Base", color: 'bg-ap-purple-muted', Icon: Icons.AI },
                 ].map((item) => (
                   <div key={item.role} 
                     className="p-8 rounded-2xl border border-border bg-white shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-2 group relative overflow-hidden"
@@ -129,11 +136,8 @@ export default function Home() {
             </div>
           </div>
 
-          <BusinessValueAgentDemo />
         </div>
       </section>
-
-      <SocialProofLogos />
 
       {/* Deployment Planner Section - Full Width Background */}
       <DeploymentPlannerDemo />
