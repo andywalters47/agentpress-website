@@ -42,7 +42,7 @@ const metrics = [
       <>
         Increase close rate{' '}
         <span className="relative inline-block whitespace-nowrap px-1">
-          <span className="relative z-10">16%</span>
+          <span className="relative z-10">48%</span>
           <span className="absolute bottom-1 left-0 w-full h-[40%] bg-ap-blue/40 -rotate-1" />
         </span>
       </>

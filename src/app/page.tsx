@@ -4,6 +4,7 @@ import { DeploymentPlannerDemo } from '@/components/DeploymentPlannerDemo';
 import { AdditionalAgents } from '@/components/AdditionalAgents';
 import { SocialProofLogos } from '@/components/SocialProofLogos';
 import { ValueMetricCards } from '@/components/ValueMetricCards';
+import { ValueProcessFlow } from '@/components/ValueProcessFlow';
 
 // Simple SVG Icons to replace emojis without external dependencies - REMOVED AS UNUSED
 
@@ -76,6 +77,8 @@ export default function Home() {
           </div>
 
           <ValueMetricCards />
+
+          <ValueProcessFlow />
 
           {/* Visual Divider */}
           <div className="mt-20 mb-20 flex justify-center">
