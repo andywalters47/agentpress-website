@@ -39,7 +39,7 @@ export default function Home() {
       <SocialProofLogos />
 
       <section className="relative pt-0 pb-0">
-        <div className="section-container !pt-0">
+        <div className="section-container !pt-0 !pb-0">
           
           {/* Revenue Leakage Highlight */}
           <div className="mb-20 max-w-5xl mx-auto px-4">
@@ -90,11 +90,15 @@ export default function Home() {
           <ValueMetricCards />
 
           <ValueProcessFlow />
+        </div>
+      </section>
 
-          <Testimonial />
+      <Testimonial />
 
-          <Integrations />
+      <Integrations />
 
+      <section className="relative pt-0 pb-0">
+        <div className="section-container !pt-0">
           {/* CTA Section */}
           <div className="mt-20">
             <div className="flex flex-col items-center text-center gap-6 p-12 rounded-[3rem] bg-slate-50 border border-slate-100 w-full mx-auto">
