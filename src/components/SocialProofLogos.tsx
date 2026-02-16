@@ -10,14 +10,14 @@ const logos = [
 
 export const SocialProofLogos = () => {
   return (
-    <div className="w-full py-10 bg-linear-to-b from-white via-slate-50/50 to-white relative overflow-hidden">
+    <div className="w-full pt-4 pb-20 bg-linear-to-b from-white via-slate-50/50 to-white relative overflow-hidden">
       {/* Subtle decorative background elements */}
       <div className="absolute top-1/2 left-0 w-64 h-64 bg-ap-blue/5 blur-3xl rounded-full -translate-x-1/2 -translate-y-1/2" />
       <div className="absolute top-1/2 right-0 w-64 h-64 bg-ap-teal/5 blur-3xl rounded-full translate-x-1/2 -translate-y-1/2" />
       
-      <div className="section-container relative z-10">
+      <div className="section-container !py-0 relative z-10">
         <p className="text-center text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/60 mb-6">
-          Trusted by innovative revenue teams
+          Trusted by SaaS Companies
         </p>
         <div className="flex flex-wrap justify-center items-center gap-x-10 md:gap-x-16 gap-y-6 opacity-80 transition-all duration-500">
           {logos.map((logo) => (

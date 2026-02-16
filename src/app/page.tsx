@@ -3,6 +3,7 @@ import { BusinessValueAgentDemo } from '@/components/BusinessValueAgentDemo';
 import { DeploymentPlannerDemo } from '@/components/DeploymentPlannerDemo';
 import { AdditionalAgents } from '@/components/AdditionalAgents';
 import { SocialProofLogos } from '@/components/SocialProofLogos';
+import { ValueMetricCards } from '@/components/ValueMetricCards';
 
 // Simple SVG Icons to replace emojis without external dependencies - REMOVED AS UNUSED
 
@@ -26,7 +27,7 @@ export default function Home() {
             </div>
           </div>
           
-          <div className="mt-20">
+          <div className="mt-8">
             <BusinessValueAgentDemo />
           </div>
         </div>
@@ -34,19 +35,12 @@ export default function Home() {
 
       <SocialProofLogos />
 
-      <section className="relative pt-10 pb-0">
-        <div className="section-container">
-          {/* Visual Divider / Breakage */}
-          <div className="mt-16 mb-20 flex justify-center">
-            <div className="relative">
-              <div className="w-1 h-24 bg-linear-to-b from-ap-teal to-transparent" />
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-ap-teal shadow-[0_0_15px_rgba(45,196,168,0.5)]" />
-            </div>
-          </div>
+      <section className="relative pt-0 pb-0">
+        <div className="section-container !pt-0">
           
           {/* Revenue Leakage Highlight */}
           <div className="mb-20 max-w-5xl mx-auto px-4">
-            <div className="text-center mb-16">
+            <div className="text-center mb-16 pt-10">
               <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl mx-auto leading-[1.1]">
                 Your team is <span className="relative inline-block whitespace-nowrap px-2">
                   <span className="relative z-10 text-ap-dark-blue">losing 35%</span>
@@ -72,14 +66,16 @@ export default function Home() {
                   {/* Stripes Pattern for "Lost" area */}
                   <div className="absolute inset-0 opacity-[0.03] grayscale" style={{ backgroundImage: 'linear-gradient(45deg, #000 25%, transparent 25%, transparent 50%, #000 50%, #000 75%, transparent 75%, transparent)' , backgroundSize: '20px 20px' }} />
                   <div className="relative z-10">
-                      <div className="text-red-500/60 text-[10px] font-black uppercase tracking-widest mb-0.5">Lost Opportunity</div>
-                      <div className="text-3xl font-black text-slate-300 leading-none">$35,000</div>
+                      <div className="text-red-500/80 text-[10px] font-black uppercase tracking-widest mb-0.5">Lost Opportunity</div>
+                      <div className="text-3xl font-black text-red-500 leading-none">$35,000</div>
                   </div>
                 </div>
               </div>
               
             </div>
           </div>
+
+          <ValueMetricCards />
 
           {/* Visual Divider */}
           <div className="mt-20 mb-20 flex justify-center">

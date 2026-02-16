@@ -166,7 +166,7 @@ export const BusinessValueAgentDemo = () => {
   ];
 
   return (
-    <div className="pt-24 pb-12 bg-white relative">
+    <div className="pt-12 pb-16 bg-white relative">
       <style jsx>{`
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes zoomIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
