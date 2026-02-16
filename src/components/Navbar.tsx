@@ -42,14 +42,11 @@ export function Navbar() {
           </div>
           
           <div className="flex items-center gap-4">
-            <Link href="/login" className="text-sm font-medium text-muted-foreground hover:text-foreground hidden sm:block">
+            <Link href="https://console.agent.press" className="text-sm font-medium text-muted-foreground hover:text-foreground hidden sm:block">
               Log in
             </Link>
-            <Link href="/demo" className="btn-secondary py-2 text-sm hidden lg:block">
+            <Link href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" className="btn-primary py-2 px-6 text-sm bg-black hover:bg-zinc-800">
               Request Demo
-            </Link>
-            <Link href="/signup" className="btn-primary py-2 text-sm bg-ap-dark-blue hover:bg-black">
-              Start for Free
             </Link>
           </div>
         </div>
