@@ -4,7 +4,7 @@ import React from 'react';
 
 export const ValueProcessFlow = () => {
   return (
-    <section className="py-24 bg-white overflow-hidden">
+    <section className="pt-0 pb-24 bg-white overflow-hidden">
       <div className="section-container">
         <div className="max-w-4xl mb-12">
           <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-ap-dark-blue leading-tight">

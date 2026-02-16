@@ -73,7 +73,7 @@ const metrics = [
 
 export const ValueMetricCards = () => {
   return (
-    <div className="grid lg:grid-cols-3 gap-12 lg:gap-8 mb-20">
+    <div className="grid lg:grid-cols-3 gap-12 lg:gap-8 mb-8">
       {metrics.map((metric, idx) => (
         <div 
           key={idx}
