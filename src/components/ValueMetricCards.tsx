@@ -22,25 +22,52 @@ const Icons = {
 
 const metrics = [
   {
-    heading: 'Grow average deal size 35%',
+    heading: (
+      <>
+        Grow average deal size{' '}
+        <span className="relative inline-block whitespace-nowrap px-1">
+          <span className="relative z-10">35%</span>
+          <span className="absolute bottom-1 left-0 w-full h-[40%] bg-ap-teal/40 -rotate-1" />
+        </span>
+      </>
+    ),
     subhead: 'Every rep sells on value when the business case builds itself.',
     Icon: Icons.Chart,
     color: 'text-ap-teal',
     bgColor: 'bg-ap-teal',
+    highlightColor: 'bg-ap-teal/40',
   },
   {
-    heading: 'Increase close rate 16%',
+    heading: (
+      <>
+        Increase close rate{' '}
+        <span className="relative inline-block whitespace-nowrap px-1">
+          <span className="relative z-10">16%</span>
+          <span className="absolute bottom-1 left-0 w-full h-[40%] bg-ap-blue/40 -rotate-1" />
+        </span>
+      </>
+    ),
     subhead: 'Give your champion a tailored case ready for the CFO.',
     Icon: Icons.Trophy,
     color: 'text-ap-blue',
     bgColor: 'bg-ap-blue',
+    highlightColor: 'bg-ap-blue/40',
   },
   {
-    heading: 'Shorten sales cycles 25%',
+    heading: (
+      <>
+        Shorten sales cycles{' '}
+        <span className="relative inline-block whitespace-nowrap px-1">
+          <span className="relative z-10">25%</span>
+          <span className="absolute bottom-1 left-0 w-full h-[40%] bg-ap-periwinkle/40 -rotate-1" />
+        </span>
+      </>
+    ),
     subhead: 'Accelerate deals with internal justification on day one.',
     Icon: Icons.Clock,
     color: 'text-ap-periwinkle',
     bgColor: 'bg-ap-periwinkle',
+    highlightColor: 'bg-ap-periwinkle/40',
   },
 ];
 
@@ -67,7 +94,7 @@ export const ValueMetricCards = () => {
               </div>
             </div>
 
-            <h3 className="text-4xl md:text-5xl font-bold text-ap-dark-blue mb-6 tracking-tighter leading-none group-hover:translate-x-2 transition-transform duration-500">
+            <h3 className="text-[32px] md:text-[44px] font-bold text-ap-dark-blue mb-6 tracking-tighter leading-none group-hover:translate-x-2 transition-transform duration-500">
               {metric.heading}
             </h3>
           </div>
