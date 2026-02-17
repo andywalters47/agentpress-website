@@ -35,9 +35,9 @@ export const Testimonial = () => {
             
             {/* Floating Metric Card */}
             <div className="absolute -bottom-6 -right-8 z-20 bg-white p-6 rounded-[1.5rem] shadow-2xl border border-slate-100 max-w-[160px]">
-              <div className="text-4xl font-black text-ap-teal mb-1 tracking-tight">-36%</div>
+              <div className="text-4xl font-black text-ap-teal mb-1 tracking-tight">+23%</div>
               <p className="text-[10px] font-bold text-ap-dark-blue leading-tight uppercase tracking-widest">
-                Reduction in Churn
+                Average Contract Value
               </p>
             </div>
           </div>
