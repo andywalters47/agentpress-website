@@ -10,6 +10,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.agent.press"),
   title: "AgentPress | AI Generated Business Value Cases",
   description: "Win bigger deals without manually building business cases. Our business value agent instantly generates cases that win 35% more deal value.",
   openGraph: {
