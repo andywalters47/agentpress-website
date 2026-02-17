@@ -18,7 +18,7 @@ export function Navbar() {
               />
             </Link>
             
-            <div className="hidden md:flex items-center gap-8">
+            {/* <div className="hidden md:flex items-center gap-8">
               <div className="relative group py-4">
                 <button className="text-sm font-medium text-muted-foreground hover:text-foreground flex items-center gap-1 cursor-pointer">
                   Agents
@@ -26,8 +26,7 @@ export function Navbar() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                   </svg>
                 </button>
-                
-                {/* Dropdown Menu */}
+
                 <div className="absolute top-full left-0 w-64 bg-white border border-slate-100 shadow-xl rounded-2xl p-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 translate-y-2 group-hover:translate-y-0">
                   <div className="flex flex-col">
                     {[
@@ -37,9 +36,9 @@ export function Navbar() {
                       { label: 'Deployment Planner', description: 'Ensure value delivered' },
                       { label: 'Support Agent', description: 'Reduce churn automatically' }
                     ].map((agent) => (
-                      <Link 
-                        key={agent.label} 
-                        href="#" 
+                      <Link
+                        key={agent.label}
+                        href="#"
                         className="p-3 hover:bg-slate-50 rounded-xl transition-colors group/item"
                       >
                         <div className="font-bold text-ap-dark-blue text-sm group-hover/item:text-ap-teal transition-colors">{agent.label}</div>
@@ -52,7 +51,7 @@ export function Navbar() {
               <Link href="/pricing" className="text-sm font-medium text-muted-foreground hover:text-foreground">
                 Pricing
               </Link>
-            </div>
+            </div> */}
           </div>
           
           <div className="flex items-center gap-4">

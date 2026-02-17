@@ -103,8 +103,8 @@ export default function Home() {
         <div className="section-container !pt-0">
           <div className="max-w-5xl mx-auto px-4">
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl mx-auto leading-[1.1] mb-10">
-              Ready to win more with <span className="relative inline-block whitespace-nowrap px-2">
-                <span className="relative z-10 text-ap-dark-blue">value selling?</span>
+              Ready to close <span className="relative inline-block whitespace-nowrap px-2">
+                <span className="relative z-10 text-ap-dark-blue">bigger deals?</span>
                 <span className="absolute bottom-2 left-0 w-full h-[40%] bg-ap-teal/40 -rotate-1" />
               </span>
             </h2>

@@ -2,25 +2,25 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 export function Footer() {
-  const footerSections = [
-    {
-      title: 'Agents',
-      links: [
-        { label: 'Business Case Agent', href: '#' },
-        { label: 'AI SDR', href: '#' },
-        { label: 'Team Copilot', href: '#' },
-        { label: 'Deployment Planner', href: '#' },
-        { label: 'Support Agent', href: '#' },
-      ],
-    },
-    {
-      title: 'Pricing',
-      links: [
-        { label: 'Starter', href: '#' },
-        { label: 'Professional', href: '#' },
-        { label: 'Enterprise', href: '#' },
-      ],
-    },
+  const footerSections: { title: string; links: { label: string; href: string }[] }[] = [
+    // {
+    //   title: 'Agents',
+    //   links: [
+    //     { label: 'Business Case Agent', href: '#' },
+    //     { label: 'AI SDR', href: '#' },
+    //     { label: 'Team Copilot', href: '#' },
+    //     { label: 'Deployment Planner', href: '#' },
+    //     { label: 'Support Agent', href: '#' },
+    //   ],
+    // },
+    // {
+    //   title: 'Pricing',
+    //   links: [
+    //     { label: 'Starter', href: '#' },
+    //     { label: 'Professional', href: '#' },
+    //     { label: 'Enterprise', href: '#' },
+    //   ],
+    // },
   ];
 
   return (
@@ -63,8 +63,8 @@ export function Footer() {
             Copyright © 2026 AgentPress Labs, Inc. All rights reserved.
           </p>
           <div className="flex gap-6">
-            <Link href="#" className="text-xs text-muted-foreground hover:text-foreground">Privacy Policy</Link>
-            <Link href="#" className="text-xs text-muted-foreground hover:text-foreground">Terms of Service</Link>
+            <Link href="/privacy" className="text-xs text-muted-foreground hover:text-foreground">Privacy Policy</Link>
+            <Link href="/terms" className="text-xs text-muted-foreground hover:text-foreground">Terms of Service</Link>
           </div>
         </div>
       </div>
