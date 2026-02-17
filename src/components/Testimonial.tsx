@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export const Testimonial = () => {
   return (
-    <section className="pt-32 pb-32 bg-white relative overflow-hidden">
+    <section className="pt-20 md:pt-32 pb-12 md:pb-32 bg-white relative overflow-hidden">
       {/* Decorative Divider */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-px bg-linear-to-r from-transparent via-ap-blue/30 to-transparent" />
       

@@ -5,7 +5,6 @@ const logos = [
   { name: 'HiveMQ', src: '/logos/hivemq.png', width: 110, height: 32 },
   { name: 'Local Falcon', src: '/logos/localfalcon.png', width: 110, height: 32, extraClass: 'brightness-50 contrast-125' },
   { name: 'Advanse.io', src: '/logos/advanse.svg', width: 100, height: 28 },
-  { name: 'Reis.AI', src: '/logos/reis.svg', width: 120, height: 34 },
 ];
 
 export const SocialProofLogos = () => {

@@ -11,10 +11,10 @@ const integrations = [
 
 export const Integrations = () => {
   return (
-    <div className="pt-24 pb-12 bg-white overflow-hidden">
+    <div className="pt-16 md:pt-24 pb-12 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="relative">
+          <div className="relative hidden lg:block">
             {/* Visual Representation of Integrations */}
             <div className="relative aspect-video rounded-3xl bg-slate-50 border border-slate-100 overflow-hidden shadow-sm flex items-center justify-center p-12">
                {/* Central AgentPress Logo */}

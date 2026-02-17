@@ -4,8 +4,8 @@ import React from 'react';
 
 export const ValueProcessFlow = () => {
   return (
-    <div className="pt-24 pb-20 bg-white overflow-hidden">
-      <div className="mb-12">
+    <div className="pt-12 md:pt-24 pb-12 md:pb-20 bg-white overflow-hidden">
+      <div className="mb-8 md:mb-12">
         <h2 className="text-3xl md:text-4xl font-extrabold tracking-tight text-ap-dark-blue leading-tight">
           How it Works
         </h2>
@@ -24,7 +24,7 @@ export const ValueProcessFlow = () => {
         </div>
 
         {/* Step 2 */}
-        <div className="flex justify-center">
+        <div className="flex justify-start md:justify-center">
           <div className="w-full md:w-[85%] bg-slate-50/50 border border-slate-100 p-8 rounded-[2rem] flex flex-col md:flex-row gap-8 items-start md:items-center shadow-sm">
             <div className="w-16 h-16 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-3xl font-black text-ap-blue shrink-0 shadow-sm">2</div>
             <div className="space-y-1">
@@ -35,8 +35,8 @@ export const ValueProcessFlow = () => {
         </div>
 
         {/* Step 3 */}
-        <div className="flex justify-end">
-          <div className="w-full md:w-[85%] bg-slate-50/50 border border-slate-100 p-8 rounded-[2rem] flex flex-col md:flex-row gap-8 items-center md:items-center shadow-sm">
+        <div className="flex justify-start md:justify-end">
+          <div className="w-full md:w-[85%] bg-slate-50/50 border border-slate-100 p-8 rounded-[2rem] flex flex-col md:flex-row gap-8 items-start md:items-center shadow-sm">
             <div className="w-16 h-16 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-3xl font-black text-ap-periwinkle shrink-0 shadow-sm">3</div>
             <div className="space-y-1">
               <h3 className="text-xl md:text-2xl font-bold text-ap-dark-blue leading-tight">Share with your prospect or customer.</h3>
