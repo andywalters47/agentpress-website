@@ -56,7 +56,7 @@ export const Testimonial = () => {
               </div>
               
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-ap-dark-blue leading-[1.15] mb-8 italic relative z-10">
-                &ldquo;By using AgentPress, we were able to reduce churn by 36%.&rdquo;
+                &ldquo;By using AgentPress, we increased ACV by 23%.&rdquo;
               </h2>
               
               <div className="flex items-center gap-5 border-t border-ap-blue/10 pt-6 mt-6">
