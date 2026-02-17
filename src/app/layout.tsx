@@ -10,19 +10,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "AgentPress | AI Agents Fluent In Your Value Story",
+  title: "AgentPress | AI Generated Business Value Cases",
   description: "Win bigger deals without manually building business cases. Our business value agent instantly generates cases that win 35% more deal value.",
   openGraph: {
-    title: "AgentPress | AI Agents Fluent In Your Value Story",
+    title: "AgentPress | AI Generated Business Value Cases",
     description: "Win bigger deals without manually building business cases. Our business value agent instantly generates cases that win 35% more deal value.",
-    images: [{ url: "/AP_icon_circle.png", width: 500, height: 500, alt: "AgentPress Logo" }],
+    images: [{ url: "/agentpress_og_image.png", width: 1200, height: 630, alt: "AgentPress - Win Bigger Deals Without Manually Building Business Cases" }],
     type: "website",
   },
   twitter: {
-    card: "summary",
-    title: "AgentPress | AI Agents Fluent In Your Value Story",
+    card: "summary_large_image",
+    title: "AgentPress | AI Generated Business Value Cases",
     description: "Win bigger deals without manually building business cases. Our business value agent instantly generates cases that win 35% more deal value.",
-    images: ["/AP_icon_circle.png"],
+    images: ["/agentpress_og_image.png"],
   },
 };
 
