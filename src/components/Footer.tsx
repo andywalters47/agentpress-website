@@ -63,6 +63,7 @@ export function Footer() {
             Copyright © 2026 AgentPress Labs, Inc. All rights reserved.
           </p>
           <div className="flex gap-6">
+            <Link href="/our-story" className="text-xs text-muted-foreground hover:text-foreground">Our Story</Link>
             <Link href="/privacy" className="text-xs text-muted-foreground hover:text-foreground">Privacy Policy</Link>
             <Link href="/terms" className="text-xs text-muted-foreground hover:text-foreground">Terms of Service</Link>
           </div>
