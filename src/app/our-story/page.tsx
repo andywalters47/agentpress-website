@@ -93,7 +93,7 @@ export default function OurStory() {
             <h2 className="story-heading">The standing ovation</h2>
 
             <p className="story-body">
-              I was at the company kickoff for one of our enterprise customers, HiveMQ — an enterprise SaaS business. Their executive leadership team was demoing the suite of agents we&apos;d built for them. One by one they walked through the tools: onboarding agent, support agent, SDR agent. Polite applause. Good stuff.
+              I was at the company kickoff for one of our customers, HiveMQ — an enterprise SaaS business. Their executive leadership team was demoing the suite of agents we&apos;d built for them. One by one they walked through the tools: onboarding agent, support agent, SDR agent. Polite applause. Good stuff.
             </p>
 
             <p className="story-body">
