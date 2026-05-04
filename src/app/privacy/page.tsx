@@ -1,19 +1,19 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | AgentPress',
+  title: 'AgentPress Privacy Policy | AgentPress',
 };
 
 export default function PrivacyPolicy() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <h1 className="text-4xl font-bold tracking-tight text-ap-dark-blue mb-2">Privacy Policy</h1>
-      <p className="text-sm text-muted-foreground mb-12">Last updated: February 16, 2026</p>
+      <h1 className="text-4xl font-bold tracking-tight text-ap-dark-blue mb-2">AgentPress Privacy Policy</h1>
+      <p className="text-sm text-muted-foreground mb-12">Last updated: May 4, 2026</p>
 
       <div className="prose prose-slate max-w-none [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-ap-dark-blue [&_h2]:mt-10 [&_h2]:mb-4 [&_p]:text-muted-foreground [&_p]:leading-relaxed [&_p]:mb-4 [&_ul]:text-muted-foreground [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_li]:mb-1">
         <h2>1. Introduction</h2>
         <p>
-          AgentPress Labs, Inc. (&ldquo;AgentPress,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
+          AgentPress, Inc. (&ldquo;AgentPress,&rdquo; &ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;) respects your privacy and is committed to protecting your personal data. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website or use our services.
         </p>
 
         <h2>2. Information We Collect</h2>
@@ -88,7 +88,7 @@ export default function PrivacyPolicy() {
 
         <h2>12. Contact Us</h2>
         <p>
-          If you have questions about this Privacy Policy, please contact us at <a href="mailto:privacy@agentpress.ai" className="text-ap-blue hover:underline">privacy@agentpress.ai</a>.
+          If you have questions about this Privacy Policy, please contact us at <a href="mailto:managementalerts@agent.press" className="text-ap-blue hover:underline">managementalerts@agent.press</a>.
         </p>
       </div>
     </div>
