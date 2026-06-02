@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 const personas = [
   {
@@ -59,13 +59,6 @@ const personas = [
 
 export const PersonaUseCases = () => {
   const [activeTab, setActiveTab] = useState(personas[0].id);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  useEffect(() => {
-    setIsAnimating(true);
-    const timer = setTimeout(() => setIsAnimating(false), 500);
-    return () => clearTimeout(timer);
-  }, [activeTab]);
 
   const activePersona = personas.find(p => p.id === activeTab) || personas[0];
 
@@ -111,11 +104,7 @@ export const PersonaUseCases = () => {
 
               {/* Content Area */}
               <div className="lg:col-span-8 p-10 lg:p-14 flex flex-col justify-start">
-                <div 
-                  className={`max-w-xl transition-all duration-500 ${
-                    isAnimating ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'
-                  }`}
-                >
+                <div key={activeTab} className="persona-panel max-w-xl">
                   <h3 className="text-3xl md:text-4xl font-black text-ap-dark-blue mb-6 leading-tight">
                     {activePersona.title}
                   </h3>
@@ -142,6 +131,23 @@ export const PersonaUseCases = () => {
           </div>
         </div>
       </div>
+      <style jsx>{`
+        .persona-panel {
+          animation: personaFade 500ms ease-out both;
+        }
+
+        @keyframes personaFade {
+          from {
+            opacity: 0;
+            transform: translateX(1rem);
+          }
+
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+      `}</style>
     </section>
   );
 };
