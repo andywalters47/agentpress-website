@@ -37,6 +37,14 @@ const openRoles = [
     summary:
       'Build, run, and improve the AI-native system that gets the right buyers onto the sales calendar.',
   },
+  {
+    title: 'Full-Stack AI Engineer',
+    href: '/careers/full-stack-ai-engineer',
+    team: 'Engineering',
+    location: 'Contract, remote',
+    summary:
+      'Build full-stack product, AI agent orchestration systems, embeddable widgets, and enterprise integrations.',
+  },
 ];
 
 function ArrowIcon() {
