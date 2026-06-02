@@ -5,6 +5,27 @@ export const metadata: Metadata = {
   title: 'Careers | AgentPress',
   description:
     'AgentPress is hiring a Founding AI GTM Engineer to build, run, and improve the AI-native system that produces qualified sales meetings.',
+  openGraph: {
+    title: 'Founding AI GTM Engineer | AgentPress',
+    description:
+      'AgentPress is hiring a Founding AI GTM Engineer to build, run, and improve the AI-native system that produces qualified sales meetings.',
+    images: [
+      {
+        url: '/agentpress_careers_og_image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Founding AI GTM Engineer | AgentPress',
+      },
+    ],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Founding AI GTM Engineer | AgentPress',
+    description:
+      'AgentPress is hiring a Founding AI GTM Engineer to build, run, and improve the AI-native system that produces qualified sales meetings.',
+    images: ['/agentpress_careers_og_image.png'],
+  },
 };
 
 const applyHref =
