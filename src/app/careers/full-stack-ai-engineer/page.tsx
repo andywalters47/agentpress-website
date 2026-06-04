@@ -103,7 +103,6 @@ const applicationItems = [
   'A brief intro: who you are and why you are interested in AgentPress specifically, not a generic cover letter.',
   'Your GitHub profile, a project you are proud of, or a portfolio website. We care more about code quality than credentials.',
   'Your resume or LinkedIn.',
-  'Your hourly rate expectation.',
   'Confirmation that your work schedule can overlap by 4-6 hours during weekdays with US time zones.',
 ];
 
@@ -199,7 +198,6 @@ export default function FullStackAiEngineerPage() {
           {[
             { label: 'Type', value: '1099 contract' },
             { label: 'Schedule', value: '40 hrs/week' },
-            { label: 'Compensation', value: '$30-50/hour' },
           ].map((item) => (
             <div key={item.label} className="rounded-xl border border-border bg-white p-5">
               <div className="text-xs font-bold uppercase tracking-widest text-ap-teal">
@@ -309,12 +307,11 @@ export default function FullStackAiEngineerPage() {
 
             <section className="mb-14 md:mb-20">
               <h2 className="mb-5 text-3xl font-bold tracking-tight text-ap-dark-blue md:text-4xl">
-                Compensation & Growth
+                Growth
               </h2>
               <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
                 <p>
-                  <strong className="font-bold text-ap-dark-blue">$30-50/hour depending on experience, paid weekly.</strong>{' '}
-                  This is a 1099 contract at 40 hours/week.
+                  This is a 1099 contract at 40 hours/week, paid weekly.
                 </p>
                 <p>
                   We&apos;ve historically converted strong contractors into
@@ -385,7 +382,6 @@ export default function FullStackAiEngineerPage() {
                   ['Type', 'Contract'],
                   ['Location', 'Remote'],
                   ['Hours', '40 hrs/week'],
-                  ['Compensation', '$30-50/hour'],
                   ['Overlap', '4-6 US-timezone hours'],
                 ].map(([label, value]) => (
                   <div key={label}>
