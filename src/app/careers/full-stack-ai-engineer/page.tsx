@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 const applyHref =
-  'mailto:hello@agent.press?subject=Full-Stack%20AI%20Engineer%20Application';
+  'mailto:apply@agent.press?subject=Full-Stack%20AI%20Engineer%20Application';
 
 const responsibilities = [
   'Build and ship end-to-end features across Bun/Hono/Elysia backends, React/Next.js frontends, and typically PostgreSQL data layers.',
@@ -357,7 +357,7 @@ export default function FullStackAiEngineerPage() {
                   href={applyHref}
                   className="font-bold text-ap-dark-blue hover:text-ap-blue"
                 >
-                  hello@agent.press
+                  apply@agent.press
                 </Link>
                 {' '}with the following:
               </p>

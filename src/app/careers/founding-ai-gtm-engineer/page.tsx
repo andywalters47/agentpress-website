@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 };
 
 const applyHref =
-  'mailto:hello@agent.press?subject=Founding%20AI%20GTM%20Engineer%20Application';
+  'mailto:apply@agent.press?subject=Founding%20AI%20GTM%20Engineer%20Application';
 
 const ownershipItems = [
   'Social content generation',
@@ -299,7 +299,7 @@ export default function CareersPage() {
                   href={applyHref}
                   className="font-bold text-ap-dark-blue hover:text-ap-blue"
                 >
-                  hello@agent.press
+                  apply@agent.press
                 </Link>
                 {' '}with a short note on why you are interested in the role and what you have built, automated, or shipped with AI.
               </p>
