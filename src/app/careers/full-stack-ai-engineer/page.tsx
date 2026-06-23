@@ -166,7 +166,7 @@ export default function FullStackAiEngineerPage() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              {['Full-time', 'W-2', 'Remote · US & Canada', 'agent.press'].map((item) => (
+              {['Full-time', 'W-2', 'Remote · US & Canada'].map((item) => (
                 <span
                   key={item}
                   className="rounded-full border border-border bg-white/80 px-4 py-2 text-sm font-semibold text-ap-dark-blue shadow-[0_2px_8px_rgba(0,0,0,0.03)]"
@@ -198,7 +198,7 @@ export default function FullStackAiEngineerPage() {
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
           {[
             { label: 'Type', value: 'Full-time W-2' },
-            { label: 'Schedule', value: '40 hrs/week' },
+            { label: 'Location', value: 'Remote · US & Canada' },
           ].map((item) => (
             <div key={item.label} className="rounded-xl border border-border bg-white p-5">
               <div className="text-xs font-bold uppercase tracking-widest text-ap-teal">
@@ -312,7 +312,7 @@ export default function FullStackAiEngineerPage() {
               </h2>
               <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
                 <p>
-                  This is a full-time W-2 role at 40 hours/week with equity.
+                  This is a full-time W-2 role with equity.
                 </p>
                 <p>
                   If you come in, ship consistently, and prove you can own a
@@ -381,7 +381,6 @@ export default function FullStackAiEngineerPage() {
                 {[
                   ['Type', 'Full-time W-2'],
                   ['Location', 'Remote (US & Canada only)'],
-                  ['Hours', '40 hrs/week'],
                   ['Overlap', '4-6 US-timezone hours'],
                 ].map(([label, value]) => (
                   <div key={label}>
