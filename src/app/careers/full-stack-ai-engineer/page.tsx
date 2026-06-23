@@ -83,6 +83,7 @@ const requirements = [
   'Experience with or genuine interest in AI/LLM tooling, prompt engineering, RAG systems, or agent architectures.',
   'Prior work where you owned features end to end, preferably in a startup or small-team environment.',
   'Willing to overlap by 4-6 hours during weekdays with US time zones for real-time collaboration.',
+  'Based in the US or Canada. This is a remote role, but we can only hire candidates authorized to work in the US or Canada.',
 ];
 
 const niceToHave = [
@@ -165,7 +166,7 @@ export default function FullStackAiEngineerPage() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              {['Full-time', 'W-2', 'Remote', 'agent.press'].map((item) => (
+              {['Full-time', 'W-2', 'Remote · US & Canada', 'agent.press'].map((item) => (
                 <span
                   key={item}
                   className="rounded-full border border-border bg-white/80 px-4 py-2 text-sm font-semibold text-ap-dark-blue shadow-[0_2px_8px_rgba(0,0,0,0.03)]"
@@ -379,7 +380,7 @@ export default function FullStackAiEngineerPage() {
               <dl className="mt-6 space-y-4">
                 {[
                   ['Type', 'Full-time W-2'],
-                  ['Location', 'Remote'],
+                  ['Location', 'Remote (US & Canada only)'],
                   ['Hours', '40 hrs/week'],
                   ['Overlap', '4-6 US-timezone hours'],
                 ].map(([label, value]) => (

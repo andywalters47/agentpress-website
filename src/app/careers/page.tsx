@@ -41,7 +41,7 @@ const openRoles = [
     title: 'Full-Stack AI Engineer',
     href: '/careers/full-stack-ai-engineer',
     team: 'Engineering',
-    location: 'Full-time, remote',
+    location: 'Remote (US & Canada only)',
     summary:
       'Build full-stack product, AI agent orchestration systems, embeddable widgets, and enterprise integrations.',
   },
