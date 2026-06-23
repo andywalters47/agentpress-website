@@ -4,11 +4,11 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Full-Stack AI Engineer | AgentPress',
   description:
-    'AgentPress is hiring a contract Full-Stack AI Engineer to build full-stack product, AI agent orchestration systems, and enterprise integrations.',
+    'AgentPress is hiring a full-time Full-Stack AI Engineer to build full-stack product, AI agent orchestration systems, and enterprise integrations.',
   openGraph: {
     title: 'Full-Stack AI Engineer | AgentPress',
     description:
-      'AgentPress is hiring a contract Full-Stack AI Engineer to build full-stack product, AI agent orchestration systems, and enterprise integrations.',
+      'AgentPress is hiring a full-time Full-Stack AI Engineer to build full-stack product, AI agent orchestration systems, and enterprise integrations.',
     images: [
       {
         url: '/agentpress_full_stack_ai_engineer_og_image.png',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Full-Stack AI Engineer | AgentPress',
     description:
-      'AgentPress is hiring a contract Full-Stack AI Engineer to build full-stack product, AI agent orchestration systems, and enterprise integrations.',
+      'AgentPress is hiring a full-time Full-Stack AI Engineer to build full-stack product, AI agent orchestration systems, and enterprise integrations.',
     images: ['/agentpress_full_stack_ai_engineer_og_image.png'],
   },
 };
@@ -96,7 +96,7 @@ const notForYou = [
   'If you need detailed specs and wireframes before you can start building, this is not the right fit. We move fast and expect you to fill in gaps.',
   'If you write code that works but nobody else can maintain, we will have problems. Readability matters as much as functionality here.',
   'If you disappear when you hit a blocker instead of communicating, this will not work. We are remote-first and trust is built through transparency.',
-  'If you are looking for a passive contract where you coast on hours, look elsewhere. We are building something real and need people who give a damn.',
+  'If you are looking for a job where you coast and collect a paycheck, look elsewhere. We are building something real and need people who give a damn.',
 ];
 
 const applicationItems = [
@@ -159,13 +159,13 @@ export default function FullStackAiEngineerPage() {
               </span>
             </h1>
             <p className="max-w-3xl text-xl leading-relaxed text-muted-foreground md:text-2xl">
-              A hands-on contract role building full-stack product, AI agent
+              A hands-on full-time role building full-stack product, AI agent
               orchestration systems, embeddable widgets, and enterprise
               integrations.
             </p>
 
             <div className="mt-8 flex flex-wrap gap-3">
-              {['Contract', 'Remote', '40 hrs/week', 'agent.press'].map((item) => (
+              {['Full-time', 'W-2', 'Remote', 'agent.press'].map((item) => (
                 <span
                   key={item}
                   className="rounded-full border border-border bg-white/80 px-4 py-2 text-sm font-semibold text-ap-dark-blue shadow-[0_2px_8px_rgba(0,0,0,0.03)]"
@@ -196,7 +196,7 @@ export default function FullStackAiEngineerPage() {
       <section className="border-y border-border bg-slate-50/40 py-8">
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 px-4 sm:px-6 md:grid-cols-3 lg:px-8">
           {[
-            { label: 'Type', value: '1099 contract' },
+            { label: 'Type', value: 'Full-time W-2' },
             { label: 'Schedule', value: '40 hrs/week' },
           ].map((item) => (
             <div key={item.label} className="rounded-xl border border-border bg-white p-5">
@@ -311,14 +311,13 @@ export default function FullStackAiEngineerPage() {
               </h2>
               <div className="space-y-5 text-lg leading-relaxed text-muted-foreground">
                 <p>
-                  This is a 1099 contract at 40 hours/week, paid weekly.
+                  This is a full-time W-2 role at 40 hours/week with equity.
                 </p>
                 <p>
-                  We&apos;ve historically converted strong contractors into
-                  full-time W-2 roles with equity. If you come in, ship
-                  consistently, and prove you can own a domain, there is a clear
-                  path to a senior engineering role with significantly higher
-                  compensation. We promote based on output, not tenure.
+                  If you come in, ship consistently, and prove you can own a
+                  domain, there is a clear path to a senior engineering role
+                  with significantly higher compensation. We promote based on
+                  output, not tenure.
                 </p>
               </div>
             </section>
@@ -379,7 +378,7 @@ export default function FullStackAiEngineerPage() {
               </h2>
               <dl className="mt-6 space-y-4">
                 {[
-                  ['Type', 'Contract'],
+                  ['Type', 'Full-time W-2'],
                   ['Location', 'Remote'],
                   ['Hours', '40 hrs/week'],
                   ['Overlap', '4-6 US-timezone hours'],
