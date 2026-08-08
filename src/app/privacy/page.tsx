@@ -48,8 +48,8 @@ export default function PrivacyPolicy() {
             <tbody className="text-muted-foreground">
               <tr className="align-top">
                 <td className="border-b border-border px-4 py-3 font-mono text-xs text-foreground">https://www.googleapis.com/auth/gmail.readonly</td>
-                <td className="border-b border-border px-4 py-3">Read-only access to Gmail messages, threads, labels, and metadata. Does not permit sending, modifying, or deleting anything in the mailbox.</td>
-                <td className="border-b border-border px-4 py-3">Import opportunity-related email threads so each opportunity has a complete activity record, and provide the agent with conversation context for drafting.</td>
+                <td className="border-b border-border px-4 py-3">Read-only access to Gmail messages, threads, labels, metadata, and configured send-as identities and signatures. Does not permit sending, modifying, or deleting anything in the mailbox.</td>
+                <td className="border-b border-border px-4 py-3">Import opportunity-related email threads so each opportunity has a complete activity record, provide the agent with conversation context for drafting, and append the user&apos;s configured Gmail signature to AgentPress-created drafts.</td>
               </tr>
               <tr className="align-top">
                 <td className="border-b border-border px-4 py-3 font-mono text-xs text-foreground">https://www.googleapis.com/auth/gmail.compose</td>
