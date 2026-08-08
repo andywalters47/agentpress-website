@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
       <h1 className="text-4xl font-bold tracking-tight text-ap-dark-blue mb-2">AgentPress Privacy Policy</h1>
-      <p className="text-sm text-muted-foreground mb-12">Last updated: August 6, 2026</p>
+      <p className="text-sm text-muted-foreground mb-12">Last updated: August 8, 2026</p>
 
       <div className="prose prose-slate max-w-none [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-ap-dark-blue [&_h2]:mt-10 [&_h2]:mb-4 [&_p]:text-muted-foreground [&_p]:leading-relaxed [&_p]:mb-4 [&_ul]:text-muted-foreground [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_li]:mb-1">
         <h2>1. Introduction</h2>
@@ -47,14 +47,19 @@ export default function PrivacyPolicy() {
             </thead>
             <tbody className="text-muted-foreground">
               <tr className="align-top">
-                <td className="border-b border-border px-4 py-3 font-mono text-xs text-foreground">https://mail.google.com/</td>
-                <td className="border-b border-border px-4 py-3">Allows full access to read, compose, send, and permanently delete email in the connected Gmail account.</td>
-                <td className="border-b border-border px-4 py-3">AgentPress uses this scope to import opportunity-related email threads, create and manage Gmail drafts for review, and send a draft only after explicit human approval. AgentPress may delete an AgentPress-created draft when rolling back a failed draft creation; it does not permanently delete received or sent mailbox messages.</td>
+                <td className="border-b border-border px-4 py-3 font-mono text-xs text-foreground">https://www.googleapis.com/auth/gmail.readonly</td>
+                <td className="border-b border-border px-4 py-3">Read-only access to Gmail messages, threads, labels, and metadata. Does not permit sending, modifying, or deleting anything in the mailbox.</td>
+                <td className="border-b border-border px-4 py-3">Import opportunity-related email threads so each opportunity has a complete activity record, and provide the agent with conversation context for drafting.</td>
               </tr>
               <tr className="align-top">
-                <td className="px-4 py-3 font-mono text-xs text-foreground">https://www.googleapis.com/auth/calendar</td>
-                <td className="px-4 py-3">Allows AgentPress to see, edit, share, and permanently delete calendars and events the connected account can access.</td>
-                <td className="px-4 py-3">AgentPress uses this scope to import recent and upcoming events, match sales meetings to CRM opportunities, and create or edit events only when requested and subject to the user&apos;s approval settings. An approved undo may delete an event created by AgentPress. AgentPress does not share calendars.</td>
+                <td className="border-b border-border px-4 py-3 font-mono text-xs text-foreground">https://www.googleapis.com/auth/gmail.compose</td>
+                <td className="border-b border-border px-4 py-3">Create, read, update, and delete drafts; send messages and drafts. Does not permit reading, modifying, or deleting existing mailbox contents.</td>
+                <td className="border-b border-border px-4 py-3">Create and manage Gmail drafts for review, send a draft only after explicit human approval, and remove an AgentPress-created draft when rolling back a failed draft creation.</td>
+              </tr>
+              <tr className="align-top">
+                <td className="px-4 py-3 font-mono text-xs text-foreground">https://www.googleapis.com/auth/calendar.events</td>
+                <td className="px-4 py-3">View and manage events on the user&apos;s calendars. Does not permit creating or deleting calendars, or changing calendar sharing settings.</td>
+                <td className="px-4 py-3">Import recent and upcoming events, match sales meetings to opportunities, and create or edit events when requested, subject to approval settings. An approved undo may delete an event AgentPress created.</td>
               </tr>
             </tbody>
           </table>
@@ -142,7 +147,7 @@ export default function PrivacyPolicy() {
 
         <h2>13. Contact Us</h2>
         <p>
-          If you have questions about this Privacy Policy, please contact us at <a href="mailto:managementalerts@agent.press" className="text-ap-blue hover:underline">managementalerts@agent.press</a>.
+          If you have questions about this Privacy Policy, including requests to delete Google user data, please contact us at <a href="mailto:privacy@agent.press" className="text-ap-blue hover:underline">privacy@agent.press</a>.
         </p>
       </div>
     </div>
