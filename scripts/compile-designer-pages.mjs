@@ -221,7 +221,7 @@ function applyHomepageOverrides(page, legacyHero) {
     if (hasClass(node, 'ap-timeline-flight-card')) timelineCards.push(node);
   });
   timelineCards.forEach((card, index) => {
-    const queueX = Number((-57.2 + (index * 0.8)).toFixed(1));
+    const queueX = Number((-50 - (index * 0.8)).toFixed(1));
     card.props.style = String(card.props.style ?? '')
       .replace(/translate3d\(([-\d.]+vw), [-\d.]+px, 0px\)/, `translate3d(${queueX}vw, 0px, 0px)`)
       .replace('blur(1.25px)', 'blur(0.625px)')

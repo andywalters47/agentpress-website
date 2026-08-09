@@ -296,7 +296,7 @@ function installTimelineAnimation() {
       const stageInterval = travelDuration * 0.66;
       const stageIn = index * stageInterval;
       const completedArrival = stageIn + travelDuration;
-      const queueX = -57.2 + (index * 0.8);
+      const queueX = -50 - (index * 0.8);
       const queueY = 0;
       const completedX = 57.2 - (index * 0.8);
       const completedY = 0;

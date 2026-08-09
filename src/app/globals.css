@@ -128,11 +128,16 @@
 }
 
 .ap-timeline-heading {
+  position: sticky;
+  top: 104px;
+  z-index: 5;
   box-sizing: border-box;
   max-width: var(--web-max-w-wide);
   margin: 0 auto;
-  padding: 100px 40px 48px;
+  padding: 24px 40px 36px;
+  background: linear-gradient(180deg, #fdfaf4 0%, rgba(253, 250, 244, 0.94) 72%, rgba(253, 250, 244, 0) 100%);
   text-align: center;
+  pointer-events: none;
 }
 
 .ap-timeline-flight-scroll {
