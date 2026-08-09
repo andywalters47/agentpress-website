@@ -8,7 +8,7 @@ const legacyHomepagePath = path.resolve(projectRoot, '..', 'agentpress-website-n
 const manifestoCopy = {
   title: 'AgentPress is the first AI sales agent that proactively delivers what your team needs to win.',
   paragraphs: [
-    'We believe the next generation of great sellers will have great agents.',
+    'The next generation of great sellers will have great agents.',
     "But a great agent is not a chatbot bolted to a CRM. It's a chief of staff that understands complex B2B deals and constantly works ahead to deliver the guidance, assets, and follow-through great execution requires.",
   ],
 };
@@ -165,6 +165,7 @@ function applySitewideCtaCopy(page) {
     if (node.tag !== 'a' || node.props?.href !== 'https://calendar.app.google/AwUNqYVrSpUf1XeK8') return;
     const primary = hasClass(node, 'btn-start') || hasClass(node, 'btn-dark');
     replaceText(node, primary ? 'Start Now' : 'Schedule Demo');
+    if (primary) node.props.href = 'https://console.agent.press/sign-up';
   });
 }
 

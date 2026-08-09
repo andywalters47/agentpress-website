@@ -255,8 +255,8 @@ function installIntegrationAnimation() {
     tools.forEach((tool, index) => {
       const start = (index / Math.max(1, tools.length - 1)) * staggerSpan;
       const toolProgress = range(progress, start, start + revealDuration);
-      const scale = keyframes(toolProgress, [0, 0.72, 1], [0.06, 1.16, 1]);
-      tool.style.opacity = String(range(toolProgress, 0, 0.2));
+      const scale = keyframes(toolProgress, [0, 0.72, 1], [0.75, 1.16, 1]);
+      tool.style.opacity = '1';
       tool.style.transform = `scale(${scale.toFixed(4)})`;
     });
   };

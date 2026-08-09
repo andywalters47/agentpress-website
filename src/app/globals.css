@@ -203,11 +203,11 @@
 }
 
 .ap-integration-tool {
-  opacity: 0;
-  transform: scale(0.06);
+  opacity: 1;
+  transform: scale(0.75);
   transform-origin: 50% 50%;
-  transition: opacity 100ms linear, transform 100ms ease-out;
-  will-change: opacity, transform;
+  transition: transform 100ms ease-out;
+  will-change: transform;
 }
 
 .ap-integrations-section > .eyebrow {
@@ -615,6 +615,13 @@
     padding: 0 30px !important;
   }
 
+  .fstage > div {
+    display: block !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+
   .fstack {
     display: flex !important;
     flex-direction: column !important;
@@ -627,6 +634,15 @@
     gap: 32px !important;
     opacity: 1 !important;
     pointer-events: auto !important;
+  }
+
+  .frow,
+  .frow .ftext,
+  .frow .ftext > .fade {
+    box-sizing: border-box;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
   }
 
   .frow .fade[style*="640px"] {
@@ -643,8 +659,24 @@
     height: auto !important;
   }
 
+  .frow .fade > img {
+    top: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    transform: none !important;
+    object-fit: cover !important;
+  }
+
   .ftext {
     min-height: 0 !important;
+  }
+
+  .ftext p {
+    width: auto !important;
+    max-width: 100% !important;
+    height: auto !important;
   }
 
   .fade {
@@ -705,6 +737,14 @@
 
   .useline:last-child {
     border-bottom: 0;
+  }
+
+  .secrow > div:last-child {
+    box-sizing: border-box;
+    width: 100% !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+    gap: clamp(10px, 4vw, 20px) !important;
   }
 
   /* Resources */
