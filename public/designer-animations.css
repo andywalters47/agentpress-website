@@ -1,0 +1,126 @@
+.ap-hero-motion {
+  opacity: var(--ap-hero-opacity, 1) !important;
+  filter: opacity(var(--ap-hero-filter-opacity, 1));
+  transform: translateY(var(--ap-hero-y, 0)) scale(var(--ap-hero-scale, 1)) !important;
+  transform-origin: 50% 50%;
+  will-change: filter, opacity, transform;
+}
+
+.ap-manifesto-word,
+.ap-manifesto-supporting-word {
+  display: inline-block;
+  transform-origin: 50% 72%;
+  will-change: color, opacity, text-shadow, transform;
+}
+
+.ap-timeline-flight-scroll {
+  position: relative;
+  height: 3750svh;
+  margin: 0 0 140px;
+  overflow: clip;
+}
+
+.ap-timeline-flight-sticky {
+  position: sticky;
+  top: 80px;
+  height: calc(100svh - 80px);
+  overflow: hidden;
+  background: radial-gradient(780px 500px at 55% 50%, rgba(174, 243, 200, 0.14), transparent 70%);
+}
+
+.ap-timeline-scene {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(1500px, 112vw);
+  aspect-ratio: 1400 / 711;
+  isolation: isolate;
+  transform: translate(-50%, -50%);
+}
+
+.ap-timeline-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.ap-timeline-card-anchor {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 26%;
+  aspect-ratio: 254 / 306;
+  transform: translate(-50%, -50%);
+}
+
+.ap-timeline-flight-card {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  opacity: 1;
+  backface-visibility: hidden;
+  transform-origin: 50% 50%;
+  will-change: filter, transform;
+}
+
+.ap-timeline-original-overview {
+  display: none !important;
+}
+
+@media (max-width: 900px) {
+  .ap-timeline-flight-scroll {
+    height: 3360svh;
+  }
+
+  .ap-timeline-scene {
+    width: 145vw;
+  }
+
+  .ap-timeline-card-anchor {
+    width: 29%;
+  }
+}
+
+@media (max-width: 767px) {
+  .ap-timeline-flight-scroll {
+    height: 2940svh;
+  }
+
+  .ap-timeline-scene {
+    top: 55%;
+    width: 205vw;
+  }
+
+  .ap-timeline-card-anchor {
+    width: 34%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ap-hero-motion {
+    opacity: 1 !important;
+    filter: none;
+    transform: none !important;
+  }
+
+  .ap-manifesto-word,
+  .ap-manifesto-supporting-word {
+    color: inherit !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+    transform: none !important;
+  }
+
+  .ap-timeline-flight-scroll {
+    display: none;
+  }
+
+  .ap-timeline-original-overview {
+    display: block !important;
+  }
+}
