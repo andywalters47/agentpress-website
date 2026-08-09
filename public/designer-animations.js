@@ -93,13 +93,17 @@
   function installPreludeAnimation() {
     const hero = document.querySelector('.heropin');
     const heroWrap = document.querySelector('.heropinwrap');
+    const prelude = document.querySelector('.ap-prelude-scroll');
     const intro = document.querySelector('.introrow');
-    if (!hero || !heroWrap || !intro || intro.dataset.apAnimationInstalled === 'true') return false;
+    const introShell = intro && intro.parentElement;
+    if (!hero || !heroWrap || !prelude || !intro || !introShell || intro.dataset.apAnimationInstalled === 'true') return false;
 
     intro.dataset.apAnimationInstalled = 'true';
     hero.classList.add('ap-hero-motion');
     heroWrap.classList.add('ap-hero-sequenced-wrap');
-    intro.parentElement.classList.add('ap-intro-shell');
+    introShell.classList.add('ap-intro-shell');
+    const firstBubble = hero.querySelector('.ap-hero-bubble-1');
+    const secondBubble = hero.querySelector('.ap-hero-bubble-2');
 
     if (reducedMotion.matches) return true;
 
@@ -120,7 +124,7 @@
     ];
     const supportingParagraphs = paragraphs.map((paragraph) => wrapWords(paragraph, 'ap-manifesto-supporting-word'));
     const ink = [33, 33, 33];
-    const purple = [129, 74, 222];
+    const accentGreen = [45, 196, 168];
 
     const animateHeadlineBlock = (words, progress, blockStart, blockEnd) => {
       const duration = blockEnd - blockStart;
@@ -129,14 +133,14 @@
         const wordEnd = blockStart + (((index + 1) / Math.max(1, words.length)) * duration);
         const wordProgress = range(progress, wordStart, wordEnd);
         const focus = 0.48;
-        const towardPurple = range(wordProgress, 0, focus);
-        const awayFromPurple = range(wordProgress, focus, 1);
+        const towardGreen = range(wordProgress, 0, focus);
+        const awayFromGreen = range(wordProgress, focus, 1);
         const color = wordProgress <= focus
-          ? mixColor(ink, purple, towardPurple)
-          : mixColor(purple, ink, awayFromPurple);
+          ? mixColor(ink, accentGreen, towardGreen)
+          : mixColor(accentGreen, ink, awayFromGreen);
         const glow = wordProgress <= focus
-          ? mix(0, 0.88, towardPurple)
-          : mix(0.88, 0, awayFromPurple);
+          ? mix(0, 0.88, towardGreen)
+          : mix(0.88, 0, awayFromGreen);
         const rise = mix(8, 0, wordProgress);
         const scale = keyframes(wordProgress, [0, focus, 1], [0.97, 1.035, 1]);
 
@@ -161,17 +165,26 @@
 
     const update = () => {
       const viewportHeight = window.innerHeight;
-      const heroRect = heroWrap.getBoundingClientRect();
-      const heroScrolled = Math.max(0, -heroRect.top);
-      const primaryProgress = clamp(heroScrolled / Math.max(1, viewportHeight * 2.3));
+      const preludeRect = prelude.getBoundingClientRect();
+      const stickyHeight = Math.max(1, viewportHeight - 80);
+      const preludeProgress = clamp((-preludeRect.top) / Math.max(1, preludeRect.height - stickyHeight));
+      const primaryProgress = clamp(preludeProgress / 0.6);
+      const parallaxProgress = range(primaryProgress, 0, 0.34);
 
       hero.style.setProperty('--ap-hero-opacity', String(keyframes(primaryProgress, [0, 0.16, 0.34], [1, 0.72, 0])));
       hero.style.setProperty('--ap-hero-filter-opacity', String(keyframes(primaryProgress, [0, 0.11, 0.24], [1, 0.42, 0])));
       hero.style.setProperty('--ap-hero-scale', String(keyframes(primaryProgress, [0, 0.34], [1, 0.945])));
       hero.style.setProperty('--ap-hero-y', `${keyframes(primaryProgress, [0, 0.34], [0, -120]).toFixed(2)}px`);
+      if (firstBubble) firstBubble.style.setProperty('--ap-bubble-y', `${mix(0, -86, parallaxProgress).toFixed(2)}px`);
+      if (secondBubble) secondBubble.style.setProperty('--ap-bubble-y', `${mix(0, -138, parallaxProgress).toFixed(2)}px`);
 
-      const introRect = intro.getBoundingClientRect();
-      const introProgress = clamp((viewportHeight * 0.9 - introRect.top) / Math.max(1, viewportHeight * 0.92));
+      introShell.style.setProperty('--ap-manifesto-opacity', String(range(primaryProgress, 0.015, 0.16)));
+      introShell.style.setProperty('--ap-manifesto-scale', String(keyframes(primaryProgress, [0.015, 0.24], [0.96, 1])));
+      introShell.style.setProperty('--ap-manifesto-y', `${keyframes(primaryProgress, [0.015, 0.24], [34, 0]).toFixed(2)}vh`);
+
+      // Keep the manifesto pinned while its four blocks reveal serially, then
+      // hold the completed copy on screen before the timeline takes over.
+      const introProgress = range(preludeProgress, 0.10, 0.78);
 
       // Every block owns a non-overlapping window. Within each window, a word
       // must fully settle before the next word is allowed to begin.
@@ -208,7 +221,7 @@
           </svg>
           ${cardLabels.map((label, index) => `
             <div class="ap-timeline-card-anchor" style="z-index:${index + 10}">
-              <svg class="ap-timeline-flight-card" role="img" aria-label="${label}" viewBox="0 0 254 306">
+              <svg class="ap-timeline-flight-card" role="img" aria-label="${label}" viewBox="0 0 254 220">
                 <use href="/v3/assets/timeline-sprite.svg#timeline-card-${index + 1}"></use>
               </svg>
             </div>
@@ -236,8 +249,9 @@
     const update = () => {
       const rect = stage.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
-      const startOffset = viewportHeight * 0.65;
-      const total = Math.max(1, rect.height - (viewportHeight * 0.35));
+      // Begin card one the instant the timeline crosses into the viewport.
+      const startOffset = viewportHeight;
+      const total = Math.max(1, rect.height);
       const progress = clamp((startOffset - rect.top) / total);
       const backdropOpacity = keyframes(progress, [0, 0.04, 0.9, 1], [0.42, 1, 1, 0.26]);
       backdrop.style.opacity = String(backdropOpacity);
@@ -245,7 +259,7 @@
       cards.forEach((card, index) => {
         const travelDuration = 0.1405;
         const stageInterval = travelDuration * 0.66;
-        const stageIn = 0.012 + (index * stageInterval);
+        const stageIn = index * stageInterval;
         const leftArrival = stageIn + travelDuration;
         const queueX = 42.8 + (index * 0.8);
         const queueY = (index - ((cards.length - 1) / 2)) * 2.5;
@@ -278,7 +292,30 @@
         }
 
         const y = keyframes(progress, [stageIn, center, leftArrival], [queueY, 0, completedY]);
-        const scale = keyframes(progress, [stageIn, center, leftArrival], [0.96, 1.025, 0.96]);
+        const travelProgress = clamp((progress - stageIn) / travelDuration);
+        const edgeScale = 0.96;
+        const centerScale = 1.14;
+        let scale = edgeScale;
+        if (travelProgress <= approachShare) {
+          const scaleProgress = range(travelProgress, 0, approachShare);
+          const easedScaleProgress = scaleProgress * scaleProgress * (3 - (2 * scaleProgress));
+          scale = mix(edgeScale, centerScale, easedScaleProgress);
+        } else {
+          const scaleProgress = range(travelProgress, approachShare, 1);
+          const easedScaleProgress = scaleProgress * scaleProgress * (3 - (2 * scaleProgress));
+          scale = mix(centerScale, edgeScale, easedScaleProgress);
+        }
+        // The supplied artwork is completely flat. Unskew it quickly, hold it
+        // perfectly head-on for one third of its total travel, then return to
+        // the same (not mirrored) perspective as it exits to the left.
+        const perspectiveAmount = keyframes(
+          travelProgress,
+          [0, 1 / 6, 1 / 2, 1],
+          [1, 0, 0, 1],
+        );
+        const rotateX = 5.25 * perspectiveAmount;
+        const rotateY = -15 * perspectiveAmount;
+        const skewY = -14 * perspectiveAmount;
         let blur = 1.25;
         let shadowY = 16;
         let shadowBlur = 22;
@@ -299,7 +336,11 @@
         }
 
         card.style.filter = `blur(${blur.toFixed(3)}px) drop-shadow(0 ${shadowY.toFixed(2)}px ${shadowBlur.toFixed(2)}px rgba(39, 30, 83, ${shadowAlpha.toFixed(3)}))`;
-        card.style.transform = `translate3d(${x.toFixed(4)}vw, ${y.toFixed(2)}px, 0) scale(${scale.toFixed(4)})`;
+        // Give each card its own camera so the exact same endpoint transform
+        // produces the exact same silhouette on the left and right. A shared
+        // scene perspective re-projects identical cards differently based on
+        // their horizontal position.
+        card.style.transform = `translate3d(${x.toFixed(4)}vw, ${y.toFixed(2)}px, 0) perspective(1500px) rotateX(${rotateX.toFixed(3)}deg) rotateY(${rotateY.toFixed(3)}deg) skewY(${skewY.toFixed(3)}deg) scale(${scale.toFixed(4)})`;
       });
     };
 

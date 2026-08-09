@@ -1,15 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo } from "next/font/google";
-import "./globals.css";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-
-const archivo = Archivo({
-  variable: "--font-archivo",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-});
+import Script from "next/script";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.agent.press"),
@@ -35,11 +25,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={archivo.variable}>
-      <body>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+    <html lang="en">
+      <head>
+        <base href="/" />
+      </head>
+      <body suppressHydrationWarning>
+        <Script src="/support.js" strategy="beforeInteractive" />
+        {children}
       </body>
     </html>
   );

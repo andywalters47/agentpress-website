@@ -83,8 +83,8 @@ function HeroContent() {
       <div className="hero-dots" aria-hidden="true" />
       <div className="site-container hero-inner">
         <div className="hero-copy">
-          <h1 id="home-hero-title">An AI Chief of Staff for Every Deal</h1>
-          <p>AgentPress is the first AI agent that understands how to keep complex SaaS deals moving forward. At every stage, it proactively delivers the deal intelligence, tailored assets, and executional support you need to win.</p>
+          <h1 id="home-hero-title">Win more deals with the team you already have.</h1>
+          <p>AgentPress gives every deal an AI agent that prepares your team, uncovers the business case, and does the legwork behind every close.</p>
           <div className="hero-actions">
             <Link className="button button-dark" href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" target="_blank" rel="noreferrer">Try now</Link>
             <Link className="button button-outline" href="https://player.vimeo.com/video/1174466111" target="_blank" rel="noreferrer">Watch demo <span>▶</span></Link>

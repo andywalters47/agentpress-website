@@ -3,13 +3,13 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 const projectRoot = dirname(dirname(fileURLToPath(import.meta.url)));
-const sourcePath = join(projectRoot, 'public/v3/assets/hero-graphic-v4.svg');
+const sourcePath = join(projectRoot, 'public/assets/10card_non-skewed.svg');
 const outputPath = join(projectRoot, 'public/v3/assets/timeline-sprite.svg');
 const sourceLines = readFileSync(sourcePath, 'utf8').split('\n');
 
-// The original illustration is a flattened Figma export. Each range below is
-// one complete card, in paint order. Keeping them as symbols lets the page load
-// one SVG and animate ten independent card instances without raster crops.
+// The supplied illustration is a flattened Figma export. Each range below is
+// one complete flat card, in paint order. Keeping them as symbols lets the page
+// load one SVG and animate ten independent card instances without raster crops.
 const cardRanges = [
   [24, 59],
   [60, 68],
@@ -23,15 +23,36 @@ const cardRanges = [
   [205, 215],
 ];
 
+// Top-left crop origins for the ten flat 251.1 x 216.5 cards. The one-pixel
+// gutter keeps the original card border and shadows intact.
+const cardOrigins = [
+  [89, 78.4045],
+  [208, 114],
+  [327, 149],
+  [446, 184],
+  [565, 219],
+  [684, 254],
+  [803, 289],
+  [922, 324],
+  [1041, 359],
+  [1160, 395],
+];
+
 const takeLines = (start, end) => sourceLines.slice(start - 1, end).join('\n');
-const defs = takeLines(232, sourceLines.length - 1);
+const defsStart = sourceLines.findIndex((line) => line.trim() === '<defs>') + 1;
+const defsEnd = sourceLines.findIndex((line) => line.trim() === '</defs>') + 1;
+
+if (!defsStart || !defsEnd) {
+  throw new Error('Could not locate the SVG definitions block');
+}
+
+const defs = takeLines(defsStart, defsEnd);
 const backdrop = [takeLines(2, 23), takeLines(216, 231)].join('\n');
 
 const cardSymbols = cardRanges.map(([start, end], index) => {
-  const cropX = 82 + (119 * index);
-  const cropY = -4 + (35 * index);
+  const [cropX, cropY] = cardOrigins[index];
   return [
-    `  <symbol id="timeline-card-${index + 1}" viewBox="0 0 254 306">`,
+    `  <symbol id="timeline-card-${index + 1}" viewBox="0 0 254 220">`,
     `    <g transform="translate(${-cropX} ${-cropY})">`,
     takeLines(start, end),
     '    </g>',
