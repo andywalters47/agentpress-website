@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/icons.css">
+<link rel="stylesheet" href="_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/tokens.css">
+<link rel="stylesheet" href="_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/app-color-semantics.css">
+<link rel="stylesheet" href="_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/components/marketing/fig-tokens.css">
+<link rel="stylesheet" href="_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/styles.css">
+<script src="_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/_ds_bundle.js"></script>
+<style>
+html,body{margin:0;background:var(--web-bg);font-family:var(--font-body)}
+a{color:var(--ink-80);text-decoration:none}a:hover{color:var(--ink)}
+.h1{font-family:var(--font-display);font-weight:400;line-height:1.2;letter-spacing:0em;color:var(--ink)}
+.eyebrow{display:inline-block;font-size:12px;letter-spacing:0.03em;color:var(--ink-muted);border:1px solid var(--hairline);border-radius:999px;padding:5px 14px}
+.check{display:flex;align-items:center;gap:10px;padding:7px 0}
+.check span{font-size:15px;color:var(--ink-80)}
+.fstack{display:grid}
+.frow{grid-area:1/1;display:flex;gap:128px;align-items:center}
+
+.fade{opacity:0;transition:opacity .3s ease-out;pointer-events:none}
+.frow.on .fade{opacity:1;pointer-events:auto}
+.fmark{width:13px;height:1px;padding:0;border:0;display:block;background:rgb(33,33,33);opacity:.3;cursor:pointer;transition:width .3s ease-out,opacity .3s ease-out}
+.fmark.on{width:21px;opacity:1}
+@media (max-width:767px){.frow .fade[style*="640px"]{width:100%!important;max-width:521px;height:auto!important;aspect-ratio:1/1}
+.frow object{position:absolute;right:-8px!important;width:100%!important;height:auto!important}}
+@media (prefers-reduced-motion: reduce),(max-width:767px){.featpin{height:auto!important}
+.fstage{position:static!important;height:auto!important;display:block!important;padding:0 30px}
+.fstack{display:flex;flex-direction:column;gap:96px}
+.frow{opacity:1!important;pointer-events:auto;flex-direction:column;align-items:flex-start;gap:32px}
+.ftext{min-height:0!important}
+.fade{opacity:1!important;pointer-events:auto}
+.fnav,.fsent{display:none}}
+</style>
+</helmet>
+<div class="featpin" ref="{{ pinRef }}" style="position:relative;height:300vh">
+<sc-for list="{{ steps }}" as="step" hint-placeholder-count="3">
+<div class="fsent" data-sentinel="{{ $index }}" style="position:absolute;left:0;width:1px;height:100vh;pointer-events:none"></div>
+</sc-for>
+<div class="fstage" style="position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;padding:0 30px">
+<div style="box-sizing:border-box;width:1376px;max-width:100%;padding:0 56px;display:flex;align-items:center">
+<div class="fstack" style="flex:1;min-width:0">
+<sc-for list="{{ steps }}" as="step" hint-placeholder-count="3">
+<div class="frow" data-step="{{ $index }}">
+<div class="fade" style="width:640px;height:640px;flex:none;border-radius:10px;overflow:hidden;position:relative">
+<sc-if value="{{ step.bg }}" hint-placeholder-val="{{ true }}">
+<img src="{{ step.bg }}" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: {{ step.bgFit }}; object-position: {{ step.bgPos }}; border-radius: 20px">
+</sc-if>
+<sc-if value="{{ step.art }}" hint-placeholder-val="{{ true }}">
+<object type="image/svg+xml" data="{{ step.art.src }}" width="{{ step.art.w }}" height="{{ step.art.h }}" aria-label="{{ step.art.label }}" style="position:absolute;right:-22px;top:50%;transform:translateY(-50%);max-width:none;pointer-events:none"></object>
+</sc-if>
+<sc-if value="{{ step.artImg }}" hint-placeholder-val="{{ true }}">
+<img src="{{ step.artImg.src }}" alt="{{ step.artImg.label }}" width="{{ step.artImg.w }}" style="position:absolute;right:-22px;top:50%;transform:translateY(-50%);max-width:none;height:auto;pointer-events:none">
+</sc-if>
+</div>
+<div class="ftext" style="flex:1">
+<div class="fade">
+<span class="eyebrow">{{ step.eyebrow }}</span>
+<h2 class="h1" style="font-size: var(--web-size-h2-panel); margin: 18px 0 14px; letter-spacing: 0em">{{ step.title }}</h2>
+<p style="font-size: 18px; line-height: 1.7; color: var(--ink-body); margin: 0; max-width: 460px; width: 451px; height: 123px">{{ step.body }}</p>
+</div>
+</div>
+</div>
+</sc-for>
+</div>
+<div class="fnav" style="position:absolute;right:32px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:flex-end;gap:14px">
+<sc-for list="{{ steps }}" as="step" hint-placeholder-count="3">
+<button class="fmark" data-mark="{{ $index }}" aria-label="Show step {{ step.n }}" onClick="{{ step.onMark }}"></button>
+</sc-for>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:900},&quot;steps&quot;:{&quot;editor&quot;:null,&quot;default&quot;:null,&quot;tsType&quot;:&quot;Array&lt;{bg: string|null, art: {src: string, w: number, h: number, label: string}|null, artImg: {src: string, w: number, label: string}|null, bgFit?: string, bgPos?: string, eyebrow: string, title: string, body: string}&gt; | null&quot;}}">
+class Component extends DCLogic {
+  pinRef = React.createRef();
+  defaultSteps() {
+    return [
+      { bg: 'assets/grad1.jpg', artImg: null, art: { src: 'assets/feature-1-art.svg', w: 619, h: 568, label: 'Meeting prep view for the AlertMedia opportunity' },
+        bgFit: 'cover', bgPos: 'center',
+        eyebrow: '01', title: 'Shorter sales cycles',
+        body: "Enterprise deals don't stall during meetings. They stall in the days between them, waiting on a follow-up, a deck, a business case nobody has had time to build. AgentPress closes those gaps while you're working other deals." },
+      { bg: 'assets/grad2.jpg', art: null, artImg: { src: 'assets/feature-2-screenshot.png', w: 639, label: 'AlertMedia opportunity dashboard with foundations and recent documents' },
+        bgFit: 'cover', bgPos: 'center',
+        eyebrow: '02', title: 'Excellence, every deal',
+        body: 'Your strongest outcomes come from consistent preparation, sharp discovery, credible value, and disciplined follow-through. AgentPress turns those winning behaviors into a repeatable operating standard.' },
+      { bg: 'assets/grad3.jpg', art: null, artImg: { src: 'assets/feature-3-screenshot.png', w: 639, label: 'Pipeline overview with the AlertMedia opportunity assessment' },
+        bgFit: 'cover', bgPos: 'center',
+        eyebrow: '03', title: 'More deals per rep',
+        body: 'Selling into enterprise means a handful of accounts, each demanding real attention. When the work between meetings takes care of itself, the same team carries more of it.' }
+    ];
+  }
+  baseSteps() { return this.props.steps ?? this.defaultSteps(); }
+  renderVals() {
+    const steps = this.baseSteps().map((s, i) => ({ ...s, n: i + 1, onMark: () => this.jump(i) }));
+    return { steps, pinRef: this.pinRef };
+  }
+  componentDidMount() {
+    const wrap = this.pinRef.current; if (!wrap) return;
+    wrap.style.height = (this.baseSteps().length * 100) + 'vh';
+    const sents = [].slice.call(wrap.querySelectorAll('.fsent'));
+    sents.forEach((s, i) => { s.style.top = (i * 100) + 'vh'; });
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce), (max-width: 767px)');
+    if (mq.matches) return;
+    const rows = [].slice.call(wrap.querySelectorAll('.frow'));
+    const marks = [].slice.call(wrap.querySelectorAll('.fmark'));
+    const setStep = i => {
+      rows.forEach(r => r.classList.toggle('on', +r.dataset.step === i));
+      marks.forEach(m => m.classList.toggle('on', +m.dataset.mark === i));
+    };
+    setStep(0);
+    this.io = new IntersectionObserver(es => {
+      es.forEach(en => { if (en.isIntersecting) setStep(+en.target.dataset.sentinel); });
+    }, { root: (document.documentElement.parentNode ? document : null), rootMargin: '-49% 0px -49% 0px', threshold: 0 });
+    sents.forEach(s => this.io.observe(s));
+  }
+  componentWillUnmount() { if (this.io) this.io.disconnect(); }
+  jump(i) {
+    const wrap = this.pinRef.current; if (!wrap) return;
+    const top = wrap.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({ top: top + i * window.innerHeight + 8, behavior: 'smooth' });
+  }
+}
+</script>
+</body>
+</html>

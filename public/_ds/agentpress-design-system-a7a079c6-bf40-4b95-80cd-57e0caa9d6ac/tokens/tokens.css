@@ -1,0 +1,380 @@
+/* ============================================================================
+   AgentPress — COMPLETE TOKEN EXTRACTION (audit build)
+   Every value below is literal and taken from what is actually in the designs:
+   ui_kits/marketing/*, ui_kits/app-light-v2/* (newest app kit), tokens/*.css.
+   "IN USE, UNDEFINED" = appears in a design but was never a token.
+   "FLAG" = near-duplicate to collapse to one canonical value.
+   #322371 is removed and appears nowhere in this file.
+   PROMOTED: this file is now the live token source, wired into styles.css.
+   ========================================================================= */
+
+/* ---------------------------------------------------------------------------
+   FONT LOADING
+   NeuSans Book now has a real @font-face (tokens/fonts.css). The stack below
+   must stay identical to it (tokens.css imports last, so it wins).
+   ------------------------------------------------------------------------ */
+/* Font loading lives in tokens/fonts.css */
+
+:root {
+
+/* ===========================================================================
+   TIER 1 — PRIMARY BRAND  (these lead, everywhere)
+   ======================================================================== */
+  --brand-purple:            #814ADE;   /* primary action, selected, data bar */
+  --brand-mint:              #AEF3C8;   /* canonical mint */
+  --brand-teal:              #2DC4A8;   /* links, positive, second data series */
+
+  --brand-purple-tint:       rgba(129, 74, 222, 0.10);  /* selection/hover fill */
+  --brand-purple-deep:       #4E2790;   /* the one remaining secondary purple —
+                                           minor: donut segment 1, legend dot */
+
+/* On-brand ink pairings AS BUILT (convention, not a constraint) */
+  --on-brand-purple:         #FFFFFF;
+  --on-brand-mint:           #212121;
+  --on-brand-teal:           #212121;
+
+/* ===========================================================================
+   TIER 2 — APP-ONLY UTILITY PALETTE
+   Small elements only: buttons, status tints, chart series, feedback, avatars.
+   NEVER a surface. NEVER on marketing. Unordered inventory, not a ranking.
+   ======================================================================== */
+  /* Semantic feedback */
+  --app-util-red:            #F55434;   /* negative value, cost bar, Closed Lost */
+  --app-util-green:          #2EA891;   /* positive/validated, Discovery, net benefit */
+  --app-util-amber:          #C4952E;   /* Negotiation stage */
+  --app-util-blue:           #4E90D9;   /* Proposal stage — blue stays blue */
+  --app-util-violet:         #9165DB;   /* Demo stage text */
+  --app-util-lilac:          #A777F8;   /* tab indicator, info icon, bar series, fill */
+  --app-util-cyan:           #4CC3F0;   /* risk-reduction bar */
+  --app-util-graphite:       #3A3A3A;   /* net-NPV bar */
+
+  /* Status tint pairs (bg / fg): moved to tokens/app-color-semantics.css,
+     LAYER 2B — STATUS FAMILY, aliased to the canonical -tint/-ink values. */
+
+  /* Stage pill construction, as built */
+  --app-pill-tint-alpha:     0.07;   /* @kind other */
+  --app-pill-border-alpha:   0.20;   /* @kind other */
+  --app-pill-muted-bg:       #F4F2EF;
+  --app-pill-muted-border:   rgba(33, 33, 33, 0.07);
+  --app-pill-muted-fg:       rgba(33, 33, 33, 0.55);
+
+  /* Avatar / account hues — IN USE, UNDEFINED (12 rows, 9 hues) */
+  --app-avatar-1:            #4493E5;
+  --app-avatar-2:            #2266B4;
+  --app-avatar-3:            #2FBFA0;
+  --app-avatar-4:            #6538BC;
+  --app-avatar-5:            #B93A28;
+  --app-avatar-6:            #1D8A70;
+  --app-avatar-7:            #F0503A;
+  --app-avatar-8:            #7C4DDE;
+  --app-avatar-9:            #A16A0A;
+  --app-avatar-bg-alpha:     0.13;   /* @kind other */
+
+  /* Misc app utility — IN USE, UNDEFINED */
+  --app-icon-tile-bg:        rgba(112, 90, 62, 0.12);    /* #705A3E1F */
+  --app-icon-tile-fg:        #7D7590;
+  --app-empty-stroke:        #C9C3D9;
+  --app-empty-stroke-2:      #B7AFCB;
+
+/* ===========================================================================
+   TIER 3 — NEUTRALS: TWO SEPARATE RAMPS. DO NOT MERGE.
+   ======================================================================== */
+  /* --- Marketing website ramp (warmer creams) --- */
+  --web-bg:                  #FDFAF4;   /* default page */
+  --web-bg-alt:              #F7F5F0;   /* alternating sections, wells */
+  --web-surface:             #FFFFFF;   /* rare: floating cards */
+
+  /* --- App ramp (slightly lighter/cooler; never use the web creams in-app) --- */
+  --app-bg:                  #FCFAF7;   /* canvas, topbar, inputs, chat composer */
+  --app-bg-alt:              #F4F2EF;   /* sidebar, chat rail, filter well, muted pill */
+  --app-bg-subtle:           #FBFBFA;   /* lightest tint */
+  --app-bg-sunken:           #EBE8E4;   /* deepest neutral fill */
+  --app-surface:             #FFFFFF;   /* evidence cards */
+
+  /* App neutrals IN USE, UNDEFINED */
+  --app-selected:            #E3DDE6;   /* sidebar active + segmented active */
+  --app-track:               #E9E4DB;   /* assumption progress track   FLAG */
+  --app-track-alt:           #EFECE6;   /* stakeholder bar track       FLAG */
+  --app-track-fill:          #C9C2B6;   /* progress fill + checkbox border */
+  --app-hover:               rgba(33, 33, 33, 0.04);   /* sidebar/icon hover */
+  --app-hover-row:           rgba(33, 33, 33, 0.025);  /* table row hover */
+
+/* ===========================================================================
+   INK  (shared by both surfaces)
+   ======================================================================== */
+  --ink:                     #212121;
+  --ink-92:                  rgba(33, 33, 33, 0.92);   /* active nav icon  #212121EB */
+  --ink-80:                  rgba(33, 33, 33, 0.80);   /* long-form body   #212121CC */
+  --ink-body:                rgba(33, 33, 33, 0.72);   /* default body     #212121B7 */
+  --ink-65:                  rgba(33, 33, 33, 0.65);   /* current crumb    #212121A5 */
+  --ink-muted:               rgba(33, 33, 33, 0.55);   /* meta, labels     #2121218C */
+  --ink-50:                  rgba(33, 33, 33, 0.50);   /* crumb, null val  #21212180 */
+  --ink-faint:               rgba(33, 33, 33, 0.35);   /* placeholders, chevrons */
+  --ink-29:                  rgba(33, 33, 33, 0.29);   /* chat toggle chip #2121214B */
+  --hairline:                rgba(33, 33, 33, 0.08);   /* all borders */
+  --hairline-soft:           rgba(33, 33, 33, 0.07);   /* pill border      #21212112 */
+  --dash-line:               rgba(33, 33, 33, 0.18);   /* waterfall connectors */
+
+  --on-dark:                 #FFFFFF;
+  --on-dark-body:            rgba(255, 255, 255, 0.70);
+  --on-dark-body-80:         rgba(255, 255, 255, 0.80);  /* #FFFFFFCD */
+  --on-dark-hairline:        rgba(255, 255, 255, 0.25);
+  --on-dark-rule:            rgba(255, 255, 255, 0.12);
+
+/* ===========================================================================
+   DARK SURFACES + GRADIENTS
+   Gradient = marketing pop only. Zero gradients exist in any app kit.
+   ======================================================================== */
+  --web-dark-start:          #271E53;
+  --web-dark-end:            #1B143A;
+  --web-gradient-footer:     linear-gradient(180deg, #271E53 0%, #1B143A 55%, #1B143A 100%);   /* @kind other */
+  --app-dark-panel:          #1B1536;   /* value callout panel — IN USE, UNDEFINED
+                                           FLAG vs --web-dark-end #1B143A */
+  --app-dark-collar:         #1B143A;   /* flat, if a dark collar is used */
+  --app-dark-scrim:          rgba(175, 144, 229, 0.27);  /* #AF90E546 button on dark */
+
+/* ===========================================================================
+   TYPE — FAMILIES
+   ======================================================================== */
+  --font-display:            "NeuSans Book", "Instrument Sans", sans-serif;  /* marketing headlines + metrics ONLY — app never references this, see design.md §3 */
+  --font-body:               "Archivo", sans-serif;       /* everything else */
+
+/* ===========================================================================
+   TYPE — WEIGHTS ACTUALLY IN USE
+   Marketing: 400 only. App: 400 / 500 / 600, plus one 700.
+   ======================================================================== */
+  --weight-regular:          400;   /* @kind font */
+  --weight-medium:           500;   /* @kind font */
+  --weight-semibold:         600;   /* @kind font */
+  --weight-bold:             700;   /* @kind font */
+
+/* ===========================================================================
+   TYPE — SIZE SCALE (literal px, as measured)
+   ======================================================================== */
+  /* Marketing */
+  --web-size-hero:           38px;
+  --web-size-h2:             36px;
+  --web-size-h2-panel:       34px;
+  --web-size-statement:      24px;   /* lh 1.5, ink-body — the "Most CRMs…" line */
+  --web-size-logo-strip:     17px;
+  --web-size-body-lg:        16px;
+  --web-size-body:           14px;
+  --web-size-body-sm:        13.5px;
+  --web-size-ui:             15px;
+  --web-size-footer:         13px;
+  --web-size-legal:          12px;
+  --web-size-eyebrow:        12px;
+  --web-size-index:          11px;
+
+  /* App */
+  --app-size-metric-xl:      44px;   /* dark panel figure */
+  --app-size-metric-lg:      34px;   /* NPV */
+  --app-size-metric-md:      30px;   /* cost-of-delay figure */
+  --app-size-doc-title:      32px;
+  --app-size-page-title:     20px;
+  --app-size-topbar-title:   19px;
+  --app-size-metric-sm:      17px;   /* IRR / Payback / ROI */
+  --app-size-card-title:     16px;
+  --app-size-lede:           15px;
+  --app-size-value:          14.5px;
+  --app-size-chat:           13.5px;
+  --app-size-item-title:     13.5px;
+  --app-size-body:           13px;
+  --app-size-meta:           12.5px;
+  --app-size-caption:        12px;
+  --app-size-pill:           11.5px;
+  --app-size-micro:          11px;
+  --app-size-label:          10px;   /* uppercase section labels */
+
+/* ===========================================================================
+   TYPE — LINE HEIGHTS + LETTER SPACING
+   ======================================================================== */
+  --lh-metric:               1.05;   /* @kind other */
+  --lh-display:              1.1;   /* @kind other */
+  --lh-display-tight:        1.15;   /* @kind other */
+  --lh-display-loose:        1.2;   /* @kind other */
+  --lh-card-title:           1.3;   /* @kind other */
+  --lh-dense:                1.45;   /* @kind other */
+  --lh-statement:            1.5;   /* @kind other */
+  --lh-body:                 1.6;   /* @kind other */
+  --lh-reading:              1.65;   /* @kind other */
+  --lh-airy:                 1.75;   /* @kind other */
+
+  --ls-metric:               -0.02em;   /* @kind other */
+  --ls-display:              -0.015em;  /* @kind other */
+  --ls-display-app:          -0.01em;   /* @kind other */
+  --ls-normal:               0;   /* @kind other */
+  --ls-label:                0.04em;    /* @kind other */
+  --ls-label-wide:           0.05em;    /* @kind other */
+  --ls-label-wider:          0.06em;    /* @kind other */
+  --ls-eyebrow:              0.08em;    /* @kind other */
+
+/* ===========================================================================
+   APP TEXT ROLES — the backbone. Locked size + weight + ink. Use these, not
+   per-screen numbers. (Each is size / weight / ink / extras.)
+   ======================================================================== */
+  /* section-label  — sidebar groups, form labels, table headers */
+  --role-section-label-size:        10px;
+  --role-section-label-weight:      500;   /* @kind font */
+  --role-section-label-ink:         var(--ink-muted);
+  --role-section-label-tracking:    0.05em;   /* @kind other */
+  --role-section-label-transform:   uppercase;   /* @kind other */
+
+  /* table-header — column heads (same role, one step up) */
+  --role-table-header-size:         11px;
+  --role-table-header-weight:       500;   /* @kind font */
+  --role-table-header-ink:          var(--ink-muted);
+  --role-table-header-tracking:     0.04em;   /* @kind other */
+  --role-table-header-transform:    uppercase;   /* @kind other */
+
+  /* page-title — view H1 */
+  --role-page-title-size:           20px;
+  --role-page-title-weight:         500;   /* @kind font */
+  --role-page-title-ink:            var(--ink);
+  --role-page-title-tracking:       -0.01em;   /* @kind other */
+  --role-page-title-font:           var(--font-body);   /* Archivo — app never uses --font-display, see design.md §3 */
+  /* FLAG: Opportunities H1 ships at 600, Value Model at 500 — lock to 500. */
+
+  /* card-title — panel/card headers */
+  --role-card-title-size:           16px;
+  --role-card-title-weight:         600;   /* @kind font */
+  --role-card-title-ink:            var(--ink);
+  --role-card-title-lh:             1.3;   /* @kind other */
+
+  /* item-title — row names, list items, chat header */
+  --role-item-title-size:           13.5px;
+  --role-item-title-weight:         500;   /* @kind font */
+  --role-item-title-ink:            var(--ink);
+
+  /* item-description — supporting copy, chat body, card body */
+  --role-item-desc-size:            13.5px;
+  --role-item-desc-weight:          400;   /* @kind font */
+  --role-item-desc-ink:             var(--ink-body);
+  --role-item-desc-lh:              1.6;   /* @kind other */
+
+  /* metric — the $ figures; always display font, tabular feel */
+  --role-metric-hero-size:          34px;
+  --role-metric-hero-weight:        700;   /* @kind font */
+  --role-metric-hero-tracking:      -0.02em;   /* @kind other */
+  --role-metric-hero-lh:            1.05;   /* @kind other */
+  --role-metric-size:               17px;
+  --role-metric-weight:             600;   /* @kind font */
+  --role-metric-tracking:           -0.01em;   /* @kind other */
+  --role-metric-cell-size:          12.5px;   /* in-table figures */
+  --role-metric-cell-weight:        600;   /* @kind font */
+  --role-metric-ink:                var(--ink);
+  --role-metric-ink-negative:       var(--app-util-red);
+  --role-metric-ink-positive:       var(--app-util-green);
+  --role-metric-font:               var(--font-body);   /* Archivo — app never uses --font-display, see design.md §3 */
+
+  /* meta — timestamps, counts, breadcrumbs, secondary cell text */
+  --role-meta-size:                 12.5px;
+  --role-meta-weight:               400;   /* @kind font */
+  --role-meta-ink:                  var(--ink-muted);
+  --role-meta-sm-size:              11px;
+  --role-meta-sm-ink:               var(--ink-muted);
+
+  /* nav-item */
+  --role-nav-size:                  13.5px;
+  --role-nav-weight:                400;   /* @kind font */
+  --role-nav-ink:                   var(--ink-body);
+  --role-nav-ink-active:            var(--ink);
+  --role-nav-bg-active:             var(--app-selected);
+  --role-nav-icon-active:           var(--brand-purple);
+
+  /* control-label — buttons, chips, filters, pills */
+  --role-button-size:               12px;
+  --role-button-weight:             500;   /* @kind font */
+  --role-control-size:              12.5px;
+  --role-control-weight:            400;   /* @kind font */
+  --role-pill-size:                 11.5px;
+  --role-pill-weight:               400;   /* @kind font */
+
+/* ===========================================================================
+   SPACING — STRICT SCALE (adopt this; the app is currently ad hoc)
+   Rule: every gap, padding and margin resolves to one of these. Half-steps
+   (2/4) only inside controls; 6/10/14/18 exist only as compatibility rungs
+   for what already shipped and should decay out.
+   ======================================================================== */
+  --space-0:                 0;
+  --space-1:                 2px;    /* icon nudge, nav item gap */
+  --space-2:                 4px;    /* control inner */
+  --space-3:                 8px;    /* the base unit */
+  --space-4:                 12px;   /* control padding-x, tight stack */
+  --space-5:                 16px;   /* card padding-x, component gap */
+  --space-6:                 20px;   /* card padding, well padding */
+  --space-7:                 24px;   /* view padding-x, panel padding */
+  --space-8:                 32px;   /* section gap, column gap */
+  --space-9:                 40px;
+  --space-10:                48px;   /* row min-height, block separation */
+  --space-12:                64px;
+
+  /* Compatibility rungs currently shipping — IN USE, off-scale. Migrate. */
+  --space-off-6:             6px;    /* sidebar item gap, bar height */
+  --space-10x:               10px;   /* toolbar gap */
+  --space-14:                14px;   /* card gap, sidebar padding-y */
+  --space-18:                18px;   /* grid gap */
+  --space-26:                26px;
+  --space-28:                28px;   /* topbar padding-x */
+  --space-34:                34px;
+  --space-36:                36px;
+  --space-44:                44px;   /* section-label top margin */
+
+  /* App layout constants */
+  --app-sidebar-w:           232px;
+  --app-chat-rail-w:         332px;
+  --app-chat-rail-collapsed: 46px;
+  --app-view-pad-x:          28px;
+  --app-view-pad-y:          18px;
+  --app-topbar-pad:          12px 28px;
+  --app-row-h:               48px;
+  --app-row-head-h:          36px;
+  --app-doc-max-w:           960px;
+
+  /* Marketing rhythm */
+  --web-section-y:           128px;  /* range 96–160 */
+  --web-gutter:              56px;
+  --web-max-w:               1100px;
+  --web-max-w-wide:          1280px;
+
+/* ===========================================================================
+   RADII
+   ======================================================================== */
+  --radius-xs:               4px;    /* checkbox */
+  --radius-sm:               6px;    /* chart bars, kbd */
+  --radius-control:          8px;    /* CANONICAL: buttons, inputs, selects, tiles */
+  --radius-card:             12px;   /* app cards — FLAG vs 14px marketing card */
+  --radius-card-web:         14px;   /* evidence card, chat composer */
+  --radius-panel:            24px;   /* large CTA/photo/dark panels */
+  --radius-pill:             999px;
+  /* IN USE, off-scale: 5px (kbd), 7px (icon tile, stage pill, avatar),
+     9px (button group, filter chip), 10px (chip). Collapse 7/9/10 → 8. */
+
+/* ===========================================================================
+   ELEVATION — shadows barely exist. Separation is fill + hairline.
+   ======================================================================== */
+  --shadow-none:             none;                                  /* all app cards */
+  --shadow-float:            0 8px 32px rgba(33, 33, 33, 0.06);     /* overlays only */
+  --border-card:             1px solid rgba(33, 33, 33, 0.08);   /* @kind other */
+  --border-card-strong:      2px solid rgba(33, 33, 33, 0.08);   /* @kind other */      /* v2 app cards */
+  --indicator-tab:           inset 0 -2px 0 #A777F8;                /* @kind shadow */
+
+/* ===========================================================================
+   MOTION
+   ======================================================================== */
+  --ease:                    ease-out;   /* @kind other */
+  --dur-fast:                0.15s;   /* @kind other */
+  --dur:                     0.25s;   /* @kind other */
+}
+
+/* ---------------------------------------------------------------------------
+   COLLAPSE LIST — near-duplicates still in the codebase
+   mint      #ADF2C7 (tokens.css) · #AEF2C8 (opportunity-detail) → #AEF3C8
+   green     #2DC4A8 brand · #2EA891 · #2FBFA0 · #1D8A70 · #1B8A76
+   red       #F55434 · #F0503A · #B7433A · #B93A28
+   purple    #814ADE brand · #7C4DDE · #9165DB · #A777F8 · #6538BC · #4E2790
+   blue      #4E90D9 · #4493E5 · #2266B4
+   dark      #1B143A · #1B1536 · #221E34 (old app kit)
+   track     #E9E4DB · #EFECE6 · #EBE8E4
+   stroke    #C9C2B6 · #C9C3D9
+   ------------------------------------------------------------------------ */

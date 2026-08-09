@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/icons.css">
+<link rel="stylesheet" href="_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/tokens.css">
+<link rel="stylesheet" href="_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/app-color-semantics.css">
+<link rel="stylesheet" href="_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/components/marketing/fig-tokens.css">
+<link rel="stylesheet" href="_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/styles.css">
+<script src="_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/_ds_bundle.js"></script>
+<style>
+html,body{margin:0;background:var(--web-bg);font-family:var(--font-body)}
+a{color:var(--ink-80);text-decoration:none}a:hover{color:var(--ink)}
+.navtoggle{display:none;align-items:center;justify-content:center;width:44px;height:44px;margin-left:auto;background:none;border:0;padding:0;cursor:pointer;color:var(--ink);font-size:22px}
+.navpanel{display:none}
+.navbar{backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+@media (max-width:767px){.navwrap{padding:14px 16px 0}
+.navbar{width:100%;gap:12px;padding:10px 10px 10px 16px}
+.navlinks{display:none}
+.navtoggle{display:flex}
+.navpanel{position:absolute;left:16px;right:16px;top:calc(100% + 8px);z-index:30;flex-direction:column;gap:2px;background:#FDFAF4;border:1px solid #AAA69E22;border-radius:16px;padding:12px;box-shadow:0 12px 30px rgba(127,100,170,0.14)}
+.navpanel.open{display:flex}
+.navpanel a{display:block;padding:12px 10px;font-size:16px;min-height:44px;box-sizing:border-box}}
+.btn-start{transition:background .15s ease,color .15s ease}
+.btn-start:hover{background:#C6F7DA!important;color:var(--ink)!important}
+.btn-start.btn-nav:hover{background:#1B1536!important;color:#fff!important}
+</style>
+</helmet>
+<div class="navwrap" style="position:relative;display:flex;justify-content:center;padding:22px 40px 0">
+<div class="navbar" style="display:flex;align-items:center;gap:28px;border-radius:20px;padding:11px 12px 11px 26px;box-shadow:0 0 20px rgba(127,100,170,0.08);border:1px solid #AAA69E0D;background-color:#FDFAF4C9">
+<a href="./" style="display:flex;align-items:center"><img src="assets/AP_landscape_for_light_bg.svg" alt="agent.press" style="height:24px"></a>
+<div class="navlinks" style="display:flex;align-items:center;gap:28px">
+<a href="Pricing.dc.html" style="font-size:15px">Pricing</a>
+<a href="Resources.dc.html" style="font-size:15px">Resources</a>
+<a href="https://docs.agent.press/" target="_blank" rel="noopener" style="font-size:15px">Docs</a>
+
+<a target="_blank" rel="noopener" href="https://console.agent.press/sign-in" style="font-size:15px">Login</a>
+<a class="btn-start btn-nav" href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;background:var(--brand-mint);color:#212121CC;border-radius:10px;padding:10px 22px;font-size:14px;font-weight:500;cursor:pointer">Start Now</a>
+</div>
+<button class="navtoggle" aria-label="{{ toggleLabel }}" aria-expanded="{{ expanded }}" aria-controls="navpanel" onClick="{{ toggleMenu }}"><i class="ti {{ toggleIcon }}"></i></button>
+</div>
+<div class="navpanel {{ panelOpen }}" id="navpanel">
+<a href="Pricing.dc.html" onClick="{{ closeMenu }}">Pricing</a>
+<a href="Resources.dc.html" onClick="{{ closeMenu }}">Resources</a>
+<a href="https://docs.agent.press/" target="_blank" rel="noopener" onClick="{{ closeMenu }}">Docs</a>
+<a target="_blank" rel="noopener" href="https://console.agent.press/sign-in" onClick="{{ closeMenu }}">Login</a>
+<a class="btn-start btn-nav" href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" target="_blank" rel="noopener" onClick="{{ closeMenu }}" style="display:flex;align-items:center;justify-content:center;background:var(--brand-mint);color:#212121CC;border-radius:10px;padding:12px 22px;font-size:15px;font-weight:500;cursor:pointer;margin-top:6px">Start Now</a>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:220}}">
+class Component extends DCLogic {
+  state = { open: false };
+  renderVals() {
+    const open = this.state.open;
+    return {
+      panelOpen: open ? 'open' : '',
+      toggleIcon: open ? 'ti-x' : 'ti-menu-2',
+      toggleLabel: open ? 'Close menu' : 'Open menu',
+      expanded: open ? 'true' : 'false',
+      toggleMenu: () => this.setState(s => ({ open: !s.open })),
+      closeMenu: () => this.setState({ open: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

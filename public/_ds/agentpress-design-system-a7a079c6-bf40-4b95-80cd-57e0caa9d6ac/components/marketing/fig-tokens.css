@@ -1,0 +1,59 @@
+/* Generated from Figma Variables. First mode = :root default.
+   FLOAT tokens are unitless — multiply by 1px in calc() where a length is needed. */
+
+:root {
+  --color-tokens-content-dark-primary: var(--globalcolors-neutral-100); /* @kind color */
+  --colors-background-bg-primary: var(--colors-base-white); /* @kind color */
+  --colors-base-black: rgb(0,0,0); /* @kind color */
+  --colors-base-white: rgb(255,255,255); /* @kind color */
+  --colors-foreground-fg-quinary-400: var(--colors-gray-light-mode-400); /* @kind color */
+  --colors-foreground-fg-quinary-hover: var(--colors-gray-light-mode-500); /* @kind color */
+  --colors-gray-dark-mode-400: rgb(148,150,156); /* @kind color */
+  --colors-gray-dark-mode-500: rgb(133,136,142); /* @kind color */
+  --colors-gray-dark-mode-950: rgb(12,17,29); /* @kind color */
+  --colors-gray-light-mode-400: rgb(152,162,179); /* @kind color */
+  --colors-gray-light-mode-500: rgb(102,112,133); /* @kind color */
+  --component-colors-components-icons-social-icons-social-icon-fg-angellist: var(--colors-base-black); /* @kind color */
+  --component-colors-components-icons-social-icons-social-icon-fg-apple: var(--colors-base-black); /* @kind color */
+  --component-colors-components-icons-social-icons-social-icon-fg-github: var(--colors-base-black); /* @kind color */
+  --component-colors-components-icons-social-icons-social-icon-fg-instagram: rgb(0,1,0); /* @kind color */
+  --component-colors-components-icons-social-icons-social-icon-fg-tumblr: rgb(0,25,53); /* @kind color */
+  --component-colors-components-icons-social-icons-social-icon-fg-x: rgb(36,46,54); /* @kind color */
+  --globalcolors-neutral-100: rgb(0,0,0); /* @kind color */
+  --numners-12: 12;   /* @kind other */
+  --numners-16: 16;   /* @kind other */
+  --numners-18: 18;   /* @kind other */
+  --numners-20: 20;   /* @kind other */
+  --numners-24: 24;   /* @kind other */
+  --numners-28: 28;   /* @kind other */
+  --numners-36: 36;   /* @kind other */
+  --numners-40: 40;   /* @kind other */
+  --numners-48: 48;   /* @kind other */
+  --text-headings-h3-font-size: var(--numners-40);   /* @kind other */
+  --text-headings-h3-line-height: var(--numners-48);   /* @kind other */
+  --text-paragraph-16-font-size: var(--numners-16);   /* @kind other */
+  --text-paragraph-16-line-height: var(--numners-24);   /* @kind other */
+  --text-paragraph-18-font-size: var(--numners-18);   /* @kind other */
+  --text-paragraph-18-line-height: var(--numners-28);   /* @kind other */
+}
+
+:root[data-theme="dark"], .dark {
+  --colors-background-bg-primary: var(--colors-gray-dark-mode-950); /* @kind color */
+  --colors-foreground-fg-quinary-400: var(--colors-gray-dark-mode-500); /* @kind color */
+  --colors-foreground-fg-quinary-hover: var(--colors-gray-dark-mode-400); /* @kind color */
+  --component-colors-components-icons-social-icons-social-icon-fg-angellist: var(--colors-base-white); /* @kind color */
+  --component-colors-components-icons-social-icons-social-icon-fg-apple: var(--colors-base-white); /* @kind color */
+  --component-colors-components-icons-social-icons-social-icon-fg-github: var(--colors-base-white); /* @kind color */
+  --component-colors-components-icons-social-icons-social-icon-fg-instagram: var(--colors-base-white); /* @kind color */
+  --component-colors-components-icons-social-icons-social-icon-fg-tumblr: var(--colors-base-white); /* @kind color */
+  --component-colors-components-icons-social-icons-social-icon-fg-x: var(--colors-base-white); /* @kind color */
+}
+
+:root[data-mode="mobile"] {
+  --text-headings-h3-font-size: var(--numners-24);   /* @kind other */
+  --text-headings-h3-line-height: var(--numners-36);   /* @kind other */
+  --text-paragraph-16-font-size: var(--numners-12);   /* @kind other */
+  --text-paragraph-16-line-height: var(--numners-20);   /* @kind other */
+  --text-paragraph-18-font-size: var(--numners-16);   /* @kind other */
+  --text-paragraph-18-line-height: var(--numners-24);   /* @kind other */
+}

@@ -1,0 +1,5 @@
+/* Tabler Icons webfont — THE icon set (design.md §3: single-weight thin-line
+   outline, ~1.5px stroke, rounded caps, always currentColor; ships in the
+   current designs including the left nav). Use `ti ti-<name>` classes or the
+   shared Icon component. Never a second thin-line set, never filled icons. */
+@import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.31.0/dist/tabler-icons.min.css');

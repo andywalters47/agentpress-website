@@ -1,0 +1,302 @@
+/* ============================================================================
+   AgentPress — APP SEMANTIC COLOR LAYER
+   Two layers. Layer 1 = raw palette (hexes, no meaning). Layer 2 = meanings.
+   UI CODE MAY ONLY REFERENCE LAYER 2. A raw hex in a component is a bug.
+   Closed set: every meaning the app can express is enumerated below. A color
+   that does not map to a meaning here is a bug, not a style choice.
+   Companion to tokens/tokens-audit.css (neutrals, ink, type, spacing).
+   ========================================================================= */
+
+:root {
+
+/* ===========================================================================
+   LAYER 1 — RAW PALETTE (never referenced by UI code)
+   ======================================================================== */
+  --raw-purple-600:      #814ADE;
+  --raw-purple-400:      #A777F8;
+  --raw-purple-800:      #4E2790;
+  --raw-mint-200:        #AEF3C8;
+  --raw-teal-500:        #2DC4A8;
+  --raw-teal-700:        #1B8A76;   /* dark teal — the readable one */
+  --raw-blue-500:        #4E90D9;
+  --raw-blue-700:        #2F6FB5;   /* PROPOSED: text/glyph-safe blue */
+  --raw-amber-500:       #C4952E;
+  --raw-amber-700:       #FFC04C;   /* CHANGED from #A66A14 — see CONTRAST flag: fails as text */
+  --raw-red-500:         #F55434;
+  --raw-red-700:         #C4341A;   /* PROPOSED: text/glyph-safe red-orange */
+  --raw-violet-500:      #9165DB;
+  --raw-cyan-400:        #4CC3F0;
+  --raw-neutral-400:     #C9C2B6;
+  --raw-ink:             #212121;
+
+/* ===========================================================================
+   LAYER 2A — ACTION FAMILY  (priority of action; never reports state)
+   ======================================================================== */
+
+  /* --action-primary — the single "do this" per context. Used sparingly:
+     at most one primary per screen region. FORM: solid fill + white ink. */
+  --action-primary:              var(--raw-purple-600);
+  --action-primary-ink:          #FFFFFF;
+  --action-primary-hover:        #7340C9;      /* PROPOSED: -8% L */
+  --action-primary-active:       #6636B4;      /* PROPOSED: -14% L */
+  --action-primary-disabled:     rgba(129, 74, 222, 0.35);
+
+  /* --action-secondary — high-level secondary action. NOT status, NOT positive.
+     FORM: solid mint fill + dark ink. Never a glyph, dot, ring or text color. */
+  --action-secondary:            var(--raw-mint-200);
+  --action-secondary-ink:        var(--raw-ink);
+  --action-secondary-hover:      #9CE8B8;      /* PROPOSED: -6% L */
+  --action-secondary-active:     #8ADCA9;      /* PROPOSED: -12% L */
+
+  /* --action-tertiary (ghost) — NO COLOR. One token family, two forms:
+     (a) labeled ghost button: hairline outline + ink label
+     (b) icon-only ghost action (✕, ⋯, refresh): same outline + ink glyph
+     Both share: no brand color at rest, no color on hover, neutral tint only. */
+  --action-tertiary-bg:          transparent;
+  --action-tertiary-border:      1px solid rgba(33, 33, 33, 0.08);   /* @kind other */
+  --action-tertiary-ink:         rgba(33, 33, 33, 0.72);
+  --action-tertiary-hover-bg:    rgba(33, 33, 33, 0.05);   /* neutral, not purple */
+  --action-tertiary-hover-ink:   #212121;
+  --action-tertiary-active-bg:   rgba(33, 33, 33, 0.09);
+  --action-tertiary-disabled-ink: rgba(33, 33, 33, 0.35);
+
+  /* --action-text — ghost with no outline (inline/link-like action) */
+  --action-text-ink:             rgba(33, 33, 33, 0.72);
+  --action-text-hover-ink:       #212121;
+  --action-text-hover-bg:        rgba(33, 33, 33, 0.05);
+
+  /* --action-destructive — see OVERLAP note at the bottom.
+     FORM: text or ghost only at rest; solid red fill ONLY in a confirm dialog. */
+  --action-destructive-ink:      var(--raw-red-700);
+  --action-destructive-hover-bg: rgba(196, 52, 26, 0.08);
+  --action-destructive-solid:    var(--raw-red-500);
+  --action-destructive-solid-ink:#FFFFFF;
+
+  /* --state-selected — "you are here" / active nav / active segment.
+     Its own entry: selection is location, not action and not status.
+     FORM: quiet purple tint fill + full-ink label + purple glyph. */
+  --state-selected-bg:           rgba(129, 74, 222, 0.10);
+  --state-selected-ink:          #212121;
+  --state-selected-glyph:        var(--raw-purple-600);
+  --state-selected-indicator:    inset 0 -2px 0 var(--raw-purple-600);   /* @kind shadow */  /* active tab */
+  --state-hover-bg:              rgba(33, 33, 33, 0.04);   /* neutral, pre-selection */
+  --state-focus-ring:            1px solid var(--raw-purple-600);   /* @kind other */       /* no glow */
+
+/* ===========================================================================
+   LAYER 2B — STATUS FAMILY  (state being reported)
+   Each meaning ships three forms. Pick by context; do not invent a fourth.
+     · glyph   — 6–9px dot / ring / small icon in the -glyph color
+     · tint    — quiet -tint fill + -border hairline + -ink label (pills, cells)
+     · text    — -ink used as type color only (values, inline labels)
+   Full-strength fills are NOT a status form. Status never fills a button.
+
+   PURE vs ACTIONABLE STATUS (deliberate exception to "status is never clickable"):
+     · pure status       — glyph + text, NO caret, not clickable-looking.
+     · actionable status — glyph + text + a persistent CARET (e.g. Opportunity
+       stage: both "where the deal is" and "move it"). The glyph = meaning; the
+       caret = the affordance to change it. The caret is the ONLY licensed mark
+       that lets a status read as changeable. Do not strip it. It is PERSISTENT
+       (not hover-revealed) when the value is both important-as-status and
+       changeable; the menu it opens stays hidden until clicked.
+       Inside that menu, status forms still hold: filled glyph = current value,
+       red TEXT for negative/destructive options, no full-strength fills.
+   APP ONLY — this and every rule in this file are app conventions; marketing
+   does not use the status family. Determine the surface first (design.md §4).
+   ======================================================================== */
+  --status-caret-size:           12px;   /* @kind spacing */   /* persistent affordance on actionable status */
+  --status-caret-ink:            var(--ink-muted);
+
+  /* positive / success / won / validated */
+  --status-positive-glyph:       #2DC4A8;
+  --status-positive-ink:         #2EA891;   /* 4.3:1 on #FCFAF7 */
+  --status-positive-tint:        #2DC4A81F;
+  --status-positive-border:      rgba(45, 196, 168, 0.30);
+
+  /* info / in-progress / early stage */
+  --status-info-glyph:           #187FE6;
+  --status-info-ink:             #187FE6;   /* 4.1:1 on #FCFAF7 */
+  --status-info-tint:            #187FE61F;
+  --status-info-border:          #187FE64D;
+
+  /* engaged / active deal motion — PROPOSED ADDITION (meaning-driven).
+     Needed: "actively being worked" is neither info, positive nor warning,
+     and the app already ships violet for Demo. Distinct from --action-primary
+     by form only: violet appears exclusively as glyph/tint, never as a fill. */
+  --status-engaged-glyph:        var(--raw-violet-500);
+  --status-engaged-ink:          #6E43B8;               /* PROPOSED, 4.5:1 */
+  --status-engaged-tint:         rgba(145, 101, 219, 0.12);
+  --status-engaged-border:       rgba(145, 101, 219, 0.30);
+
+  /* warning / attention / at risk */
+  --status-warning-glyph:        #D79910;
+  --status-warning-ink:          #D79910;   /* 3.3:1 on #FCFAF7 — glyph/tint pills only, not small text */
+  --status-warning-tint:         #FFC04C32;
+  --status-warning-border:       #FFC04C8C;
+
+  /* negative / error / loss / value below zero */
+  --status-negative-glyph:       #E04B2D;
+  --status-negative-ink:         #E04B2D;   /* 4.5:1 on #FCFAF7 */
+  --status-negative-tint:        rgba(245, 84, 52, 0.11);
+  --status-negative-border:      rgba(245, 84, 52, 0.28);
+
+  /* neutral / not started / dormant — the absence of state, explicitly named
+     so "no color" is a decision rather than an omission */
+  --status-neutral-glyph:        var(--raw-neutral-400);
+  --status-neutral-ink:          rgba(33, 33, 33, 0.55);
+  --status-neutral-tint:         #F4F2EF;
+  --status-neutral-border:       rgba(33, 33, 33, 0.07);
+
+  /* legacy bg/fg pair aliases (tokens/tokens.css TIER 2), updated to the
+     canonical tint/ink values above instead of their own near-duplicate hexes */
+  --app-status-success-bg:      var(--status-positive-tint);
+  --app-status-success-fg:      var(--status-positive-ink);
+  --app-status-info-bg:         var(--status-info-tint);
+  --app-status-info-fg:         var(--status-info-ink);
+  --app-status-warning-bg:      var(--status-warning-tint);
+  --app-status-warning-fg:      var(--status-warning-ink);
+  --app-status-danger-bg:       var(--status-negative-tint);
+  --app-status-danger-fg:       var(--status-negative-ink);
+
+
+/* ===========================================================================
+   DOMAIN MAP — Opportunity stages. Stages bind to status meanings; they do
+   NOT get private hues. Progression inside one meaning is expressed by GLYPH
+   FORM (hollow ring → filled dot), never by a new color.
+   ======================================================================== */
+  --stage-backlog:               var(--status-neutral-glyph);   /* hollow ring */
+  --stage-qualification:         var(--status-info-glyph);      /* hollow ring */
+  --stage-discovery:             var(--status-info-glyph);      /* filled dot  */
+  --stage-active:                var(--status-engaged-glyph);   /* hollow ring */
+  --stage-negotiation:           var(--status-warning-glyph);   /* filled dot  */
+  --stage-onboarding:            var(--status-positive-glyph);  /* hollow ring */
+  --stage-closed-won:            var(--status-positive-glyph);  /* filled dot  */
+  --stage-closed-lost:           var(--status-negative-glyph);  /* filled dot  */
+  --stage-glyph-size:            6px;   /* @kind spacing */
+  --stage-pill-radius:           6px;   /* @kind spacing */   /* Badge pill variant — primary-scanning-target stage cells */
+  --stage-pill-tint-strength:    45%;   /* @kind other */     /* tint mix vs --status-*-tint for the pill variant */
+  --stage-ring-stroke:           1.5px;   /* @kind other */
+
+/* ===========================================================================
+   DATA-VIZ — NOT a new palette. Same hues, reduced intensity, separate
+   lineage. Hues are IDENTITY SLOTS by data position; a teal segment means
+   "series two", never "positive".
+   Area marks (bar, donut, area): darker same-hue STROKE + lighter same-hue
+   FILL. The stroke is the contrast anchor. Fill is never used without it.
+   Line/sparkline marks: muted same-hue stroke only, no fill.
+   ======================================================================== */
+  --chart-1-stroke:      #6B3BC0;   --chart-1-fill:  rgba(129, 74, 222, 0.46);
+  --chart-2-stroke:      #1F9C85;   --chart-2-fill:  rgba(45, 196, 168, 0.46);
+  --chart-3-stroke:      #2F6FB5;   --chart-3-fill:  rgba(78, 144, 217, 0.46);
+  --chart-4-stroke:      #FFC04C;   --chart-4-fill:  #FFC04C4B;
+  --chart-5-stroke:      #6E43B8;   --chart-5-fill:  rgba(145, 101, 219, 0.42);
+  --chart-negative-stroke: #C4341A; --chart-negative-fill: rgba(245, 84, 52, 0.42);
+  --chart-total-stroke:  #3A3A3A;   --chart-total-fill: rgba(58, 58, 58, 0.32);
+
+  --chart-stroke-width:  1.5px;   /* @kind other */
+  --chart-line-stroke:   1.75px;   /* @kind other */    /* line marks: stroke only, no fill */
+  --chart-grid:          rgba(33, 33, 33, 0.08);
+  --chart-connector:     rgba(33, 33, 33, 0.18);   /* dashed waterfall links */
+  --chart-label-ink:     rgba(33, 33, 33, 0.55);
+
+  /* Sequential / part-of-whole: stepped intensity of ONE hue.
+     Floor is 40% — below that it fails at chart scale. */
+  --chart-seq-100:       rgba(129, 74, 222, 1.00);
+  --chart-seq-70:        rgba(129, 74, 222, 0.70);
+  --chart-seq-40:        rgba(129, 74, 222, 0.40);
+  --chart-fill-alpha-min: 0.18;   /* @kind other */   /* FLOOR — never fainter */
+  --chart-fill-alpha-max: 0.30;   /* @kind other */   /* CEILING — above this it competes with status */
+}
+
+/* ============================================================================
+   RULES THAT ARE NOT VALUES
+   ============================================================================
+
+   1. HOVER-REVEAL (progressive disclosure) — REQUIRED, PARTLY UNDEFINED TODAY.
+      Actions are not shown at rest. At rest a row/card shows content only,
+      optionally ONE persistent affordance (a ⋯ ghost icon at the row end, or a
+      single primary button on a flat screen) marking where actions live.
+      On hover of the row/card container, in this order and nothing else:
+        a. container gets --state-hover-bg (neutral tint, 0.15s ease-out);
+        b. the action cluster fades in at the row's trailing edge as
+           --action-tertiary ghost icons — outline/ink only, no brand color;
+        c. the single primary action in that cluster colorizes to
+           --action-primary ONLY on its own hover, not on row hover.
+      Reserve the cluster's space at rest (opacity 0, not display:none) so
+      nothing reflows. Never reveal more than three actions; the fourth and
+      beyond live behind ⋯. Keyboard focus triggers the identical reveal.
+      STATUS: the exact cluster contents per surface are undefined and will be
+      pinned by the first few designed screens. Treat the grammar above as
+      binding and the inventory as open.
+
+   2. GHOST FAMILY — one family, two forms. Labeled ghost button and icon-only
+      ghost action share: transparent bg, --action-tertiary-border,
+      --action-tertiary-ink, neutral hover tint, --radius-control (8px), no
+      brand color in any state. The only difference is padding and whether a
+      label is present. They must not drift apart.
+
+   3. FORM DISCIPLINE — the one rule that keeps action and status apart:
+        · Action colors appear as FILLS (purple, mint) or as nothing (ghost).
+        · Status colors appear as GLYPHS, QUIET TINTS or TEXT — never as a
+          full-strength fill, never on anything clickable-looking.
+      Consequence: MINT vs TEAL CAN NEVER BE MISREAD. Mint (#AEF3C8) only ever
+      exists as a ≥32px solid button fill with dark ink; teal (#2DC4A8) only
+      ever exists as a ≤9px glyph, a 12%-alpha tint or type. They never appear
+      in the same form, so hue proximity is moot. (They are also far apart:
+      L 91% vs 71%.)
+
+   4. DESTRUCTIVE vs NEGATIVE — RESOLVED: ONE red-orange, shared.
+      This is the single deliberate action/status overlap in the system.
+      Disambiguated by form, per rule 3:
+        · destructive ACTION  = --action-destructive-ink on a text/ghost
+          control (hit target, hover tint, label is a verb: "Delete");
+        · negative STATUS     = --status-negative-ink as plain type or a glyph
+          (no hit target, no hover, value or noun: "−$50K", "Closed lost").
+      Solid red fill is reserved for the confirm button inside a destructive
+      dialog — the only place red is ever a fill.
+
+   ----------------------------------------------------------------------------
+   FLAGS
+   ----------------------------------------------------------------------------
+   DISTINGUISHABILITY at glyph size (6–9px), same-form pairs only:
+   · teal #2DC4A8 vs the shipping "validated" green #2EA891 — 4 ΔE apart, NOT
+     distinguishable. They are the same meaning anyway: delete #2EA891, use
+     --status-positive-*. Same for #2FBFA0, #1D8A70 in avatar hues.
+   · violet #9165DB (status-engaged) vs lilac #A777F8 (shipping tab indicator
+     and bar fill) — not distinguishable. #A777F8 has no meaning in this set:
+     retire it. Tab indicator → --state-selected-indicator (purple 600);
+     bar fill → --chart-1-*.
+   · red #F55434 vs the shipping #F0503A (avatar) — indistinguishable and
+     unrelated meanings. Avatar hues must come from a separate identity ramp,
+     not from status colors; that collision is a real misread risk in the
+     opportunities table, where an avatar and a stage dot sit on one row.
+   · amber #C4952E vs avatar #A16A0A — same problem, same fix.
+   · OK pairs: blue vs teal (ΔE 38), violet vs blue (ΔE 30), amber vs red
+     (ΔE 44), neutral vs everything.
+
+   CONTRAST at small size on app neutrals #FCFAF7 / #FBFBFA:
+   · PASS as text (≥4.0:1): teal-700 4.3, blue-700 4.1, red-700 4.5,
+     engaged-ink 4.5, neutral-ink 7.4.
+   · FAIL as text — glyph-only, never type: teal-500 2.0, blue-500 2.9,
+     amber-500 2.6, red-500 3.2, violet-500 3.5, mint-200 1.2,
+     amber-700 #FFC04C 1.6 (CHANGED from #A66A14, which passed at 4.6).
+     CONSEQUENCE: the warning meaning currently has NO text-safe value —
+     --status-warning-ink must not be used as type until a darker amber ink is
+     supplied. Warning renders as glyph or tint only. Same for --chart-4-stroke:
+     at 1.6:1 it can no longer act as the contrast anchor for --chart-4-fill.
+     This is why every status meaning ships separate -glyph and -ink values.
+   · Glyphs at 6px clear 3:1 against both neutrals in all five status hues.
+   · Chart fills at the 0.18 alpha floor sit at ~1.3:1 — legible ONLY because
+     of the paired darker stroke. Never ship a fill without its stroke.
+
+   OPEN / PROPOSED (needs your yes):
+   · --status-engaged (violet) as a sixth meaning — justified by the domain
+     map (active stage); without it, "active" and "discovery" collapse.
+   · Six new derived hexes: purple hover/active, mint hover/active, blue-700,
+     red-700, engaged-ink. All are tonal steps of existing brand hues.
+   · A separate account-identity ramp for avatars, deliberately outside both
+     families (identity is neither action nor status). Currently nine hues
+     borrowed from status colors — the single biggest violation of the
+     closed set in the shipping app.
+   · Cyan #4CC3F0 (risk-reduction bar) maps to no meaning. As a chart series
+     it should become --chart-3 (blue). Retire the cyan.
+============================================================================ */

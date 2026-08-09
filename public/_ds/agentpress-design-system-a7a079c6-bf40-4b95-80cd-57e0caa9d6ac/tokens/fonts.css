@@ -1,0 +1,17 @@
+/* AgentPress — font loading.
+   --font-display: "NeuSans Book" — real file supplied, loaded below.
+   Instrument Sans stays in the stack as a fallback only.
+   --font-body: Archivo — canonical, loaded here. */
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Instrument+Sans:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap');
+@font-face{
+  font-family:"NeuSans Book";
+  src:url('../assets/fonts/NeuSansBook.woff2') format("woff2"),
+      url('../assets/fonts/NeuSansBook.woff') format("woff");
+  font-weight:400;
+  font-style:normal;
+  font-display:swap
+}
+:root{
+  --font-display: "NeuSans Book", "Instrument Sans", sans-serif;
+  --font-body: "Archivo", sans-serif;
+}
