@@ -245,12 +245,25 @@ function applyHomepageOverrides(page, legacyHero) {
 
   const integrationsHeading = findFirst(page.tree, (node) => textContent(node) === 'Connect what you already use');
   const integrationsSection = findParent(page.tree, integrationsHeading);
-  if (!integrationsHeading || !integrationsSection) throw new Error('The resolved homepage is missing the integrations section.');
+  const integrationsParent = findParent(page.tree, integrationsSection);
+  if (!integrationsHeading || !integrationsSection || !integrationsParent) {
+    throw new Error('The resolved homepage is missing the integrations section.');
+  }
   replaceText(integrationsHeading, 'Connect the tools you already use, in 10 minutes or less');
   addClass(integrationsSection, 'ap-integrations-section');
+  integrationsSection.props.style = String(integrationsSection.props.style ?? '')
+    .replace('padding: 100px 40px 0px;', 'padding: 36px 40px;')
+    .replace('min-height: 300px;', 'min-height: calc(100svh - 80px);')
+    .concat(' box-sizing: border-box; display: flex; flex-direction: column; justify-content: center;');
   walk(integrationsSection, (node) => {
     if (node.tag !== 'img' || !String(node.props?.src ?? '').startsWith('/assets/logos/')) return;
     addClass(findParent(integrationsSection, node), 'ap-integration-tool');
+  });
+  const integrationsIndex = integrationsParent.children.indexOf(integrationsSection);
+  integrationsParent.children.splice(integrationsIndex, 1, {
+    tag: 'div',
+    props: { class: 'ap-integrations-scroll' },
+    children: [integrationsSection],
   });
 
   const trustRow = findFirst(page.tree, (node) => hasClass(node, 'trustrow'));
