@@ -204,7 +204,7 @@
 
 .ap-integration-tool {
   opacity: 1;
-  transform: scale(0.75);
+  transform: scale(0.9);
   transform-origin: 50% 50%;
   transition: transform 100ms ease-out;
   will-change: transform;
@@ -780,6 +780,59 @@
   .ap-timeline-heading {
     position: static;
     padding: 64px 20px 32px;
+  }
+
+  .ap-timeline-flight-scroll {
+    display: block !important;
+    height: auto !important;
+    margin: 0 0 96px !important;
+    overflow: visible !important;
+  }
+
+  .ap-timeline-flight-sticky {
+    position: relative !important;
+    top: auto !important;
+    box-sizing: border-box;
+    height: auto !important;
+    overflow: visible !important;
+    padding: 0 20px;
+    background: none;
+  }
+
+  .ap-timeline-scene {
+    position: static !important;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 100% !important;
+    aspect-ratio: auto !important;
+    transform: none !important;
+    transform-style: flat;
+  }
+
+  .ap-timeline-backdrop {
+    display: none;
+  }
+
+  .ap-timeline-card-anchor {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: min(100%, 380px) !important;
+    margin: 0 auto;
+    transform: none !important;
+    transform-style: flat;
+  }
+
+  .ap-timeline-flight-card {
+    filter: drop-shadow(0 16px 22px rgba(39, 30, 83, 0.08)) !important;
+    transform: none !important;
+    transform-style: flat;
+    will-change: auto;
+  }
+
+  .ap-timeline-original-overview {
+    display: none !important;
   }
 
   .fstage {

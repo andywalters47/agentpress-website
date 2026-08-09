@@ -250,12 +250,12 @@ function installIntegrationAnimation() {
     const firstToolTop = tools[0].getBoundingClientRect().top;
     const progress = clamp(((viewportHeight * 0.92) - firstToolTop) / (viewportHeight * 0.62));
     const staggerSpan = 0.585;
-    const revealDuration = 0.165;
+    const revealDuration = 0.25;
 
     tools.forEach((tool, index) => {
       const start = (index / Math.max(1, tools.length - 1)) * staggerSpan;
       const toolProgress = range(progress, start, start + revealDuration);
-      const scale = keyframes(toolProgress, [0, 0.72, 1], [0.75, 1.16, 1]);
+      const scale = keyframes(toolProgress, [0, 0.72, 1], [0.9, 1.04, 1]);
       tool.style.opacity = '1';
       tool.style.transform = `scale(${scale.toFixed(4)})`;
     });
