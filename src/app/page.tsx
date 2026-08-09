@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { CtaBand } from '@/components/CtaBand';
 import { DealTimeline } from '@/components/DealTimeline';
+import { ScrollPrelude } from '@/components/ScrollPrelude';
 
 const featurePanels = [
   {
@@ -91,33 +92,7 @@ function CheckList({ items, color = '#212121' }: { items: string[]; color?: stri
 export default function Home() {
   return (
     <div className="home-page">
-      <section className="home-hero">
-        <div className="hero-dots" aria-hidden="true" />
-        <div className="site-container hero-inner">
-          <div className="hero-copy">
-            <h1>An AI Chief of Staff for Every Deal</h1>
-            <p>AgentPress is the first AI agent that understands how to keep complex SaaS deals moving forward. At every stage, it proactively delivers the deal intelligence, tailored assets, and executional support you need to win.</p>
-            <div className="hero-actions">
-              <Link className="button button-dark" href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" target="_blank" rel="noreferrer">Try now</Link>
-              <Link className="button button-outline" href="https://player.vimeo.com/video/1174466111" target="_blank" rel="noreferrer">Watch demo <span>▶</span></Link>
-            </div>
-          </div>
-          <div className="hero-art">
-            <Image src="/v3/assets/hero-v5.svg" alt="AgentPress preparing a seller for an enterprise meeting" width={696} height={650} priority />
-          </div>
-        </div>
-      </section>
-
-      <section className="intro-section">
-        <div className="site-container intro-grid">
-          <div><span className="eyebrow">Hello AgentPress</span></div>
-          <div>
-            <h2>You don&apos;t need a CRM.<br />You need a Chief of Staff.</h2>
-            <p>We built AgentPress because we were tired of manually keeping complex deals on track.</p>
-            <p>CRM hygiene does not win deals. Understanding the buyer, the value, and what needs to happen next does. AgentPress anticipates and delivers what you need to win, without waiting to be prompted.</p>
-          </div>
-        </div>
-      </section>
+      <ScrollPrelude />
 
       <DealTimeline />
 

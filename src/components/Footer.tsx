@@ -13,6 +13,7 @@ const footerGroups = [
     title: 'Product',
     links: [
       { label: 'Pricing', href: '/pricing' },
+      { label: 'Support', href: '/support' },
       { label: 'Docs', href: 'https://docs.agent.press/' },
       { label: 'Demo', href: 'https://calendar.app.google/AwUNqYVrSpUf1XeK8' },
     ],
