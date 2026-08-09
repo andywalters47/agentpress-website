@@ -6,6 +6,10 @@
   will-change: filter, opacity, transform;
 }
 
+.ap-intro-shell {
+  margin-top: calc(-100svh + 80px) !important;
+}
+
 .ap-manifesto-word,
 .ap-manifesto-supporting-word {
   display: inline-block;
@@ -87,6 +91,10 @@
 }
 
 @media (max-width: 767px) {
+  .ap-intro-shell {
+    margin-top: 0 !important;
+  }
+
   .ap-timeline-flight-scroll {
     height: 2940svh;
   }
@@ -102,6 +110,14 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .ap-hero-sequenced-wrap {
+    height: auto !important;
+  }
+
+  .ap-intro-shell {
+    margin-top: 0 !important;
+  }
+
   .ap-hero-motion {
     opacity: 1 !important;
     filter: none;

@@ -98,14 +98,66 @@
 
     intro.dataset.apAnimationInstalled = 'true';
     hero.classList.add('ap-hero-motion');
+    heroWrap.classList.add('ap-hero-sequenced-wrap');
+    intro.parentElement.classList.add('ap-intro-shell');
 
     if (reducedMotion.matches) return true;
 
     const introCopy = intro.children[1];
     const title = introCopy && introCopy.children[0];
     const paragraphs = introCopy ? Array.from(introCopy.querySelectorAll('p')) : [];
+    let firstLineWordCount = 0;
+    if (title) {
+      for (const child of title.childNodes) {
+        if (child.nodeName === 'BR') break;
+        firstLineWordCount += (child.textContent.match(/\S+/g) || []).length;
+      }
+    }
     const headlineWords = wrapWords(title, 'ap-manifesto-word');
-    const supportingWords = paragraphs.flatMap((paragraph) => wrapWords(paragraph, 'ap-manifesto-supporting-word'));
+    const headlineLines = [
+      headlineWords.slice(0, firstLineWordCount),
+      headlineWords.slice(firstLineWordCount),
+    ];
+    const supportingParagraphs = paragraphs.map((paragraph) => wrapWords(paragraph, 'ap-manifesto-supporting-word'));
+    const ink = [33, 33, 33];
+    const purple = [129, 74, 222];
+
+    const animateHeadlineBlock = (words, progress, blockStart, blockEnd) => {
+      const duration = blockEnd - blockStart;
+      words.forEach((word, index) => {
+        const wordStart = blockStart + ((index / Math.max(1, words.length)) * duration);
+        const wordEnd = blockStart + (((index + 1) / Math.max(1, words.length)) * duration);
+        const wordProgress = range(progress, wordStart, wordEnd);
+        const focus = 0.48;
+        const towardPurple = range(wordProgress, 0, focus);
+        const awayFromPurple = range(wordProgress, focus, 1);
+        const color = wordProgress <= focus
+          ? mixColor(ink, purple, towardPurple)
+          : mixColor(purple, ink, awayFromPurple);
+        const glow = wordProgress <= focus
+          ? mix(0, 0.88, towardPurple)
+          : mix(0.88, 0, awayFromPurple);
+        const rise = mix(8, 0, wordProgress);
+        const scale = keyframes(wordProgress, [0, focus, 1], [0.97, 1.035, 1]);
+
+        word.style.color = color;
+        word.style.opacity = String(range(wordProgress, 0, 0.34));
+        word.style.textShadow = `0 0 26px rgba(174, 243, 200, ${glow.toFixed(3)})`;
+        word.style.transform = `translateY(${rise.toFixed(2)}px) scale(${scale.toFixed(4)})`;
+      });
+    };
+
+    const animateSupportingBlock = (words, progress, blockStart, blockEnd) => {
+      const duration = blockEnd - blockStart;
+      words.forEach((word, index) => {
+        const wordStart = blockStart + ((index / Math.max(1, words.length)) * duration);
+        const wordEnd = blockStart + (((index + 1) / Math.max(1, words.length)) * duration);
+        const wordProgress = range(progress, wordStart, wordEnd);
+        word.style.color = `rgba(33, 33, 33, ${mix(0.32, 0.72, wordProgress).toFixed(3)})`;
+        word.style.opacity = String(wordProgress);
+        word.style.transform = `translateY(${mix(7, 0, wordProgress).toFixed(2)}px)`;
+      });
+    };
 
     const update = () => {
       const viewportHeight = window.innerHeight;
@@ -120,41 +172,13 @@
 
       const introRect = intro.getBoundingClientRect();
       const introProgress = clamp((viewportHeight * 0.9 - introRect.top) / Math.max(1, viewportHeight * 0.92));
-      const headlineProgress = 0.28 + (introProgress * 0.65);
-      const supportingProgress = 0.58 + (introProgress * 0.35);
-      const ink = [33, 33, 33];
-      const purple = [129, 74, 222];
 
-      headlineWords.forEach((word, index) => {
-        const start = 0.28 + ((index / Math.max(1, headlineWords.length)) * 0.48);
-        const focus = start + 0.045;
-        const settle = focus + 0.085;
-        const reveal = range(headlineProgress, start - 0.07, focus);
-        const rise = keyframes(headlineProgress, [start - 0.07, focus, settle], [8, 0, 0]);
-        const scale = keyframes(headlineProgress, [start - 0.07, focus, settle], [0.97, 1.035, 1]);
-        const towardPurple = range(headlineProgress, start - 0.07, focus);
-        const awayFromPurple = range(headlineProgress, focus, settle);
-        const color = headlineProgress <= focus
-          ? mixColor(ink, purple, towardPurple)
-          : mixColor(purple, ink, awayFromPurple);
-        const glow = headlineProgress <= focus
-          ? mix(0, 0.88, range(headlineProgress, start - 0.04, focus))
-          : mix(0.88, 0, awayFromPurple);
-
-        word.style.color = color;
-        word.style.opacity = String(reveal);
-        word.style.textShadow = `0 0 26px rgba(174, 243, 200, ${glow.toFixed(3)})`;
-        word.style.transform = `translateY(${rise.toFixed(2)}px) scale(${scale.toFixed(4)})`;
-      });
-
-      supportingWords.forEach((word, index) => {
-        const start = 0.58 + ((index / Math.max(1, supportingWords.length)) * 0.28);
-        const settle = start + 0.035;
-        const reveal = range(supportingProgress, start, settle);
-        word.style.color = `rgba(33, 33, 33, ${mix(0.32, 0.72, reveal).toFixed(3)})`;
-        word.style.opacity = String(reveal);
-        word.style.transform = `translateY(${mix(7, 0, reveal).toFixed(2)}px)`;
-      });
+      // Every block owns a non-overlapping window. Within each window, a word
+      // must fully settle before the next word is allowed to begin.
+      animateHeadlineBlock(headlineLines[0], introProgress, 0, 0.24);
+      animateHeadlineBlock(headlineLines[1], introProgress, 0.27, 0.52);
+      animateSupportingBlock(supportingParagraphs[0] || [], introProgress, 0.56, 0.73);
+      animateSupportingBlock(supportingParagraphs[1] || [], introProgress, 0.77, 1);
     };
 
     let frame = 0;
