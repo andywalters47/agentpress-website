@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
-import { DesignerDocument } from '@/components/DesignerDocument';
+import { NativeDesignerPage } from '@/components/NativeDesignerPage';
 
 export const metadata: Metadata = {
   title: 'AgentPress Privacy Policy | AgentPress',
 };
 
 export default function PrivacyPolicyPage() {
-  return <DesignerDocument source="PrivacyPolicy.dc.html" />;
+  return <NativeDesignerPage page="privacy" />;
 }

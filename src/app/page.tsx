@@ -1,5 +1,5 @@
-import { DesignerDocument } from '@/components/DesignerDocument';
+import { NativeDesignerPage } from '@/components/NativeDesignerPage';
 
 export default function HomePage() {
-  return <DesignerDocument source="index.html" animations />;
+  return <NativeDesignerPage page="home" />;
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { DesignerDocument } from '@/components/DesignerDocument';
+import { NativeDesignerPage } from '@/components/NativeDesignerPage';
 
 const title = 'Full-Stack AI Engineer | AgentPress';
 const description = 'AgentPress is hiring a full-time Full-Stack AI Engineer to build full-stack product, AI agent orchestration systems, and enterprise integrations.';
@@ -27,5 +27,5 @@ export const metadata: Metadata = {
 };
 
 export default function FullStackAiEngineerPage() {
-  return <DesignerDocument source="FullStackAiEngineer.dc.html" />;
+  return <NativeDesignerPage page="full-stack-ai-engineer" />;
 }

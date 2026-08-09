@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import Script from "next/script";
+import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.agent.press"),
@@ -27,12 +27,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <base href="/" />
+        <link rel="stylesheet" href="/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/fonts.css" />
+        <link rel="stylesheet" href="/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/icons.css" />
+        <link rel="stylesheet" href="/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/tokens.css" />
+        <link rel="stylesheet" href="/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/app-color-semantics.css" />
+        <link rel="stylesheet" href="/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/components/marketing/fig-tokens.css" />
+        <link rel="stylesheet" href="/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/styles.css" />
+        <link rel="stylesheet" href="/components/integrations/fig-assets.css" />
       </head>
-      <body suppressHydrationWarning>
-        <Script src="/support.js" strategy="beforeInteractive" />
-        {children}
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

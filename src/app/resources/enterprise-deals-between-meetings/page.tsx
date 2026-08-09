@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { DesignerDocument } from '@/components/DesignerDocument';
+import { NativeDesignerPage } from '@/components/NativeDesignerPage';
 
 export const metadata: Metadata = {
   title: 'Enterprise deals stall between meetings | AgentPress',
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function ArticlePage() {
-  return <DesignerDocument source="BlogPost.dc.html" />;
+  return <NativeDesignerPage page="article" />;
 }

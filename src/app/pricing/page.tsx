@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { DesignerDocument } from '@/components/DesignerDocument';
+import { NativeDesignerPage } from '@/components/NativeDesignerPage';
 
 export const metadata: Metadata = {
   title: 'Pricing | AgentPress',
@@ -7,5 +7,5 @@ export const metadata: Metadata = {
 };
 
 export default function PricingPage() {
-  return <DesignerDocument source="Pricing.dc.html" />;
+  return <NativeDesignerPage page="pricing" />;
 }

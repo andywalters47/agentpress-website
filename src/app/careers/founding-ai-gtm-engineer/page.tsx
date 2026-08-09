@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { DesignerDocument } from '@/components/DesignerDocument';
+import { NativeDesignerPage } from '@/components/NativeDesignerPage';
 
 const title = 'Founding AI GTM Engineer | AgentPress';
 const description = 'AgentPress is hiring a Founding AI GTM Engineer to build, run, and improve the AI-native system that produces qualified sales meetings.';
@@ -27,5 +27,5 @@ export const metadata: Metadata = {
 };
 
 export default function FoundingAiGtmEngineerPage() {
-  return <DesignerDocument source="FoundingAiGtmEngineer.dc.html" />;
+  return <NativeDesignerPage page="founding-ai-gtm-engineer" />;
 }
