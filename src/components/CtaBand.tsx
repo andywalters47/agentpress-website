@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export function CtaBand({
   heading = 'See it run on your own pipeline',
-  buttonLabel = 'Book a Demo',
+  buttonLabel = 'Start Now',
   href = 'https://calendar.app.google/AwUNqYVrSpUf1XeK8',
 }: {
   heading?: string;

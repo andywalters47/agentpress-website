@@ -127,10 +127,18 @@
   will-change: color, opacity, text-shadow, transform;
 }
 
+.ap-timeline-heading {
+  box-sizing: border-box;
+  max-width: var(--web-max-w-wide);
+  margin: 0 auto;
+  padding: 100px 40px 48px;
+  text-align: center;
+}
+
 .ap-timeline-flight-scroll {
   position: relative;
-  /* 1.33x the prior scroll speed, with all normalized motion curves intact. */
-  height: 2819.55svh;
+  /* 1.5x faster travel while preserving the normalized motion curves. */
+  height: 1879.7svh;
   margin: 0 0 140px;
   overflow: clip;
 }
@@ -190,9 +198,15 @@
   display: none !important;
 }
 
+.ap-integration-tool {
+  transform-origin: 50% 50%;
+  transition: box-shadow 140ms ease-out, filter 140ms ease-out, transform 140ms ease-out;
+  will-change: box-shadow, filter, transform;
+}
+
 @media (max-width: 900px) {
   .ap-timeline-flight-scroll {
-    height: 2526.32svh;
+    height: 1684.21svh;
   }
 
   .ap-timeline-scene {
@@ -206,7 +220,7 @@
 
 @media (max-width: 767px) {
   .ap-timeline-flight-scroll {
-    height: 2210.53svh;
+    height: 1473.69svh;
   }
 
   .ap-timeline-scene {

@@ -240,6 +240,45 @@ function installPreludeAnimation() {
   };
 }
 
+function installIntegrationAnimation() {
+  const section = document.querySelector<HTMLElement>('.ap-integrations-section');
+  const tools = section ? Array.from(section.querySelectorAll<HTMLElement>('.ap-integration-tool')) : [];
+  if (!section || !tools.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {};
+
+  const update = () => {
+    const rect = section.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const start = viewportHeight * 0.82;
+    const finish = (viewportHeight * 0.18) - rect.height;
+    const progress = clamp((start - rect.top) / Math.max(1, start - finish));
+    const sequence = progress * (tools.length - 1);
+    const sectionFocus = keyframes(progress, [0, 0.04, 0.96, 1], [0, 1, 1, 0]);
+
+    tools.forEach((tool, index) => {
+      const focus = clamp(1 - (Math.abs(sequence - index) / 0.82)) * sectionFocus;
+      const scale = 1 + (0.065 * focus);
+      const lift = -4 * focus;
+      tool.style.transform = `translate3d(0, ${lift.toFixed(2)}px, 0) scale(${scale.toFixed(4)})`;
+      tool.style.filter = `saturate(${(1 + (0.12 * focus)).toFixed(3)}) brightness(${(1 + (0.035 * focus)).toFixed(3)})`;
+      tool.style.boxShadow = `inset 0 0 0 0.886px rgba(217, 217, 217, 0.5), 0 ${(8 * focus).toFixed(2)}px ${(24 * focus).toFixed(2)}px rgba(45, 196, 168, ${(0.16 * focus).toFixed(3)})`;
+    });
+  };
+
+  let frame = 0;
+  const schedule = () => {
+    if (frame) return;
+    frame = requestAnimationFrame(() => { frame = 0; update(); });
+  };
+  window.addEventListener('scroll', schedule, { passive: true });
+  window.addEventListener('resize', schedule);
+  update();
+  return () => {
+    if (frame) cancelAnimationFrame(frame);
+    window.removeEventListener('scroll', schedule);
+    window.removeEventListener('resize', schedule);
+  };
+}
+
 function installTimelineAnimation() {
   const stage = document.querySelector<HTMLElement>('.ap-timeline-flight-scroll');
   const backdrop = stage?.querySelector<SVGElement>('.ap-timeline-backdrop');
@@ -256,19 +295,19 @@ function installTimelineAnimation() {
       const travelDuration = 0.1405;
       const stageInterval = travelDuration * 0.66;
       const stageIn = index * stageInterval;
-      const leftArrival = stageIn + travelDuration;
-      const queueX = 42.8 + (index * 0.8);
-      const queueY = (index - ((cards.length - 1) / 2)) * 2.5;
-      const completedX = -57.2 + (index * 0.8);
-      const completedY = (index - ((cards.length - 1) / 2)) * 2.2;
+      const completedArrival = stageIn + travelDuration;
+      const queueX = -42.8 - (index * 0.8);
+      const queueY = 0;
+      const completedX = 57.2 - (index * 0.8);
+      const completedY = 0;
       const approachShare = 1 / 3;
       const center = stageIn + (travelDuration * approachShare);
       let x = queueX;
-      if (progress >= leftArrival) {
+      if (progress >= completedArrival) {
         x = completedX;
       } else if (progress > stageIn) {
         const travelProgress = (progress - stageIn) / travelDuration;
-        const centerVelocity = -3;
+        const centerVelocity = 3;
         if (travelProgress <= approachShare) {
           x = cubicHermite(queueX, 0, 0, centerVelocity * approachShare, travelProgress / approachShare);
         } else {
@@ -277,7 +316,7 @@ function installTimelineAnimation() {
         }
       }
 
-      const y = keyframes(progress, [stageIn, center, leftArrival], [queueY, 0, completedY]);
+      const y = keyframes(progress, [stageIn, center, completedArrival], [queueY, 0, completedY]);
       const travelProgress = clamp((progress - stageIn) / travelDuration);
       const edgeScale = 0.96;
       const centerScale = 1.14;
@@ -289,14 +328,14 @@ function installTimelineAnimation() {
         ? mix(edgeScale, centerScale, easedScale)
         : mix(centerScale, edgeScale, easedScale);
       const perspectiveAmount = keyframes(travelProgress, [0, 1 / 6, 1 / 2, 1], [1, 0, 0, 1]);
-      let blur = 1.25;
+      let blur = 0.625;
       let shadowY = 16;
       let shadowBlur = 22;
       let shadowAlpha = 0.08;
-      if (progress > stageIn && progress < leftArrival) {
+      if (progress > stageIn && progress < completedArrival) {
         const edgeBand = 0.16;
-        const entranceBlur = travelProgress < edgeBand ? 1.25 * (1 - (travelProgress / edgeBand)) : 0;
-        const exitBlur = travelProgress > (1 - edgeBand) ? 1.25 * ((travelProgress - (1 - edgeBand)) / edgeBand) : 0;
+        const entranceBlur = travelProgress < edgeBand ? 0.625 * (1 - (travelProgress / edgeBand)) : 0;
+        const exitBlur = travelProgress > (1 - edgeBand) ? 0.625 * ((travelProgress - (1 - edgeBand)) / edgeBand) : 0;
         const focus = 1 - Math.min(1, Math.abs(travelProgress - 0.44) / 0.38);
         blur = Math.max(entranceBlur, exitBlur);
         shadowY = 16 + (12 * focus);
@@ -304,7 +343,7 @@ function installTimelineAnimation() {
         shadowAlpha = 0.08 + (0.12 * focus);
       }
       card.style.filter = `blur(${blur.toFixed(3)}px) drop-shadow(0 ${shadowY.toFixed(2)}px ${shadowBlur.toFixed(2)}px rgba(39, 30, 83, ${shadowAlpha.toFixed(3)}))`;
-      card.style.transform = `translate3d(${x.toFixed(4)}vw, ${y.toFixed(2)}px, 0) perspective(1500px) rotateX(${(5.25 * perspectiveAmount).toFixed(3)}deg) rotateY(${(-15 * perspectiveAmount).toFixed(3)}deg) skewY(${(-14 * perspectiveAmount).toFixed(3)}deg) scale(${scale.toFixed(4)})`;
+      card.style.transform = `translate3d(${x.toFixed(4)}vw, ${y.toFixed(2)}px, 0) perspective(1500px) rotateX(${(5.25 * perspectiveAmount).toFixed(3)}deg) rotateY(${(-15 * perspectiveAmount).toFixed(3)}deg) skewY(${(-10 * perspectiveAmount).toFixed(3)}deg) scale(${scale.toFixed(4)})`;
     });
   };
 
@@ -331,6 +370,7 @@ export function DesignerInteractions({ home }: { home: boolean }) {
         installLogoScale(),
         installFeatureSection(),
         installPreludeAnimation(),
+        installIntegrationAnimation(),
         installTimelineAnimation(),
       );
     }
