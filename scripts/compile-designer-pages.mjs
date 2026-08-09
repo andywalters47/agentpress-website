@@ -5,6 +5,13 @@ const captureDirectory = process.argv[2] ?? '/tmp/agentpress-native-capture-full
 const projectRoot = path.resolve(import.meta.dirname, '..');
 const outputPath = path.join(projectRoot, 'src/generated/designer-pages.json');
 const legacyHomepagePath = path.resolve(projectRoot, '..', 'agentpress-website-new-3.legacy-index.html');
+const manifestoCopy = {
+  title: 'AgentPress is the first AI sales agent that proactively delivers what your team needs to win.',
+  paragraphs: [
+    'We believe the next generation of great sellers will have great agents.',
+    "But a great agent is not a chatbot bolted to a CRM. It's a chief of staff that understands complex B2B deals and constantly works ahead to deliver the guidance, assets, and follow-through great execution requires.",
+  ],
+};
 
 function walk(node, visit) {
   if (!node || typeof node === 'string') return;
@@ -45,21 +52,16 @@ function decodeHtmlText(value) {
     .replace(/<[^>]+>/g, '');
 }
 
-function extractLegacyHomepageCopy(html) {
+function extractLegacyHomepageHero(html) {
   const hero = html.match(/<h1 class="h1 herorise" style="([^"]+)">([\s\S]*?)<\/h1>/);
-  const intro = html.match(
-    /<div style="flex:1;max-width:620px">\s*<div[^>]*>([\s\S]*?)<\/div>\s*<p[^>]*>([\s\S]*?)<\/p>\s*<p[^>]*>([\s\S]*?)<\/p>/,
-  );
 
-  if (!hero || !intro) {
-    throw new Error(`Could not extract the authoritative homepage copy from ${legacyHomepagePath}`);
+  if (!hero) {
+    throw new Error(`Could not extract the authoritative homepage hero from ${legacyHomepagePath}`);
   }
 
   return {
     heroStyle: hero[1],
     heroTitle: decodeHtmlText(hero[2]),
-    manifestoTitle: decodeHtmlText(intro[1]),
-    manifestoParagraphs: [decodeHtmlText(intro[2]), decodeHtmlText(intro[3])],
   };
 }
 
@@ -70,7 +72,7 @@ function wordNodes(text, className, style) {
   });
 }
 
-function applyLegacyHomepage(page, legacyCopy) {
+function applyHomepageOverrides(page, legacyHero) {
   removeNodes(page.tree, (node) => (
     String(node.props?.class ?? '').split(/\s+/).includes('dtpin')
   ));
@@ -88,8 +90,8 @@ function applyLegacyHomepage(page, legacyCopy) {
     node.tag === 'h1' && textContent(node) === 'Win more deals with the team you already have.'
   ));
   if (!heroTitle) throw new Error('The resolved homepage is missing its hero heading.');
-  heroTitle.props.style = legacyCopy.heroStyle;
-  heroTitle.children = [legacyCopy.heroTitle];
+  heroTitle.props.style = legacyHero.heroStyle;
+  heroTitle.children = [legacyHero.heroTitle];
 
   const intro = findFirst(page.tree, (node) => (
     node.tag === 'div' && String(node.props?.class ?? '').split(/\s+/).includes('introrow')
@@ -109,12 +111,12 @@ function applyLegacyHomepage(page, legacyCopy) {
 
   title.props['data-ap-words-wrapped'] = 'true';
   title.children = wordNodes(
-    legacyCopy.manifestoTitle,
+    manifestoCopy.title,
     'ap-manifesto-word',
     'color: rgb(33, 33, 33); opacity: 0; text-shadow: rgba(174, 243, 200, 0) 0px 0px 26px; transform: translateY(8px) scale(0.97);',
   );
 
-  legacyCopy.manifestoParagraphs.forEach((paragraphText, index) => {
+  manifestoCopy.paragraphs.forEach((paragraphText, index) => {
     const paragraph = paragraphs[index];
     if (!paragraph || typeof paragraph === 'string') return;
     paragraph.props['data-ap-words-wrapped'] = 'true';
@@ -127,7 +129,7 @@ function applyLegacyHomepage(page, legacyCopy) {
 }
 
 const legacyHomepage = await readFile(legacyHomepagePath, 'utf8');
-const legacyCopy = extractLegacyHomepageCopy(legacyHomepage);
+const legacyHero = extractLegacyHomepageHero(legacyHomepage);
 const files = (await readdir(captureDirectory)).filter((file) => file.endsWith('.json')).sort();
 const pages = {};
 
@@ -136,7 +138,7 @@ for (const file of files) {
   // This font face is injected by the Next development overlay and is not
   // part of the designer export. Every designer-authored style is retained.
   page.styles = page.styles.filter((css) => !css.includes("font-family:'__nextjs-Geist'"));
-  if (page.key === 'home') applyLegacyHomepage(page, legacyCopy);
+  if (page.key === 'home') applyHomepageOverrides(page, legacyHero);
   pages[page.key] = page;
 }
 
