@@ -23,7 +23,7 @@ const faqCopy = [
   },
   {
     question: 'Does AgentPress replace our CRM?',
-    answer: 'No. Your CRM stays the system of record. AgentPress connects the tools your team already uses, understands the context scattered across them, and turns that context into useful work instead of more data entry.',
+    answer: 'AgentPress can be your complete standalone CRM. If your team already uses HubSpot or Salesforce, AgentPress can also work with either platform as the CRM system of record while it handles the work around the deal.',
   },
   {
     question: 'What can we connect, and how long does setup take?',
@@ -39,7 +39,7 @@ const faqCopy = [
   },
   {
     question: 'Is our customer and deal data secure?',
-    answer: 'Yes. AgentPress is SOC 2 Type II certified, and your data is never used to train a shared model. It is built for the security expectations that come with selling into enterprise accounts.',
+    answer: 'Yes. AgentPress is SOC 2 Type II certified and built for the security expectations that come with selling into enterprise accounts.',
   },
 ];
 
@@ -97,6 +97,16 @@ function removeNodes(root, predicate) {
     typeof child === 'string' || !predicate(child)
   ));
   for (const child of root.children) removeNodes(child, predicate);
+}
+
+function removeTextFragment(root, fragment) {
+  if (!root || typeof root === 'string') return;
+  root.children = (root.children ?? []).map((child) => (
+    typeof child === 'string' && child.includes(fragment)
+      ? child.replace(fragment, '').trim()
+      : child
+  ));
+  for (const child of root.children) removeTextFragment(child, fragment);
 }
 
 function decodeHtmlText(value) {
@@ -245,25 +255,12 @@ function applyHomepageOverrides(page, legacyHero) {
 
   const integrationsHeading = findFirst(page.tree, (node) => textContent(node) === 'Connect what you already use');
   const integrationsSection = findParent(page.tree, integrationsHeading);
-  const integrationsParent = findParent(page.tree, integrationsSection);
-  if (!integrationsHeading || !integrationsSection || !integrationsParent) {
-    throw new Error('The resolved homepage is missing the integrations section.');
-  }
+  if (!integrationsHeading || !integrationsSection) throw new Error('The resolved homepage is missing the integrations section.');
   replaceText(integrationsHeading, 'Connect the tools you already use, in 10 minutes or less');
   addClass(integrationsSection, 'ap-integrations-section');
-  integrationsSection.props.style = String(integrationsSection.props.style ?? '')
-    .replace('padding: 100px 40px 0px;', 'padding: 36px 40px;')
-    .replace('min-height: 300px;', 'min-height: calc(100svh - 80px);')
-    .concat(' box-sizing: border-box; display: flex; flex-direction: column; justify-content: center;');
   walk(integrationsSection, (node) => {
     if (node.tag !== 'img' || !String(node.props?.src ?? '').startsWith('/assets/logos/')) return;
     addClass(findParent(integrationsSection, node), 'ap-integration-tool');
-  });
-  const integrationsIndex = integrationsParent.children.indexOf(integrationsSection);
-  integrationsParent.children.splice(integrationsIndex, 1, {
-    tag: 'div',
-    props: { class: 'ap-integrations-scroll' },
-    children: [integrationsSection],
   });
 
   const trustRow = findFirst(page.tree, (node) => hasClass(node, 'trustrow'));
@@ -295,6 +292,7 @@ for (const file of files) {
   // part of the designer export. Every designer-authored style is retained.
   page.styles = page.styles.filter((css) => !css.includes("font-family:'__nextjs-Geist'"));
   if (page.key === 'home') applyHomepageOverrides(page, legacyHero);
+  removeTextFragment(page.tree, 'Your data never trains a model.');
   applySitewideCtaCopy(page);
   pages[page.key] = page;
 }

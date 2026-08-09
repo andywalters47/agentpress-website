@@ -241,30 +241,23 @@ function installPreludeAnimation() {
 }
 
 function installIntegrationAnimation() {
-  const track = document.querySelector<HTMLElement>('.ap-integrations-scroll');
   const section = document.querySelector<HTMLElement>('.ap-integrations-section');
   const tools = section ? Array.from(section.querySelectorAll<HTMLElement>('.ap-integration-tool')) : [];
-  if (!track || !section || !tools.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {};
+  if (!section || !tools.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {};
 
   const update = () => {
-    const rect = track.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
-    const stickyHeight = Math.max(1, viewportHeight - 80);
-    const progress = clamp((-rect.top) / Math.max(1, rect.height - stickyHeight));
-    const sequence = progress * (tools.length - 1);
+    const firstToolTop = tools[0].getBoundingClientRect().top;
+    const progress = clamp(((viewportHeight * 0.92) - firstToolTop) / (viewportHeight * 0.62));
+    const staggerSpan = 0.585;
+    const revealDuration = 0.165;
 
     tools.forEach((tool, index) => {
-      const rawFocus = clamp(1 - (Math.abs(sequence - index) / 0.92));
-      const focus = rawFocus * rawFocus * (3 - (2 * rawFocus));
-      const scale = 0.92 + (0.26 * focus);
-      const lift = -14 * focus;
-      const rotate = (index % 2 === 0 ? -1 : 1) * 1.35 * focus;
-      tool.style.setProperty('--ap-tool-focus', focus.toFixed(4));
-      tool.style.zIndex = String(2 + Math.round(10 * focus));
-      tool.style.opacity = (0.52 + (0.48 * focus)).toFixed(3);
-      tool.style.transform = `translate3d(0, ${lift.toFixed(2)}px, 0) rotate(${rotate.toFixed(3)}deg) scale(${scale.toFixed(4)})`;
-      tool.style.filter = `grayscale(${(0.2 * (1 - focus)).toFixed(3)}) saturate(${(0.72 + (0.58 * focus)).toFixed(3)}) brightness(${(0.93 + (0.12 * focus)).toFixed(3)})`;
-      tool.style.boxShadow = `inset 0 0 0 0.886px rgba(217, 217, 217, 0.5), 0 ${(18 * focus).toFixed(2)}px ${(46 * focus).toFixed(2)}px rgba(45, 196, 168, ${(0.28 * focus).toFixed(3)}), 0 0 ${(34 * focus).toFixed(2)}px rgba(129, 74, 222, ${(0.18 * focus).toFixed(3)})`;
+      const start = (index / Math.max(1, tools.length - 1)) * staggerSpan;
+      const toolProgress = range(progress, start, start + revealDuration);
+      const scale = keyframes(toolProgress, [0, 0.72, 1], [0.06, 1.16, 1]);
+      tool.style.opacity = String(range(toolProgress, 0, 0.2));
+      tool.style.transform = `scale(${scale.toFixed(4)})`;
     });
   };
 

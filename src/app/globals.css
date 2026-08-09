@@ -202,33 +202,17 @@
   display: none !important;
 }
 
-.ap-integrations-scroll {
-  position: relative;
-  height: 220svh;
-}
-
-.ap-integrations-section {
-  position: sticky;
-  top: 80px;
-  z-index: 1;
-}
-
 .ap-integration-tool {
-  opacity: 0.52;
+  opacity: 0;
+  transform: scale(0.06);
   transform-origin: 50% 50%;
-  transition: box-shadow 180ms ease-out, filter 180ms ease-out, opacity 180ms ease-out, transform 180ms ease-out;
-  will-change: box-shadow, filter, opacity, transform;
+  transition: opacity 100ms linear, transform 100ms ease-out;
+  will-change: opacity, transform;
 }
 
-.ap-integration-tool::after {
-  position: absolute;
-  inset: -6px;
-  border: 2px solid rgba(45, 196, 168, calc(var(--ap-tool-focus, 0) * 0.72));
-  border-radius: 19px;
-  box-shadow: 0 0 22px rgba(174, 243, 200, calc(var(--ap-tool-focus, 0) * 0.65));
-  content: "";
-  opacity: var(--ap-tool-focus, 0);
-  pointer-events: none;
+.ap-integrations-section > .eyebrow {
+  align-self: center;
+  width: max-content;
 }
 
 @media (max-width: 900px) {
@@ -261,21 +245,9 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ap-integrations-scroll {
-    height: auto;
-  }
-
-  .ap-integrations-section {
-    position: relative;
-    top: auto;
-  }
-
   .ap-integration-tool {
     opacity: 1;
-  }
-
-  .ap-integration-tool::after {
-    display: none;
+    transform: none;
   }
 
   .ap-prelude-scroll {
@@ -400,4 +372,472 @@
   content: "";
   opacity: 0.35;
   pointer-events: none;
+}
+
+/* Responsive guardrails for the designer-authored marketing pages. The
+   generated markup uses a desktop min-width and several fixed dimensions;
+   keep those values for desktop while allowing the shared shell and page
+   sections to reflow on smaller viewports. */
+#dc-root,
+#dc-root > .sc-host,
+#dc-root > .sc-host > div {
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+#dc-root [style*="min-width: 1180px"],
+#dc-root [style*="min-width:1180px"],
+#dc-root .page {
+  min-width: 0 !important;
+}
+
+#dc-root {
+  width: 100%;
+  overflow-x: clip;
+}
+
+.pill {
+  min-height: 44px;
+}
+
+@media (max-width: 1024px) {
+  .navwrap {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    padding: 14px 16px 0 !important;
+  }
+
+  .navbar {
+    box-sizing: border-box !important;
+    width: min(100%, 760px) !important;
+    gap: 12px !important;
+    padding: 10px 10px 10px 16px !important;
+  }
+
+  .navbar > a:first-child {
+    flex: 0 1 auto;
+    min-width: 0;
+  }
+
+  .navbar > a:first-child img {
+    max-width: 100%;
+  }
+
+  .navlinks {
+    display: none !important;
+  }
+
+  .navtoggle {
+    display: flex !important;
+    flex: 0 0 44px;
+    width: 44px !important;
+    min-width: 44px;
+    height: 44px !important;
+  }
+
+  .navpanel {
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    right: 16px !important;
+    left: 16px !important;
+    z-index: 30 !important;
+    box-sizing: border-box;
+    flex-direction: column !important;
+    gap: 2px !important;
+    padding: 12px !important;
+    border: 1px solid #aaa69e22 !important;
+    border-radius: 16px !important;
+    background: #fdfaf4 !important;
+    box-shadow: 0 12px 30px rgba(127, 100, 170, 0.14) !important;
+  }
+
+  .navpanel.open {
+    display: flex !important;
+  }
+
+  .navpanel a {
+    display: flex !important;
+    align-items: center;
+    box-sizing: border-box;
+    min-height: 44px;
+    padding: 12px 10px !important;
+    font-size: 16px !important;
+  }
+
+  .navpanel .btn-nav {
+    justify-content: center;
+  }
+
+  /* Home: use the same readable static composition on touch-sized screens
+     instead of forcing desktop scrollytelling through a narrow viewport. */
+  .ap-prelude-scroll {
+    height: auto !important;
+  }
+
+  .ap-prelude-sticky {
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    clip-path: none !important;
+  }
+
+  .ap-prelude-sticky > .heropinwrap,
+  .ap-prelude-sticky > .ap-intro-shell {
+    position: relative !important;
+    inset: auto !important;
+    height: auto !important;
+  }
+
+  .ap-prelude-sticky .herostage,
+  .herostage {
+    position: relative !important;
+    inset: auto !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .herorow {
+    box-sizing: border-box !important;
+    flex-direction: column !important;
+    gap: 36px !important;
+    width: 100% !important;
+    max-width: 760px !important;
+    margin: 0 auto !important;
+    padding: 72px 24px 64px !important;
+    text-align: center;
+  }
+
+  .herocol {
+    width: 100% !important;
+    max-width: 640px !important;
+    flex: 1 1 auto !important;
+  }
+
+  .herocol h1 {
+    width: auto !important;
+    max-width: 100% !important;
+    margin-inline: auto !important;
+    font-size: clamp(40px, 6.5vw, 50px) !important;
+    text-wrap: balance;
+  }
+
+  .herocol p {
+    width: auto !important;
+    max-width: 620px !important;
+    height: auto !important;
+    margin: 18px auto 0 !important;
+    font-size: clamp(17px, 2.6vw, 20px) !important;
+    line-height: 1.55 !important;
+  }
+
+  .heroctas {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    margin-top: 28px !important;
+  }
+
+  .heroartcol {
+    box-sizing: border-box;
+    width: 100% !important;
+    max-width: 640px !important;
+    min-height: 0 !important;
+    align-self: center !important;
+    justify-content: center !important;
+  }
+
+  .heroart.ap-hero-layered {
+    width: min(100%, 600px) !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  .ap-hero-motion {
+    opacity: 1 !important;
+    filter: none !important;
+    transform: none !important;
+  }
+
+  .ap-intro-shell {
+    display: block !important;
+    box-sizing: border-box;
+    opacity: 1 !important;
+    padding: 72px 0 !important;
+    transform: none !important;
+  }
+
+  .ap-intro-shell .introrow {
+    box-sizing: border-box !important;
+    flex-direction: column !important;
+    gap: 28px !important;
+    width: 100% !important;
+    max-width: 760px !important;
+    margin: 0 auto !important;
+    padding: 0 24px !important;
+    transform: none !important;
+  }
+
+  .ap-intro-shell .introrow > div {
+    box-sizing: border-box;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .ap-manifesto-word,
+  .ap-manifesto-supporting-word {
+    color: inherit !important;
+    opacity: 1 !important;
+    text-shadow: none !important;
+    transform: none !important;
+  }
+
+  .ap-timeline-flight-scroll {
+    display: none !important;
+  }
+
+  .ap-timeline-original-overview {
+    display: block !important;
+    box-sizing: border-box;
+    width: min(92%, 900px) !important;
+    margin: 0 auto 96px !important;
+  }
+
+  .featpin {
+    height: auto !important;
+  }
+
+  .fstage {
+    position: static !important;
+    display: block !important;
+    box-sizing: border-box;
+    height: auto !important;
+    padding: 0 30px !important;
+  }
+
+  .fstack {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 96px !important;
+  }
+
+  .frow {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 32px !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  .frow .fade[style*="640px"] {
+    width: 100% !important;
+    max-width: 640px !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+  }
+
+  .frow object {
+    position: absolute !important;
+    right: -8px !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  .ftext {
+    min-height: 0 !important;
+  }
+
+  .fade {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+
+  .fnav,
+  .fsent {
+    display: none !important;
+  }
+
+  .trustrow,
+  .rolesrow,
+  .secrow,
+  .faqrow {
+    box-sizing: border-box !important;
+    flex-direction: column !important;
+    gap: 36px !important;
+    width: 100% !important;
+  }
+
+  .ap-integrations-section {
+    box-sizing: border-box;
+    width: 100%;
+    padding-right: 24px !important;
+    padding-left: 24px !important;
+  }
+
+  /* Pricing */
+  .plancards {
+    box-sizing: border-box !important;
+    flex-direction: column !important;
+    gap: 24px !important;
+    width: 100% !important;
+    padding: 64px 24px 0 !important;
+  }
+
+  .plancards > div {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 0 !important;
+    padding: 40px !important;
+  }
+
+  .seatsrow {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  .useline {
+    box-sizing: border-box;
+    width: 100% !important;
+    padding: 20px 0 !important;
+    border-right: 0 !important;
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .useline:last-child {
+    border-bottom: 0;
+  }
+
+  /* Resources */
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 20px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .herorow {
+    gap: 28px !important;
+    padding: 56px 20px 48px !important;
+  }
+
+  .herocol h1 {
+    font-size: clamp(36px, 10.5vw, 42px) !important;
+  }
+
+  .heroctas > * {
+    box-sizing: border-box;
+    min-height: 48px;
+  }
+
+  .ap-intro-shell {
+    padding: 56px 0 !important;
+  }
+
+  .ap-intro-shell .introrow {
+    padding: 0 20px !important;
+  }
+
+  .ap-timeline-heading {
+    position: static;
+    padding: 64px 20px 32px;
+  }
+
+  .fstage {
+    padding: 0 20px !important;
+  }
+
+  .fstack {
+    gap: 72px !important;
+  }
+
+  .plancards {
+    gap: 16px !important;
+    padding: 48px 16px 0 !important;
+  }
+
+  .plancards > div {
+    padding: 28px 24px !important;
+    border-radius: 20px !important;
+  }
+
+  .check {
+    align-items: flex-start !important;
+  }
+
+  .check span {
+    line-height: 1.4;
+  }
+
+  .pgrp {
+    margin-bottom: 52px;
+  }
+
+  .pgrp h3 {
+    font-size: 21px;
+  }
+
+  .pt {
+    table-layout: fixed;
+  }
+
+  .pt th,
+  .pt td {
+    padding: 13px 6px !important;
+    font-size: 13px !important;
+    line-height: 1.35;
+    overflow-wrap: anywhere;
+  }
+
+  .pt th:first-child,
+  .pt td:first-child {
+    width: auto !important;
+    padding-left: 0 !important;
+    padding-right: 10px !important;
+  }
+
+  .pt th:nth-child(2),
+  .pt td:nth-child(2) {
+    width: 64px !important;
+    text-align: center;
+  }
+
+  .pt th:nth-child(3),
+  .pt td:nth-child(3) {
+    width: 72px !important;
+    padding-right: 0 !important;
+    text-align: center;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 16px !important;
+  }
+
+  .card {
+    min-width: 0;
+  }
+
+  .ptitle {
+    font-size: 19px !important;
+  }
+
+  .footrow {
+    flex-direction: column !important;
+    gap: 36px !important;
+  }
+
+  .footcols {
+    flex-wrap: wrap !important;
+    gap: 24px !important;
+    margin-left: 0 !important;
+  }
+
+  .footbar {
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+  }
+
+  .fcol {
+    width: calc(50% - 12px) !important;
+  }
 }
