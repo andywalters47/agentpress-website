@@ -6,8 +6,9 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicy() {
   return (
-    <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <h1 className="text-4xl font-bold tracking-tight text-ap-dark-blue mb-2">AgentPress Privacy Policy</h1>
+    <div className="legal-page max-w-3xl mx-auto px-5 sm:px-8 py-20 md:py-28">
+      <span className="eyebrow mb-5">Legal</span>
+      <h1 className="text-5xl md:text-6xl tracking-normal text-ap-dark-blue mb-3">AgentPress Privacy Policy</h1>
       <p className="text-sm text-muted-foreground mb-12">Last updated: August 8, 2026</p>
 
       <div className="prose prose-slate max-w-none [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-ap-dark-blue [&_h2]:mt-10 [&_h2]:mb-4 [&_p]:text-muted-foreground [&_p]:leading-relaxed [&_p]:mb-4 [&_ul]:text-muted-foreground [&_ul]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_li]:mb-1">

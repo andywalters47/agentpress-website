@@ -1,28 +1,22 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 
-const inter = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.agent.press"),
-  title: "AgentPress | AI Generated Business Value Cases",
-  description: "Win bigger deals without manually building business cases. Our business value agent instantly generates cases that win 35% more deal value.",
+  title: "AgentPress | An AI Chief of Staff for Every Deal",
+  description: "AgentPress proactively delivers the deal intelligence, tailored assets, and executional support enterprise sellers need to win.",
   openGraph: {
-    title: "AgentPress | AI Generated Business Value Cases",
-    description: "Win bigger deals without manually building business cases. Our business value agent instantly generates cases that win 35% more deal value.",
-    images: [{ url: "/agentpress_og_image.png", width: 1200, height: 630, alt: "AgentPress - Win Bigger Deals Without Manually Building Business Cases" }],
+    title: "AgentPress | An AI Chief of Staff for Every Deal",
+    description: "Deal intelligence, tailored assets, and executional support for complex SaaS sales.",
+    images: [{ url: "/agentpress_og_image.png", width: 1200, height: 630, alt: "AgentPress — An AI Chief of Staff for Every Deal" }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AgentPress | AI Generated Business Value Cases",
-    description: "Win bigger deals without manually building business cases. Our business value agent instantly generates cases that win 35% more deal value.",
+    title: "AgentPress | An AI Chief of Staff for Every Deal",
+    description: "Deal intelligence, tailored assets, and executional support for complex SaaS sales.",
     images: ["/agentpress_og_image.png"],
   },
 };
@@ -34,11 +28,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
+      <body>
         <Navbar />
-        <main className="pt-16">
-          {children}
-        </main>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>

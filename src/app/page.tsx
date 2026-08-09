@@ -1,127 +1,241 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { BusinessValueAgentDemo } from '@/components/BusinessValueAgentDemo';
-import { AdditionalAgents } from '@/components/AdditionalAgents';
-import { SocialProofLogos } from '@/components/SocialProofLogos';
-import { ValueMetricCards } from '@/components/ValueMetricCards';
-import { ValueProcessFlow } from '@/components/ValueProcessFlow';
-import { Testimonial } from '@/components/Testimonial';
-import { Integrations } from '@/components/Integrations';
-import { PersonaUseCases } from '@/components/PersonaUseCases';
+import { CtaBand } from '@/components/CtaBand';
+import { DealTimeline } from '@/components/DealTimeline';
 
-// Simple SVG Icons to replace emojis without external dependencies - REMOVED AS UNUSED
+const featurePanels = [
+  {
+    number: '01',
+    title: 'Shorter sales cycles',
+    body: 'Enterprise deals do not stall during meetings. They stall in the days between them, waiting on a follow-up, a deck, or a business case nobody has had time to build. AgentPress closes those gaps while you are working other deals.',
+    background: '/v3/assets/grad1.jpg',
+    image: '/v3/assets/feature-1-art.svg',
+    alt: 'Meeting prep view for an enterprise opportunity',
+  },
+  {
+    number: '02',
+    title: 'Excellence, every deal',
+    body: 'Your strongest outcomes come from consistent preparation, sharp discovery, credible value, and disciplined follow-through. AgentPress turns those winning behaviors into a repeatable operating standard.',
+    background: '/v3/assets/grad2.jpg',
+    image: '/v3/assets/feature-2-screenshot.png',
+    alt: 'Opportunity dashboard with foundations and recent documents',
+  },
+  {
+    number: '03',
+    title: 'More deals per rep',
+    body: 'Selling into enterprise means a handful of accounts, each demanding real attention. When the work between meetings takes care of itself, the same team carries more of it.',
+    background: '/v3/assets/grad3.jpg',
+    image: '/v3/assets/feature-3-screenshot.png',
+    alt: 'Pipeline overview with opportunity assessment',
+  },
+];
+
+const integrationLogos = [
+  ['salesforce', 'Salesforce'],
+  ['hubspot', 'HubSpot'],
+  ['gmail', 'Gmail'],
+  ['calendar', 'Google Calendar'],
+  ['outlook', 'Outlook'],
+  ['slack', 'Slack'],
+  ['fireflies-mark', 'Fireflies.ai'],
+  ['confluence', 'Confluence'],
+  ['gong', 'Gong'],
+  ['granola', 'Granola'],
+];
+
+const enterpriseColumns = [
+  {
+    icon: '/v3/assets/icon-layers.svg',
+    title: 'Buyer Collaboration & Value',
+    color: '#814ade',
+    items: ['Live Value Model', 'Value Hypothesis', 'Interactive Business Case', 'Meeting Deck Creation', 'Interactive Deal Room & Agent'],
+  },
+  {
+    icon: '/v3/assets/icon-pyramid.svg',
+    title: 'Rep Enablement & Execution',
+    color: '#6c89ff',
+    items: ['Pre-Call Roleplay', 'Post-Call Coaching & Scorecard', 'Full Email Management', 'Mutual Action Plans', 'Proactive Briefs & Alerts'],
+  },
+  {
+    icon: '/v3/assets/icon-venn.svg',
+    title: 'Deal Intelligence & Governance',
+    color: '#2dc4a8',
+    items: ['Meeting Prep', 'Discovery Questions', 'Stakeholder Mapping', 'Deal Health & Next-Best Action', 'Pipeline Command Center'],
+  },
+];
+
+const certifications = [
+  ['/v3/assets/badge-soc2.png', 'SOC 2', 'Certified'],
+  ['/v3/assets/badge-iso.png', 'ISO 27001', 'In progress'],
+  ['/v3/assets/badge-hipaa.png', 'HIPAA', 'In progress'],
+  ['/v3/assets/badge-gdpr.png', 'GDPR', 'Compliant'],
+];
+
+const faqs = [
+  ['What does AgentPress replace?', 'AgentPress sits across the tools you already use. It turns CRM, email, call, and calendar context into coordinated deal execution instead of asking sellers to maintain another system by hand.'],
+  ['How quickly can a team get started?', 'Teams can connect their core systems and begin with live opportunities. The rollout is designed around the workflows and value language your sellers already use.'],
+  ['Does AgentPress train on our data?', 'No. Customer data is isolated and is never used to train a model. AgentPress is SOC 2 Type II certified and designed for enterprise procurement.'],
+  ['What results can we expect?', 'Teams typically see faster cycle times, higher win rates on qualified deals, and business cases buyers actually circulate.'],
+];
+
+function CheckList({ items, color = '#212121' }: { items: string[]; color?: string }) {
+  return (
+    <ul className="check-list">
+      {items.map((item) => (
+        <li key={item}><span style={{ background: color }}>✓</span>{item}</li>
+      ))}
+    </ul>
+  );
+}
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative pt-10 md:pt-20 pb-0">
-        <div className="section-container">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-3xl md:text-7xl font-bold tracking-tight mb-8">
-              Win Bigger Deals Without Manually Building Business Cases
-            </h1>
-            <p className="text-xl text-muted-foreground mb-10 max-w-3xl mx-auto">
-              AgentPress helps AEs sell on value by researching accounts and building custom business cases in seconds
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" className="btn-primary w-full sm:w-auto px-8 bg-black hover:bg-zinc-800">
-                Schedule Demo →
-              </Link>
+    <div className="home-page">
+      <section className="home-hero">
+        <div className="hero-dots" aria-hidden="true" />
+        <div className="site-container hero-inner">
+          <div className="hero-copy">
+            <h1>An AI Chief of Staff for Every Deal</h1>
+            <p>AgentPress is the first AI agent that understands how to keep complex SaaS deals moving forward. At every stage, it proactively delivers the deal intelligence, tailored assets, and executional support you need to win.</p>
+            <div className="hero-actions">
+              <Link className="button button-dark" href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" target="_blank" rel="noreferrer">Try now</Link>
+              <Link className="button button-outline" href="https://player.vimeo.com/video/1174466111" target="_blank" rel="noreferrer">Watch demo <span>▶</span></Link>
             </div>
           </div>
-          
-          <div className="mt-8">
-            <BusinessValueAgentDemo />
+          <div className="hero-art">
+            <Image src="/v3/assets/hero-v5.svg" alt="AgentPress preparing a seller for an enterprise meeting" width={696} height={650} priority />
           </div>
         </div>
       </section>
 
-      <SocialProofLogos />
+      <section className="intro-section">
+        <div className="site-container intro-grid">
+          <div><span className="eyebrow">Hello AgentPress</span></div>
+          <div>
+            <h2>You don&apos;t need a CRM.<br />You need a Chief of Staff.</h2>
+            <p>We built AgentPress because we were tired of manually keeping complex deals on track.</p>
+            <p>CRM hygiene does not win deals. Understanding the buyer, the value, and what needs to happen next does. AgentPress anticipates and delivers what you need to win, without waiting to be prompted.</p>
+          </div>
+        </div>
+      </section>
 
-      <section className="relative pt-0 pb-0">
-        <div className="section-container !pt-0 !pb-0">
-          
-          {/* Revenue Leakage Highlight */}
-          <div className="mb-12 md:mb-20 max-w-5xl mx-auto px-4">
-            <div className="text-center mb-8 md:mb-16 pt-12 md:pt-24">
-              <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl mx-auto leading-[1.1]">
-                Your team is <span className="relative inline-block whitespace-nowrap px-2">
-                  <span className="relative z-10 text-ap-dark-blue">losing 35%</span>
-                  <span className="absolute bottom-2 left-0 w-full h-[40%] bg-ap-teal/40 -rotate-1" />
-                </span> on every deal because no one has time to build a business case.
-              </h2>
-            </div>
+      <DealTimeline />
 
-            {/* Visual: Revenue Leakage Progress Bar */}
-            <div className="relative max-w-4xl mx-auto pt-0 pb-12 md:pb-20 px-2 sm:px-0">
-              
-              <div className="relative h-auto md:h-24 w-full bg-white rounded-3xl shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-border overflow-hidden flex flex-col md:flex-row p-2 gap-2 md:gap-0">
-                <div className="min-h-[100px] md:min-h-0 md:h-full bg-ap-teal rounded-2xl relative flex items-center px-6 md:px-8 group transition-all duration-700 shadow-inner w-full md:w-[65%]">
-                   <div className="text-white py-3 md:py-0">
-                      <div className="text-[10px] font-black uppercase tracking-widest opacity-60 mb-0.5">Revenue Captured</div>
-                      <div className="text-2xl md:text-3xl font-black leading-none">$65,000</div>
-                   </div>
-                   {/* Decorative Shine */}
-                   <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1500" />
-                </div>
-                
-                <div className="min-h-[80px] md:min-h-0 md:h-full bg-slate-50 relative flex items-center px-6 md:px-8 overflow-hidden rounded-2xl md:rounded-l-none md:rounded-r-2xl w-full md:w-[35%]">
-                  {/* Stripes Pattern for "Lost" area */}
-                  <div className="absolute inset-0 opacity-[0.03] grayscale" style={{ backgroundImage: 'linear-gradient(45deg, #000 25%, transparent 25%, transparent 50%, #000 50%, #000 75%, transparent 75%, transparent)' , backgroundSize: '20px 20px' }} />
-                  <div className="relative z-10 py-3 md:py-0">
-                      <div className="text-red-500/80 text-[10px] font-black uppercase tracking-widest mb-0.5">Lost Opportunity</div>
-                      <div className="text-2xl md:text-3xl font-black text-red-500 leading-none">$35,000</div>
-                  </div>
-                </div>
+      <section className="logo-wall">
+        <div className="site-container">
+          <p>SaaS teams selling into enterprise</p>
+          <div className="logo-wall-lockup">
+            <Image src="/v3/assets/logos.svg" alt="Anaconda, HiveMQ, LocalFalcon, and Advanse" width={780} height={110} />
+            <Image className="quivly-logo" src="/v3/assets/quivly-logo.png" alt="Quivly" width={124} height={45} />
+          </div>
+        </div>
+      </section>
+
+      <section className="features-section">
+        <div className="site-container feature-list">
+          {featurePanels.map((feature, index) => (
+            <article className={`feature-row${index % 2 ? ' reverse' : ''}`} key={feature.number}>
+              <div className="feature-visual" style={{ backgroundImage: `url(${feature.background})` }}>
+                <Image src={feature.image} alt={feature.alt} width={650} height={590} />
               </div>
-              
-            </div>
-          </div>
-
-          <div className="mb-8 md:mb-16">
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-ap-dark-blue leading-[1.1] max-w-5xl">
-              AgentPress uses patented AI to generate accurate business cases that <span className="relative inline-block px-2">
-                <span className="relative z-10">win</span>
-                <span className="absolute bottom-2 left-0 w-full h-[35%] bg-ap-teal/40 -rotate-1" />
-              </span>
-            </h2>
-          </div>
-
-          <ValueMetricCards />
-
-          <ValueProcessFlow />
+              <div className="feature-copy">
+                <span className="eyebrow">{feature.number}</span>
+                <h2>{feature.title}</h2>
+                <p>{feature.body}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
-      <Testimonial />
-
-      <Integrations />
-
-      <PersonaUseCases />
-
-      <section className="pt-8 pb-32 text-center bg-slate-50/30">
-        <div className="section-container !pt-0">
-          <div className="max-w-5xl mx-auto px-4">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight max-w-4xl mx-auto leading-[1.1] mb-10">
-              Ready to close <span className="relative inline-block whitespace-nowrap px-2">
-                <span className="relative z-10 text-ap-dark-blue">bigger deals?</span>
-                <span className="absolute bottom-2 left-0 w-full h-[40%] bg-ap-teal/40 -rotate-1" />
-              </span>
-            </h2>
-            <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
-              Join the forward-thinking revenue teams that use AgentPress to close bigger deals faster.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Link href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" className="btn-primary w-full sm:w-auto px-10 bg-black hover:bg-zinc-800 text-lg">
-                Schedule Demo →
-              </Link>
-            </div>
+      <section className="integrations-section">
+        <div className="site-container centered-heading">
+          <span className="eyebrow">Integrations</span>
+          <h2>Connect what you already use</h2>
+          <div className="integration-grid">
+            {integrationLogos.map(([file, label]) => (
+              <div className="integration-logo" key={file}>
+                <Image src={`/v3/assets/logos/${file}.svg`} alt={label} width={98} height={52} />
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Additional Agents Section */}
-      <AdditionalAgents />
+      <section className="enterprise-section">
+        <div className="site-container">
+          <span className="eyebrow">Built for enterprise</span>
+          <h2 className="section-title enterprise-title">AgentPress was built around the way enterprise deals move, by people who&apos;ve run them.</h2>
+          <div className="enterprise-grid">
+            {enterpriseColumns.map((column) => (
+              <article key={column.title}>
+                <Image src={column.icon} alt="" width={200} height={200} />
+                <h3>{column.title}</h3>
+                <CheckList items={column.items} color={column.color} />
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="security-section">
+        <div className="site-container security-row">
+          <div>
+            <span className="eyebrow">Security</span>
+            <h2>AgentPress is built to pass procurement</h2>
+            <p>SOC 2 Type II certified. Your data never trains a model.</p>
+          </div>
+          <div className="certifications">
+            {certifications.map(([src, alt, label]) => (
+              <div key={alt}>
+                <Image src={src} alt={alt} width={64} height={64} />
+                <span>{label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="roles-section">
+        <div className="site-container centered-heading">
+          <span className="eyebrow">Roles</span>
+          <h2>One system for the whole revenue team</h2>
+          <p>Whether you&apos;re closing in three weeks or nine months</p>
+          <div className="role-grid">
+            <article>
+              <h3>Sellers</h3>
+              <p>The work between meetings takes care of itself. Prep before every call, follow-up drafted before you would have gotten to it, and materials your buyer can actually use.</p>
+              <CheckList items={['Higher meeting conversion rates', 'Instant account research', 'Personalized outreach at scale']} />
+            </article>
+            <article>
+              <h3>Sales managers</h3>
+              <p>See which deals are moving and which have gone quiet, without chasing anyone for an update. Every rep executes at the same standard.</p>
+              <CheckList items={['Accelerate procurement cycles', 'Empower champions with ROI data', 'Standardize business case quality']} />
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section className="faq-section">
+        <div className="site-container faq-grid">
+          <div>
+            <h2>Frequently<br />Asked Questions</h2>
+            <p>Here are answers to common questions about us.</p>
+            <strong>Still have questions?</strong>
+            <Link href="https://calendar.app.google/AwUNqYVrSpUf1XeK8" target="_blank" rel="noreferrer">Schedule a call →</Link>
+          </div>
+          <div>
+            {faqs.map(([question, answer]) => (
+              <details key={question}>
+                <summary>{question}<span>+</span></summary>
+                <p>{answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <CtaBand />
     </div>
   );
 }
