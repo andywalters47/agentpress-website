@@ -1,5 +1,22 @@
 import type { Metadata } from "next";
+import localFont from "next/font/local";
 import "./globals.css";
+
+const archivo = localFont({
+  src: "../../public/fonts/ArchivoVariable.woff2",
+  variable: "--font-archivo",
+  display: "swap",
+  preload: true,
+  fallback: ["Arial", "sans-serif"],
+});
+
+const neuSans = localFont({
+  src: "../../public/fonts/NeuSans-Book.woff2",
+  variable: "--font-neu-sans",
+  display: "swap",
+  preload: true,
+  fallback: ["Arial", "sans-serif"],
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.agent.press"),
@@ -25,16 +42,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="stylesheet" href="/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/fonts.css" />
-        <link rel="stylesheet" href="/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/icons.css" />
-        <link rel="stylesheet" href="/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/tokens.css" />
-        <link rel="stylesheet" href="/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/app-color-semantics.css" />
-        <link rel="stylesheet" href="/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/components/marketing/fig-tokens.css" />
-        <link rel="stylesheet" href="/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/styles.css" />
-        <link rel="stylesheet" href="/components/integrations/fig-assets.css" />
-      </head>
+    <html lang="en" className={`${archivo.variable} ${neuSans.variable} agentpress-fonts`}>
       <body>{children}</body>
     </html>
   );

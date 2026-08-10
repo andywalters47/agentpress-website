@@ -1,3 +1,65 @@
+@import "../../public/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/tokens.css";
+@import "../../public/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/app-color-semantics.css";
+@import "../../public/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/components/marketing/fig-tokens.css";
+@import "../../public/components/integrations/fig-assets.css";
+
+.agentpress-fonts {
+  --font-display: var(--font-neu-sans), Arial, sans-serif;
+  --font-body: var(--font-archivo), Arial, sans-serif;
+}
+
+/* Ten small inline masks replace the 821 KB Tabler icon webfont. */
+.ti {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex: 0 0 auto;
+  background-color: currentColor;
+  vertical-align: -0.125em;
+  -webkit-mask: var(--ap-icon) center / contain no-repeat;
+  mask: var(--ap-icon) center / contain no-repeat;
+}
+
+.ti-arrow-right {
+  --ap-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.ti-circle-caret-right {
+  --ap-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='white' stroke-width='1.7'/%3E%3Cpath d='m10 8 4 4-4 4' fill='none' stroke='white' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.ti-menu-2 {
+  --ap-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M4 6h16M4 12h16M4 18h16' fill='none' stroke='white' stroke-width='1.7' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.ti-message-2-search {
+  --ap-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M8 18 4 21v-5a8 8 0 1 1 14.5-4.7' fill='none' stroke='white' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='16' r='3' fill='none' stroke='white' stroke-width='1.6'/%3E%3Cpath d='m18.2 18.2 2.3 2.3' fill='none' stroke='white' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.ti-minus {
+  --ap-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M5 12h14' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.ti-plus {
+  --ap-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 5v14M5 12h14' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.ti-refresh {
+  --ap-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M20 11a8.1 8.1 0 0 0-15.5-2M4 4v5h5M4 13a8.1 8.1 0 0 0 15.5 2M20 20v-5h-5' fill='none' stroke='white' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.ti-report-analytics {
+  --ap-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 3h9l4 4v14H6zM14 3v5h5M9 17v-3M12 17v-6M15 17v-2' fill='none' stroke='white' stroke-width='1.55' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+.ti-route {
+  --ap-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='6' cy='19' r='2' fill='none' stroke='white' stroke-width='1.6'/%3E%3Ccircle cx='18' cy='5' r='2' fill='none' stroke='white' stroke-width='1.6'/%3E%3Cpath d='M8 19h3a3 3 0 0 0 3-3V8a3 3 0 0 1 3-3' fill='none' stroke='white' stroke-width='1.6' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.ti-x {
+  --ap-icon: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m6 6 12 12M18 6 6 18' fill='none' stroke='white' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
 .ap-hero-motion {
   opacity: var(--ap-hero-opacity, 1) !important;
   filter: opacity(var(--ap-hero-filter-opacity, 1));
@@ -128,15 +190,15 @@
 }
 
 .ap-timeline-heading {
-  position: sticky;
-  top: 104px;
+  position: relative;
   z-index: 5;
   box-sizing: border-box;
   max-width: var(--web-max-w-wide);
   margin: 0 auto;
-  padding: 24px 40px 36px;
+  padding: 56px 40px 28px;
   text-align: center;
   pointer-events: none;
+  will-change: opacity, transform;
 }
 
 .ap-timeline-flight-scroll {
@@ -144,7 +206,7 @@
   /* Release the sticky scene when the final card reaches 66% of its journey,
      while preserving the established physical pace of each card. */
   height: 1161.87svh;
-  margin: 0 0 140px;
+  margin: 0;
   overflow: clip;
 }
 

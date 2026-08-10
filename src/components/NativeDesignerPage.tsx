@@ -74,6 +74,45 @@ const booleanAttributes = new Set([
   'selected',
 ]);
 
+const optimizedAssetSources: Record<string, string> = {
+  '/assets/grad1.jpg': '/assets/grad1.webp',
+  '/assets/grad2.jpg': '/assets/grad2.webp',
+  '/assets/grad3.jpg': '/assets/grad3.webp',
+  '/assets/feature-2-screenshot.png': '/assets/feature-2-screenshot.webp',
+  '/assets/feature-3-screenshot.png': '/assets/feature-3-screenshot.webp',
+  '/assets/badge-soc2.png': '/assets/badge-soc2.webp',
+  '/assets/badge-iso.png': '/assets/badge-iso.webp',
+  '/assets/badge-hipaa.png': '/assets/badge-hipaa.webp',
+  '/assets/badge-gdpr.png': '/assets/badge-gdpr.webp',
+  '/assets/quivly-logo.png': '/assets/quivly-logo.webp',
+};
+
+const responsiveAssetSources: Record<string, string> = {
+  '/assets/feature-2-screenshot.png': '/assets/feature-2-screenshot-mobile.webp 360w, /assets/feature-2-screenshot.webp 693w',
+  '/assets/feature-3-screenshot.png': '/assets/feature-3-screenshot-mobile.webp 360w, /assets/feature-3-screenshot.webp 690w',
+};
+
+const assetDimensions: Record<string, { width: number; height: number }> = {
+  '/assets/grad1.jpg': { width: 521, height: 521 },
+  '/assets/grad2.jpg': { width: 520, height: 521 },
+  '/assets/grad3.jpg': { width: 521, height: 521 },
+  '/assets/feature-2-screenshot.png': { width: 693, height: 537 },
+  '/assets/feature-3-screenshot.png': { width: 690, height: 537 },
+  '/assets/badge-soc2.png': { width: 121, height: 121 },
+  '/assets/badge-iso.png': { width: 121, height: 121 },
+  '/assets/badge-hipaa.png': { width: 121, height: 121 },
+  '/assets/badge-gdpr.png': { width: 121, height: 121 },
+  '/assets/quivly-logo.png': { width: 298, height: 90 },
+};
+
+function optimizedAssetSource(source: string) {
+  return optimizedAssetSources[source] ?? source;
+}
+
+function optimizeStyleAssetReferences(style: string) {
+  return style.replaceAll('assets/sub-footer.jpg', '/assets/sub-footer.webp');
+}
+
 function splitDeclarations(style: string) {
   const declarations: string[] = [];
   let current = '';
@@ -117,7 +156,7 @@ function cssPropertyName(property: string) {
 
 function parseStyle(style: string): CSSProperties {
   const parsed: Record<string, string> = {};
-  for (const declaration of splitDeclarations(style)) {
+  for (const declaration of splitDeclarations(optimizeStyleAssetReferences(style))) {
     const colon = declaration.indexOf(':');
     if (colon < 0) continue;
     const property = declaration.slice(0, colon).trim();
@@ -130,7 +169,12 @@ function parseStyle(style: string): CSSProperties {
 function toReactProps(props: Record<string, string>) {
   const converted: Record<string, unknown> = {};
   for (const [htmlName, value] of Object.entries(props)) {
-    if (htmlName === 'ref' || htmlName.startsWith('on')) continue;
+    if (
+      htmlName === 'ref'
+      || htmlName.startsWith('on')
+      || htmlName === 'data-dc-tpl'
+      || htmlName === 'data-sc-name'
+    ) continue;
     const reactName = reactAttributeNames[htmlName] ?? htmlName;
     if (reactName === 'style') {
       converted.style = parseStyle(value);
@@ -160,7 +204,16 @@ function NativeImageSlot({ node, nodeKey }: { node: DesignerNode; nodeKey: strin
       aria-label={placeholder}
     >
       {src ? (
-        <img src={src} alt={placeholder} draggable={false} />
+        // Designer image slots need their exported geometry and styling intact.
+        // Responsive variants and lazy loading are assigned directly here.
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={optimizedAssetSource(src)}
+          alt={placeholder}
+          draggable={false}
+          loading="lazy"
+          decoding="async"
+        />
       ) : (
         <div className="native-image-slot__empty">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -179,8 +232,45 @@ function renderNode(node: DesignerNode | string, nodeKey: string): ReactNode {
   if (typeof node === 'string') return node;
   if (node.tag === 'image-slot') return <NativeImageSlot key={nodeKey} node={node} nodeKey={nodeKey} />;
 
+  if (node.tag === 'object' && String(node.props.data ?? '').endsWith('.svg')) {
+    const objectProps = toReactProps(node.props);
+    delete objectProps.data;
+    delete objectProps.type;
+    const source = String(node.props.data);
+    return createElement('img', {
+      ...objectProps,
+      key: nodeKey,
+      className: `${String(objectProps.className ?? '')} ap-lazy-svg-object`.trim(),
+      src: source,
+      alt: String(objectProps['aria-label'] ?? ''),
+      loading: 'lazy',
+      decoding: 'async',
+    });
+  }
+
   const children = node.children.map((child, index) => renderNode(child, `${nodeKey}.${index}`));
-  return createElement(node.tag, { ...toReactProps(node.props), key: nodeKey }, ...children);
+  const reactProps = toReactProps(node.props);
+  if (node.tag === 'img') {
+    const originalSource = String(reactProps.src ?? '');
+    const className = String(reactProps.className ?? '');
+    const isHeroBackground = className.includes('ap-hero-background');
+    const isHeroLayer = className.includes('ap-hero-layer');
+    const isNavigationLogo = originalSource.includes('AP_landscape_for_light_bg.svg');
+    reactProps.src = optimizedAssetSource(originalSource);
+    if (responsiveAssetSources[originalSource]) {
+      reactProps.srcSet = responsiveAssetSources[originalSource];
+      reactProps.sizes = '(max-width: 600px) 92vw, 639px';
+    }
+    if (assetDimensions[originalSource]) {
+      reactProps.width ??= assetDimensions[originalSource].width;
+      reactProps.height ??= assetDimensions[originalSource].height;
+    }
+    reactProps.loading = isHeroBackground || isHeroLayer || isNavigationLogo ? 'eager' : 'lazy';
+    reactProps.decoding = isHeroBackground ? 'sync' : 'async';
+    reactProps.fetchPriority = isHeroBackground ? 'high' : isHeroLayer ? 'low' : 'auto';
+  }
+  if (node.tag === 'iframe') reactProps.loading = 'lazy';
+  return createElement(node.tag, { ...reactProps, key: nodeKey }, ...children);
 }
 
 export function NativeDesignerPage({ page }: { page: DesignerPageKey }) {
@@ -189,7 +279,9 @@ export function NativeDesignerPage({ page }: { page: DesignerPageKey }) {
 
   return (
     <>
-      {design.styles.map((css, index) => (
+      {design.styles.filter((css) => (
+        !css.includes('html.sc-dc-streaming') && css.trim() !== 'x-dc{display:none!important}'
+      )).map((css, index) => (
         <style key={`${page}-style-${index}`} data-designer-style={page}>{css}</style>
       ))}
       {renderNode(design.tree, page)}

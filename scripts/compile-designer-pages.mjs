@@ -13,6 +13,23 @@ const manifestoCopy = {
   ],
 };
 const heroDescription = 'AgentPress gives every complex B2B deal an AI agent that prepares your team, uncovers the business case, and does the legwork behind every close.';
+const featureCopy = [
+  {
+    number: '01',
+    title: 'Keep every deal moving',
+    paragraph: 'Complex deals rarely stall in meetings. They stall between them, waiting on a follow-up, a deck, a business case, or a next step no one has pushed forward. AgentPress delivers what the opportunity needs next before momentum disappears.',
+  },
+  {
+    number: '02',
+    title: 'Make great execution repeatable',
+    paragraph: 'Your best sellers prepare deeply, uncover value, build champions, and follow through. AgentPress turns those behaviors into a consistent operating standard, so every rep executes every opportunity with the same discipline.',
+  },
+  {
+    number: '03',
+    title: 'Carry more deals with the same team',
+    paragraph: 'Complex opportunities require real attention, even when the pipeline is full. AgentPress handles the preparation, assets, and follow-through behind each deal, giving the same team the capacity to pursue more opportunities without lowering the standard.',
+  },
+];
 const timelineCardTitles = [
   'Pre-call research and roleplay',
   'Deck preparation',
@@ -425,6 +442,27 @@ function applyHomepageOverrides(page, legacyHero) {
     );
   });
 
+  const featureRows = [];
+  walk(page.tree, (node) => {
+    if (hasClass(node, 'frow')) featureRows.push(node);
+  });
+  if (featureRows.length !== featureCopy.length) {
+    throw new Error(`Expected ${featureCopy.length} homepage feature rows, found ${featureRows.length}.`);
+  }
+  featureRows.forEach((row, index) => {
+    const copy = featureCopy[index];
+    const eyebrow = findFirst(row, (node) => hasClass(node, 'eyebrow'));
+    const heading = findFirst(row, (node) => node.tag === 'h2' && hasClass(node, 'h1'));
+    const paragraph = findFirst(row, (node) => node.tag === 'p');
+    if (!eyebrow || !heading || !paragraph) {
+      throw new Error(`The resolved homepage feature row ${index + 1} changed unexpectedly.`);
+    }
+    replaceText(eyebrow, copy.number);
+    replaceText(heading, copy.title);
+    replaceText(paragraph, copy.paragraph);
+    paragraph.props.style = String(paragraph.props.style ?? '').replace('height: 123px;', 'height: auto;');
+  });
+
   const timelineScroll = findFirst(page.tree, (node) => hasClass(node, 'ap-timeline-flight-scroll'));
   const timelineParent = findParent(page.tree, timelineScroll);
   if (!timelineScroll || !timelineParent) throw new Error('The resolved homepage is missing the timeline section.');
@@ -468,6 +506,18 @@ function applyHomepageOverrides(page, legacyHero) {
       },
     ],
   });
+
+  const customerLogoHeading = findFirst(page.tree, (node) => (
+    node.tag === 'div'
+    && node.children?.length === 1
+    && node.children[0] === 'SaaS teams selling into enterprise'
+  ));
+  const customerLogoStrip = customerLogoHeading && findParent(page.tree, customerLogoHeading);
+  if (!customerLogoHeading || !customerLogoStrip) {
+    throw new Error('The resolved homepage is missing its customer logo strip.');
+  }
+  customerLogoStrip.props.style = String(customerLogoStrip.props.style ?? '')
+    .replace('padding: 80px 0px 24px;', 'padding: 36px 0px 24px;');
 
   const integrationsHeading = findFirst(page.tree, (node) => textContent(node) === 'Connect what you already use');
   const integrationsSection = findParent(page.tree, integrationsHeading);
