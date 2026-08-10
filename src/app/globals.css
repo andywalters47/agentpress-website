@@ -141,8 +141,9 @@
 
 .ap-timeline-flight-scroll {
   position: relative;
-  /* 1.5x faster travel while preserving the normalized motion curves. */
-  height: 1879.7svh;
+  /* Seven-card sequence: preserve the tuned per-card scroll time without the
+     empty distance left behind by the three removed cards. */
+  height: 1315.79svh;
   margin: 0 0 140px;
   overflow: clip;
 }
@@ -217,7 +218,7 @@
 
 @media (max-width: 900px) {
   .ap-timeline-flight-scroll {
-    height: 1684.21svh;
+    height: 1178.95svh;
   }
 
   .ap-timeline-scene {
@@ -231,7 +232,7 @@
 
 @media (max-width: 767px) {
   .ap-timeline-flight-scroll {
-    height: 1473.69svh;
+    height: 1031.58svh;
   }
 
   .ap-timeline-scene {

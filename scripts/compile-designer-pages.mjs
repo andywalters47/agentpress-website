@@ -13,6 +13,41 @@ const manifestoCopy = {
   ],
 };
 const heroDescription = 'AgentPress gives every complex B2B deal an AI agent that prepares your team, uncovers the business case, and does the legwork behind every close.';
+const timelineCardTitles = [
+  'Pre-call research and roleplay',
+  'Deck preparation',
+  'Live on-screen assistance',
+  'Post-call coaching and scorecard',
+  'Automatic stakeholder map',
+  'Follow-up emails',
+  'One-page value hypothesis',
+  'CFO-ready business case',
+  'Deal room and action plan',
+  'Quiet deal nudges',
+];
+const removedTimelineCardTitles = new Set([
+  'Live on-screen assistance',
+  'One-page value hypothesis',
+  'Quiet deal nudges',
+]);
+const roleCopy = {
+  Sellers: {
+    paragraph: 'AgentPress works ahead of every opportunity. It prepares you for each meeting, turns discovery into a credible business case, and delivers the follow-through that keeps complex deals moving.',
+    bullets: [
+      'Walk into every meeting prepared',
+      'Turn discovery into a compelling business case',
+      'Keep stakeholders and next steps moving',
+    ],
+  },
+  'Sales managers': {
+    paragraph: 'AgentPress turns the habits of your best sellers into a consistent operating standard across the team. See where every deal is strong, where it’s exposed, and what needs to happen next, while the agent works ahead to close the gaps.',
+    bullets: [
+      'Consistent execution across every rep',
+      'Earlier visibility into risk and deal gaps',
+      'Coaching focused on the moments that matter',
+    ],
+  },
+};
 const faqCopy = [
   {
     question: 'Is AgentPress built for a team our size?',
@@ -374,7 +409,21 @@ function applyHomepageOverrides(page, legacyHero) {
   walk(timelineScroll, (node) => {
     if (hasClass(node, 'ap-timeline-flight-card')) timelineCards.push(node);
   });
+  if (timelineCards.length !== timelineCardTitles.length) {
+    throw new Error(`Expected ${timelineCardTitles.length} timeline cards, found ${timelineCards.length}.`);
+  }
+  const removedTimelineAnchors = new Set();
   timelineCards.forEach((card, index) => {
+    card.props['aria-label'] = timelineCardTitles[index];
+    if (removedTimelineCardTitles.has(timelineCardTitles[index])) {
+      removedTimelineAnchors.add(findParent(timelineScroll, card));
+    }
+  });
+  removeNodes(timelineScroll, (node) => removedTimelineAnchors.has(node));
+  const activeTimelineCards = timelineCards.filter((_, index) => (
+    !removedTimelineCardTitles.has(timelineCardTitles[index])
+  ));
+  activeTimelineCards.forEach((card, index) => {
     const queueX = Number((-50 - (index * 0.8)).toFixed(1));
     card.props.style = String(card.props.style ?? '')
       .replace(/translate3d\(([-\d.]+vw), [-\d.]+px, 0px\)/, `translate3d(${queueX}vw, 0px, 0px)`)
@@ -416,6 +465,25 @@ function applyHomepageOverrides(page, legacyHero) {
   const securityHeading = findFirst(page.tree, (node) => textContent(node) === 'AgentPress is built to pass procurement');
   if (!securityHeading) throw new Error('The resolved homepage is missing the security heading.');
   replaceText(securityHeading, 'AgentPress is secure');
+
+  for (const [roleName, copy] of Object.entries(roleCopy)) {
+    const roleHeading = findFirst(page.tree, (node) => textContent(node) === roleName);
+    const roleCard = findParent(page.tree, roleHeading);
+    const roleParagraph = roleCard?.children?.find((node) => typeof node !== 'string' && node.tag === 'p');
+    const roleChecklist = roleCard?.children?.find((node) => (
+      typeof node !== 'string' && node.props?.style?.includes('margin-top: 28px')
+    ));
+    const roleChecks = roleChecklist?.children?.filter((node) => typeof node !== 'string' && hasClass(node, 'check')) ?? [];
+    if (!roleHeading || !roleCard || !roleParagraph || roleChecks.length !== copy.bullets.length) {
+      throw new Error(`The resolved homepage ${roleName} role card changed unexpectedly.`);
+    }
+    replaceText(roleParagraph, copy.paragraph);
+    roleChecks.forEach((check, index) => {
+      const label = check.children.find((node) => typeof node !== 'string' && node.tag === 'span');
+      if (!label || typeof label === 'string') throw new Error(`The ${roleName} checklist is missing a label.`);
+      replaceText(label, copy.bullets[index]);
+    });
+  }
 
   const firstFaq = findFirst(page.tree, (node) => node.tag === 'details' && hasClass(node, 'faq'));
   const faqList = findParent(page.tree, firstFaq);
