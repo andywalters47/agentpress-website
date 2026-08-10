@@ -216,6 +216,35 @@
   width: max-content;
 }
 
+.faq {
+  overflow: clip;
+  interpolate-size: allow-keywords;
+}
+
+.faq::details-content {
+  block-size: 0;
+  overflow: clip;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition:
+    block-size 500ms cubic-bezier(0.22, 1, 0.36, 1),
+    content-visibility 500ms allow-discrete,
+    opacity 260ms ease-out,
+    transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq[open]::details-content {
+  block-size: auto;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .faq::details-content {
+    transition: none;
+  }
+}
+
 @media (max-width: 900px) {
   .ap-timeline-flight-scroll {
     height: 1041.04svh;
