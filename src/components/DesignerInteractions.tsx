@@ -290,7 +290,8 @@ function installTimelineAnimation() {
 
     cards.forEach((card, index) => {
       const cardStagger = 0.44;
-      const travelDuration = 0.974 / (1 + ((cards.length - 1) * cardStagger));
+      const finalCardReleasePoint = 0.66;
+      const travelDuration = 1 / (((cards.length - 1) * cardStagger) + finalCardReleasePoint);
       const stageInterval = travelDuration * cardStagger;
       const stageIn = index * stageInterval;
       const completedArrival = stageIn + travelDuration;

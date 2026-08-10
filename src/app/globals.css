@@ -141,9 +141,9 @@
 
 .ap-timeline-flight-scroll {
   position: relative;
-  /* Seven-card sequence: preserve the tuned per-card scroll time without the
-     empty distance left behind by the three removed cards. */
-  height: 1315.79svh;
+  /* Release the sticky scene when the final card reaches 66% of its journey,
+     while preserving the established physical pace of each card. */
+  height: 1161.87svh;
   margin: 0 0 140px;
   overflow: clip;
 }
@@ -218,7 +218,7 @@
 
 @media (max-width: 900px) {
   .ap-timeline-flight-scroll {
-    height: 1178.95svh;
+    height: 1041.04svh;
   }
 
   .ap-timeline-scene {
@@ -232,7 +232,7 @@
 
 @media (max-width: 767px) {
   .ap-timeline-flight-scroll {
-    height: 1031.58svh;
+    height: 910.91svh;
   }
 
   .ap-timeline-scene {
