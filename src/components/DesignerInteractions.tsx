@@ -289,7 +289,7 @@ function installTimelineAnimation() {
     backdrop.style.opacity = String(keyframes(progress, [0, 0.04, 0.9, 1], [0.42, 1, 1, 0.26]));
 
     cards.forEach((card, index) => {
-      const cardStagger = 0.33;
+      const cardStagger = 0.44;
       const travelDuration = 0.974 / (1 + ((cards.length - 1) * cardStagger));
       const stageInterval = travelDuration * cardStagger;
       const stageIn = index * stageInterval;
