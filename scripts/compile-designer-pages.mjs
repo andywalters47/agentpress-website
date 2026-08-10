@@ -48,6 +48,29 @@ const roleCopy = {
     ],
   },
 };
+const trustCopy = {
+  'Buyer Collaboration & Value': [
+    'Interactive Business Cases',
+    'Buyer-Validated ROI Models',
+    'Champion-Ready Value Stories',
+    'Mutual Action Plans',
+    'Digital Deal Rooms',
+  ],
+  'Rep Enablement & Execution': [
+    'Proactive Meeting Prep',
+    'Tailored Sales Assets',
+    'Automated Follow-Up',
+    'Deal-Specific Coaching',
+    'Next-Best-Action Execution',
+  ],
+  'Deal Intelligence & Governance': [
+    'Complete Deal Memory',
+    'Stakeholder & Power Mapping',
+    'Risk & Momentum Signals',
+    'Process & Methodology Governance',
+    'Winning-Pattern Intelligence',
+  ],
+};
 const faqCopy = [
   {
     question: 'Is AgentPress built for a team our size?',
@@ -461,6 +484,22 @@ function applyHomepageOverrides(page, legacyHero) {
   walk(trustRow, (node) => {
     if (node.tag === 'circle' && node.props?.r === '8') node.props.fill = '#2DC4A8';
   });
+  for (const [category, labels] of Object.entries(trustCopy)) {
+    const categoryHeading = findFirst(trustRow, (node) => textContent(node) === category);
+    const categoryColumn = findParent(trustRow, categoryHeading);
+    const checks = [];
+    walk(categoryColumn, (node) => {
+      if (hasClass(node, 'check')) checks.push(node);
+    });
+    if (!categoryHeading || !categoryColumn || checks.length !== labels.length) {
+      throw new Error(`The resolved homepage ${category} checklist changed unexpectedly.`);
+    }
+    checks.forEach((check, index) => {
+      const label = check.children.find((node) => typeof node !== 'string' && node.tag === 'span');
+      if (!label || typeof label === 'string') throw new Error(`The ${category} checklist is missing a label.`);
+      replaceText(label, labels[index]);
+    });
+  }
 
   const securityHeading = findFirst(page.tree, (node) => textContent(node) === 'AgentPress is built to pass procurement');
   if (!securityHeading) throw new Error('The resolved homepage is missing the security heading.');
@@ -521,7 +560,7 @@ function applyPricingOverrides(page) {
     pricingPlanCard({
       name: 'Starter',
       price: '$799',
-      features: ['Up to 2 users', 'Unlimited opportunities', 'Unlimited agentic actions', 'White-glove onboarding'],
+      features: ['Up to 3 users', 'Unlimited opportunities', 'Unlimited agentic actions', 'White-glove onboarding'],
     }),
     pricingPlanCard({
       name: 'Pro',
