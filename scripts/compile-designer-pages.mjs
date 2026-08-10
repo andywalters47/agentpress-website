@@ -12,6 +12,7 @@ const manifestoCopy = {
     "But a great agent is not a chatbot bolted to a CRM. It's a chief of staff that understands complex B2B deals and constantly works ahead to deliver the guidance, assets, and follow-through great execution requires.",
   ],
 };
+const heroDescription = 'AgentPress gives every complex B2B deal an AI agent that prepares your team, uncovers the business case, and does the legwork behind every close.';
 const faqCopy = [
   {
     question: 'Is AgentPress built for a team our size?',
@@ -160,6 +161,131 @@ function faqNode({ question, answer }) {
   };
 }
 
+function pricingCheckNode(label) {
+  return {
+    tag: 'div',
+    props: { class: 'check' },
+    children: [
+      {
+        tag: 'svg',
+        props: {
+          width: '17',
+          height: '17',
+          viewBox: '0 0 17 17',
+          style: 'flex: 0 0 auto;',
+          'aria-hidden': 'true',
+        },
+        children: [
+          {
+            tag: 'circle',
+            props: { cx: '8.5', cy: '8.5', r: '8', fill: '#212121' },
+            children: [],
+          },
+          {
+            tag: 'path',
+            props: {
+              d: 'M5 8.7 L7.4 11 L12 6.3',
+              fill: 'none',
+              stroke: '#fff',
+              'stroke-width': '1.6',
+              'stroke-linecap': 'round',
+              'stroke-linejoin': 'round',
+            },
+            children: [],
+          },
+        ],
+      },
+      { tag: 'span', props: {}, children: [label] },
+    ],
+  };
+}
+
+function pricingPlanCard({ name, price, features, featured = false, enterprise = false }) {
+  return {
+    tag: 'div',
+    props: {
+      style: [
+        'flex: 1 1 0%',
+        'min-width: 0',
+        'border-radius: 24px',
+        'padding: 40px 32px',
+        'display: flex',
+        'flex-direction: column',
+        featured
+          ? 'background: linear-gradient(135deg, rgba(127, 100, 170, 0.086), rgba(234, 238, 233, 0.773))'
+          : 'background: linear-gradient(135deg, rgba(234, 238, 233, 0.333), rgba(127, 100, 170, 0.035))',
+      ].join('; '),
+    },
+    children: [
+      {
+        tag: 'span',
+        props: {
+          style: `font-size: 22px; font-weight: 600; letter-spacing: 0.02em; color: ${featured ? 'rgb(129, 74, 222)' : 'var(--ink)'};`,
+        },
+        children: [name],
+      },
+      {
+        tag: 'div',
+        props: { style: 'margin-top: 28px;' },
+        children: [
+          {
+            tag: 'div',
+            props: { style: 'display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px;' },
+            children: [
+              {
+                tag: 'span',
+                props: { class: 'h1', style: 'font-size: 30px;' },
+                children: ['$0'],
+              },
+              {
+                tag: 'span',
+                props: { style: 'font-size: 14px; line-height: 1.4; color: var(--ink-muted);' },
+                children: ['per seat, per month'],
+              },
+            ],
+          },
+          {
+            tag: 'div',
+            props: { style: 'margin-top: 12px; display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px;' },
+            children: [
+              {
+                tag: 'span',
+                props: { class: 'h1', style: `font-size: ${enterprise ? '28px' : '32px'};` },
+                children: [price],
+              },
+              {
+                tag: 'span',
+                props: { style: 'font-size: 12px; line-height: 1.4; color: var(--ink-muted); white-space: nowrap;' },
+                children: ['per workspace, per month'],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        tag: 'div',
+        props: { style: 'margin-top: 28px; flex: 1 1 0%;' },
+        children: features.map(pricingCheckNode),
+      },
+      {
+        tag: 'a',
+        props: {
+          class: enterprise ? 'pricing-contact' : featured ? 'btn-dark' : 'btn-start',
+          href: enterprise
+            ? 'https://calendar.app.google/AwUNqYVrSpUf1XeK8'
+            : 'https://console.agent.press/sign-up',
+          target: '_blank',
+          rel: 'noopener',
+          style: featured
+            ? 'display: inline-flex; align-self: flex-start; align-items: center; justify-content: center; background: var(--web-dark-end); color: var(--on-dark); border-radius: 11px; padding: 15px 26px; font-size: 16px; font-weight: 500; cursor: pointer; margin-top: 32px;'
+            : 'display: inline-flex; align-self: flex-start; align-items: center; justify-content: center; background: var(--brand-mint); color: rgba(33, 33, 33, 0.8); border-radius: 11px; padding: 15px 26px; font-size: 16px; font-weight: 500; cursor: pointer; margin-top: 32px;',
+        },
+        children: [enterprise ? 'Schedule Demo' : 'Start Now'],
+      },
+    ],
+  };
+}
+
 function applySitewideCtaCopy(page) {
   walk(page.tree, (node) => {
     if (node.tag !== 'a' || node.props?.href !== 'https://calendar.app.google/AwUNqYVrSpUf1XeK8') return;
@@ -167,6 +293,17 @@ function applySitewideCtaCopy(page) {
     replaceText(node, primary ? 'Start Now' : 'Schedule Demo');
     if (primary) node.props.href = 'https://console.agent.press/sign-up';
   });
+}
+
+function applySitewideNavigationOverrides(page) {
+  const topNav = findFirst(page.tree, (node) => node.props?.['data-sc-name'] === 'TopNav');
+  if (!topNav) throw new Error(`The resolved ${page.key} page is missing its top navigation.`);
+
+  // Temporarily hide Docs from the desktop and mobile top menus. Keep the
+  // footer link intact so restoring this later is a one-line override removal.
+  removeNodes(topNav, (node) => (
+    node.tag === 'a' && node.props?.href === 'https://docs.agent.press/'
+  ));
 }
 
 function applyHomepageOverrides(page, legacyHero) {
@@ -189,6 +326,12 @@ function applyHomepageOverrides(page, legacyHero) {
   if (!heroTitle) throw new Error('The resolved homepage is missing its hero heading.');
   heroTitle.props.style = legacyHero.heroStyle;
   heroTitle.children = [legacyHero.heroTitle];
+
+  const heroParagraph = findFirst(page.tree, (node) => (
+    node.tag === 'p' && textContent(node).startsWith('AgentPress gives every deal an AI agent')
+  ));
+  if (!heroParagraph) throw new Error('The resolved homepage is missing its hero description.');
+  replaceText(heroParagraph, heroDescription);
 
   const intro = findFirst(page.tree, (node) => (
     node.tag === 'div' && String(node.props?.class ?? '').split(/\s+/).includes('introrow')
@@ -282,6 +425,91 @@ function applyHomepageOverrides(page, legacyHero) {
   if (faqIntro) replaceText(faqIntro, 'Straight answers for lean B2B sales teams evaluating AgentPress.');
 }
 
+function applyPricingOverrides(page) {
+  const pricingHeading = findFirst(page.tree, (node) => (
+    textContent(node) === 'Simple pricing for enterprise sales teams'
+  ));
+  if (!pricingHeading) throw new Error('The resolved pricing page is missing its heading.');
+  replaceText(pricingHeading, 'Simple, transparent pricing');
+
+  const plansIntro = findFirst(page.tree, (node) => (
+    textContent(node).startsWith('Plans start at $X per workspace')
+  ));
+  if (!plansIntro) throw new Error('The resolved pricing page is missing its plans intro.');
+  replaceText(
+    plansIntro,
+    'Every plan is $0 per seat. Pricing is set per workspace, per month.',
+  );
+
+  const planCards = findFirst(page.tree, (node) => hasClass(node, 'plancards'));
+  if (!planCards) throw new Error('The resolved pricing page is missing its plan cards.');
+  planCards.props.style = 'max-width: 1320px; margin: 0px auto; padding: 80px 40px 96px; display: flex; gap: 20px; align-items: stretch;';
+  planCards.children = [
+    pricingPlanCard({
+      name: 'Trial',
+      price: '$0',
+      features: ['7 days', 'Up to 5 users', 'Unlimited opportunities', 'Unlimited agentic actions'],
+    }),
+    pricingPlanCard({
+      name: 'Starter',
+      price: '$799',
+      features: ['Up to 2 users', 'Unlimited opportunities', 'Unlimited agentic actions', 'White-glove onboarding'],
+    }),
+    pricingPlanCard({
+      name: 'Pro',
+      price: '$1,599',
+      features: [
+        'Up to 12 users',
+        'Unlimited opportunities',
+        'Unlimited agentic actions',
+        'White-glove onboarding & forward-deployed engineer',
+      ],
+      featured: true,
+    }),
+    pricingPlanCard({
+      name: 'Enterprise',
+      price: 'Variable',
+      features: [
+        'Unlimited opportunities',
+        'Unlimited agentic actions',
+        'SSO',
+        'White-glove onboarding & forward-deployed engineer',
+      ],
+      enterprise: true,
+    }),
+  ];
+
+  const seatsRow = findFirst(page.tree, (node) => hasClass(node, 'seatsrow'));
+  const seatsLayout = seatsRow && findParent(page.tree, seatsRow);
+  const seatsSection = seatsLayout && findParent(page.tree, seatsLayout);
+  const seatsSectionParent = seatsSection && findParent(page.tree, seatsSection);
+  if (!seatsRow || !seatsLayout || !seatsSection || !seatsSectionParent) {
+    throw new Error('The resolved pricing page is missing its seats and usage section.');
+  }
+  seatsSectionParent.children = seatsSectionParent.children.filter((child) => child !== seatsSection);
+
+  const comparisonEyebrow = findFirst(page.tree, (node) => textContent(node) === 'Compare plans');
+  const comparisonContent = comparisonEyebrow && findParent(page.tree, comparisonEyebrow);
+  const comparisonSection = comparisonContent && findParent(page.tree, comparisonContent);
+  const comparisonSectionParent = comparisonSection && findParent(page.tree, comparisonSection);
+  if (!comparisonEyebrow || !comparisonContent || !comparisonSection || !comparisonSectionParent) {
+    throw new Error('The resolved pricing page is missing its legacy plan comparison section.');
+  }
+  comparisonSectionParent.children = comparisonSectionParent.children.filter((child) => child !== comparisonSection);
+
+  const securityHeading = findFirst(page.tree, (node) => (
+    textContent(node) === 'AgentPress is built to pass procurement'
+  ));
+  if (!securityHeading) throw new Error('The resolved pricing page is missing its security heading.');
+  replaceText(securityHeading, 'AgentPress is secure');
+
+  const ctaHeading = findFirst(page.tree, (node) => (
+    textContent(node) === 'See it run on your own pipeline'
+  ));
+  if (!ctaHeading) throw new Error('The resolved pricing page is missing its CTA heading.');
+  replaceText(ctaHeading, 'See it run on your pipeline');
+}
+
 const legacyHomepage = await readFile(legacyHomepagePath, 'utf8');
 const legacyHero = extractLegacyHomepageHero(legacyHomepage);
 const files = (await readdir(captureDirectory)).filter((file) => file.endsWith('.json')).sort();
@@ -293,7 +521,9 @@ for (const file of files) {
   // part of the designer export. Every designer-authored style is retained.
   page.styles = page.styles.filter((css) => !css.includes("font-family:'__nextjs-Geist'"));
   if (page.key === 'home') applyHomepageOverrides(page, legacyHero);
+  if (page.key === 'pricing') applyPricingOverrides(page);
   removeTextFragment(page.tree, 'Your data never trains a model.');
+  applySitewideNavigationOverrides(page);
   applySitewideCtaCopy(page);
   pages[page.key] = page;
 }
