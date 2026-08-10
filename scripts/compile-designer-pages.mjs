@@ -408,6 +408,23 @@ function applyHomepageOverrides(page, legacyHero) {
   if (!heroParagraph) throw new Error('The resolved homepage is missing its hero description.');
   replaceText(heroParagraph, heroDescription);
 
+  const heroCtas = findFirst(page.tree, (node) => hasClass(node, 'heroctas'));
+  const primaryHeroCta = heroCtas && findFirst(heroCtas, (node) => hasClass(node, 'btn-dark'));
+  const secondaryHeroCta = heroCtas && findFirst(heroCtas, (node) => hasClass(node, 'btn-outline'));
+  if (!heroCtas || !primaryHeroCta || !secondaryHeroCta) {
+    throw new Error('The resolved homepage is missing its hero calls to action.');
+  }
+  primaryHeroCta.tag = 'a';
+  primaryHeroCta.props.href = 'https://console.agent.press/sign-up';
+  primaryHeroCta.props.target = '_blank';
+  primaryHeroCta.props.rel = 'noopener';
+  replaceText(primaryHeroCta, 'Start Now');
+  secondaryHeroCta.tag = 'a';
+  secondaryHeroCta.props.href = 'https://calendar.app.google/AwUNqYVrSpUf1XeK8';
+  secondaryHeroCta.props.target = '_blank';
+  secondaryHeroCta.props.rel = 'noopener';
+  replaceText(secondaryHeroCta, 'Schedule Demo');
+
   const intro = findFirst(page.tree, (node) => (
     node.tag === 'div' && String(node.props?.class ?? '').split(/\s+/).includes('introrow')
   ));

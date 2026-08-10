@@ -278,7 +278,6 @@ function installIntegrationAnimation() {
 
 function installTimelineAnimation() {
   const stage = document.querySelector<HTMLElement>('.ap-timeline-flight-scroll');
-  const heading = document.querySelector<HTMLElement>('.ap-timeline-heading');
   const backdrop = stage?.querySelector<SVGElement>('.ap-timeline-backdrop');
   const cards = stage ? Array.from(stage.querySelectorAll<SVGElement>('.ap-timeline-flight-card')) : [];
   if (!stage || !backdrop || !cards.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {};
@@ -287,12 +286,6 @@ function installTimelineAnimation() {
     const rect = stage.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
     const progress = clamp((viewportHeight - rect.top) / Math.max(1, rect.height));
-    if (heading) {
-      const headingExit = range(progress, 0.012, 0.042);
-      const easedHeadingExit = headingExit * headingExit * (3 - (2 * headingExit));
-      heading.style.opacity = String(1 - easedHeadingExit);
-      heading.style.transform = `translateY(${(-56 * easedHeadingExit).toFixed(2)}px)`;
-    }
     backdrop.style.opacity = String(keyframes(progress, [0, 0.04, 0.9, 1], [0.42, 1, 1, 0.26]));
 
     cards.forEach((card, index) => {
