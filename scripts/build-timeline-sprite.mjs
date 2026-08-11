@@ -52,7 +52,7 @@ const backdrop = [takeLines(2, 23), takeLines(216, 231)].join('\n');
 const cardSymbols = cardRanges.map(([start, end], index) => {
   const [cropX, cropY] = cardOrigins[index];
   return [
-    `  <symbol id="timeline-card-${index + 1}" viewBox="0 0 254 220">`,
+    `  <symbol id="timeline-card-${index + 1}" viewBox="0 0 254 220" fill="none">`,
     `    <g transform="translate(${-cropX} ${-cropY})">`,
     takeLines(start, end),
     '    </g>',
@@ -60,10 +60,17 @@ const cardSymbols = cardRanges.map(([start, end], index) => {
   ].join('\n');
 }).join('\n');
 
+// The source export carries fill="none" on its root <svg>, and most of its
+// stroked shapes (chart lines, legend rings, avatar circles) rely on inheriting
+// it instead of declaring a fill. That inheritance has to be re-established
+// here, on each <symbol>: the page instantiates the cards through external
+// <use href="...svg#timeline-card-N">, so the cloned content inherits from the
+// <use> element in the host document, not from this file's root. Without it
+// those shapes fall back to the SVG default fill and render solid black.
 const sprite = [
-  '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">',
+  '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="none">',
   defs,
-  '  <symbol id="timeline-backdrop" viewBox="0 0 1400 711">',
+  '  <symbol id="timeline-backdrop" viewBox="0 0 1400 711" fill="none">',
   backdrop,
   '  </symbol>',
   cardSymbols,

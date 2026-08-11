@@ -8,6 +8,10 @@ const config = {
           cleanupIds: false,
           removeHiddenElems: false,
           removeViewBox: false,
+          // Every fill in the designer art relies on the default nonzero
+          // fill-rule, so merging concentric subpaths turns rings into solid
+          // discs and outlines into filled shapes.
+          mergePaths: false,
         },
       },
     },
