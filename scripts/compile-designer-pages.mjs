@@ -6,7 +6,7 @@ const projectRoot = path.resolve(import.meta.dirname, '..');
 const outputPath = path.join(projectRoot, 'src/generated/designer-pages.json');
 const legacyHomepagePath = path.resolve(projectRoot, '..', 'agentpress-website-new-3.legacy-index.html');
 const manifestoCopy = {
-  title: 'AgentPress is the first AI sales agent that proactively delivers what your team needs to win.',
+  title: 'The first AI sales agent that proactively delivers what your team needs to win',
   paragraphs: [
     'The next generation of great sellers will have great agents.',
     "But a great agent is not a chatbot bolted to a CRM. It's a chief of staff that understands complex B2B deals and constantly works ahead to deliver the guidance, assets, and follow-through great execution requires.",
@@ -458,7 +458,9 @@ function applyHomepageOverrides(page, legacyHero) {
   ));
   if (!heroTitle) throw new Error('The resolved homepage is missing its hero heading.');
   heroTitle.props.style = legacyHero.heroStyle;
-  heroTitle.children = [legacyHero.heroTitle];
+  // The hero wording comes from the legacy homepage rather than being authored
+  // here, so the trailing period is dropped on the way through.
+  heroTitle.children = [legacyHero.heroTitle.replace(/\.$/, '')];
 
   const heroParagraph = findFirst(page.tree, (node) => (
     node.tag === 'p' && textContent(node).startsWith('AgentPress gives every deal an AI agent')
