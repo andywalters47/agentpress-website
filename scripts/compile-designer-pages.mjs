@@ -26,7 +26,7 @@ const featureCopy = [
   },
   {
     number: '03',
-    title: 'Carry more deals with the same team',
+    title: 'More deals with the same team',
     paragraph: 'Complex opportunities require real attention, even when the pipeline is full. AgentPress handles the preparation, assets, and follow-through behind each deal, giving the same team the capacity to pursue more opportunities without lowering the standard.',
   },
 ];
@@ -101,6 +101,11 @@ const trustCopy = {
     'Process & Methodology Governance',
     'Winning-Pattern Intelligence',
   ],
+};
+const trustPillarSlugs = {
+  'Buyer Collaboration & Value': 'buyer-collaboration-value',
+  'Rep Enablement & Execution': 'rep-enablement-execution',
+  'Deal Intelligence & Governance': 'deal-intelligence-governance',
 };
 const faqCopy = [
   {
@@ -639,6 +644,11 @@ function applyHomepageOverrides(page, legacyHero) {
     if (!categoryHeading || !categoryColumn || checks.length !== labels.length) {
       throw new Error(`The resolved homepage ${category} checklist changed unexpectedly.`);
     }
+    // Tags the column with its own identity so the tick colours in globals.css
+    // can be keyed to the category rather than to the column's position in the
+    // row. Resolved from the heading text, so reordering the row carries each
+    // colour along with its column.
+    categoryColumn.props['data-ap-pillar'] = trustPillarSlugs[category];
     checks.forEach((check, index) => {
       const label = check.children.find((node) => typeof node !== 'string' && node.tag === 'span');
       if (!label || typeof label === 'string') throw new Error(`The ${category} checklist is missing a label.`);

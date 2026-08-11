@@ -312,6 +312,40 @@
   width: max-content;
 }
 
+/* The three pin-scroll panels stack in one grid cell, and the text column is
+   centred against a fixed 640px art block. Centring only holds the eyebrow and
+   headline still if the column is the same height on every panel, which is what
+   the export gets from a fixed height on its paragraph -- its three headlines
+   are all one line, so its text block never changes height. Here the headlines
+   run to two lines on panels 2 and 3, so the height has to sit on the column
+   itself rather than the paragraph.
+
+   310px covers the tallest panel: eyebrow 27 + 18 margin + two headline lines at
+   34px/1.2 (82) + 14 margin + five body lines at 18px/1.7 (153) = ~294px, plus
+   headroom. It is a min-height, so a panel that outgrows it still shows all its
+   copy -- that panel would just start drifting again, which is the signal to
+   raise this number. The <=1024px block resets it to 0 for the stacked layout. */
+.ftext {
+  min-height: 310px;
+}
+
+/* Tick colour per enterprise pillar. Keyed to the column's own data-ap-pillar
+   value rather than to nth-child, so reordering the row keeps each colour with
+   its column. The circles carry fill="#2DC4A8" as a presentation attribute in
+   the markup; the CSS fill property outranks it. */
+[data-ap-pillar="buyer-collaboration-value"] .check circle {
+  fill: var(--brand-purple);
+}
+
+[data-ap-pillar="rep-enablement-execution"] .check circle {
+  /* Not a design-system token -- no periwinkle exists in tokens.css. */
+  fill: #6C88FF;
+}
+
+[data-ap-pillar="deal-intelligence-governance"] .check circle {
+  fill: var(--brand-teal);
+}
+
 .faq {
   overflow: clip;
   interpolate-size: allow-keywords;
