@@ -7,7 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const backgroundPath = path.join(root, "public", "agentpress_og_background.png");
 const logoPath = path.join(root, "public", "assets", "AP_landscape_for_light_bg.svg");
 const fontPath = path.join(root, "public", "fonts", "NeuSans-Book.woff2");
-const outputPath = path.join(root, "public", "agentpress_og_ai_chief_of_staff_v2.png");
+const outputPath = path.join(root, "public", "agentpress_og_ai_chief_of_staff_v3.png");
 const legacyOutputPath = path.join(root, "public", "agentpress_og_image.png");
 
 const width = 1200;
@@ -25,11 +25,11 @@ const homepageTexture = Buffer.from(`
   </svg>
 `);
 
-async function renderHeadlineLine(text) {
+async function renderTagline(text) {
   return sharp({
     text: {
       text: `<span foreground="#080A22" weight="400">${text}</span>`,
-      font: "NeuSans Book 76",
+      font: "NeuSans Book 44",
       fontfile: fontPath,
       dpi: 72,
       rgba: true,
@@ -39,11 +39,10 @@ async function renderHeadlineLine(text) {
     .toBuffer({ resolveWithObject: true });
 }
 
-const headlineLineOne = await renderHeadlineLine("AI Chief of Staff");
-const headlineLineTwo = await renderHeadlineLine("for Every Deal");
+const tagline = await renderTagline("AI Chief of Staff for Every Deal");
 
 const logo = await sharp(logoPath)
-  .resize({ width: 500 })
+  .resize({ width: 720 })
   .png()
   .toBuffer();
 
@@ -52,16 +51,11 @@ await sharp(backgroundPath)
   .modulate({ saturation: 0.92, brightness: 0.99 })
   .composite([
     { input: homepageTexture, left: 0, top: 0 },
-    { input: logo, left: 350, top: 72 },
+    { input: logo, left: 240, top: 209 },
     {
-      input: headlineLineOne.data,
-      left: Math.round((width - headlineLineOne.info.width) / 2),
-      top: 260,
-    },
-    {
-      input: headlineLineTwo.data,
-      left: Math.round((width - headlineLineTwo.info.width) / 2),
-      top: 345,
+      input: tagline.data,
+      left: Math.round((width - tagline.info.width) / 2),
+      top: 381,
     },
   ])
   .png({ compressionLevel: 9, adaptiveFiltering: true })
