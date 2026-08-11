@@ -372,10 +372,65 @@ function applySitewideNavigationOverrides(page) {
   const topNav = findFirst(page.tree, (node) => node.props?.['data-sc-name'] === 'TopNav');
   if (!topNav) throw new Error(`The resolved ${page.key} page is missing its top navigation.`);
 
-  // Temporarily hide Docs from the desktop and mobile top menus. Keep the
-  // footer link intact so restoring this later is a one-line override removal.
+  // Temporarily hide Resources and Docs from the desktop and mobile menus.
+  // Their source content and routes remain intact so they can be restored.
   removeNodes(topNav, (node) => (
+    node.tag === 'a'
+    && ['/resources', 'https://docs.agent.press/'].includes(node.props?.href)
+  ));
+}
+
+function applySitewideFooterOverrides(page) {
+  const footer = findFirst(page.tree, (node) => node.props?.['data-sc-name'] === 'Footer');
+  if (!footer) throw new Error(`The resolved ${page.key} page is missing its footer.`);
+
+  // Keep the designer-authored News column in the source export while hiding
+  // it from the current site.
+  removeNodes(footer, (node) => (
+    hasClass(node, 'fcol')
+    && node.children.some((child) => typeof child !== 'string' && textContent(child) === 'News')
+  ));
+  removeNodes(footer, (node) => (
     node.tag === 'a' && node.props?.href === 'https://docs.agent.press/'
+  ));
+
+  const socStatement = findFirst(footer, (node) => (
+    node.tag === 'a' && textContent(node) === 'SOC 2 Type II'
+  ));
+  if (!socStatement) throw new Error(`The resolved ${page.key} footer is missing its SOC 2 statement.`);
+  socStatement.tag = 'span';
+  delete socStatement.props.href;
+}
+
+function applyOurStoryOverrides(page) {
+  const tractionHeading = findFirst(page.tree, (node) => textContent(node) === 'Six months of traction');
+  const tractionCopy = tractionHeading && findParent(page.tree, tractionHeading);
+  const storyLayout = tractionCopy && findParent(page.tree, tractionCopy);
+  if (!tractionHeading || !tractionCopy || !storyLayout) {
+    throw new Error('The resolved Our Story page is missing its traction section.');
+  }
+
+  const tractionHeadingIndex = tractionCopy.children.indexOf(tractionHeading);
+  tractionCopy.children = tractionCopy.children.slice(0, tractionHeadingIndex);
+
+  const tractionCopyIndex = storyLayout.children.indexOf(tractionCopy);
+  const tractionChart = storyLayout.children[tractionCopyIndex + 1];
+  const postTractionCopy = storyLayout.children[tractionCopyIndex + 2];
+  if (
+    typeof tractionChart === 'string'
+    || typeof postTractionCopy === 'string'
+    || !textContent(tractionChart).includes('Contract ARR')
+    || !textContent(postTractionCopy).startsWith('For the first time')
+  ) {
+    throw new Error('The resolved Our Story traction section structure changed unexpectedly.');
+  }
+  storyLayout.children = storyLayout.children.filter((child) => child !== tractionChart);
+  postTractionCopy.children = postTractionCopy.children.filter((child) => (
+    typeof child === 'string'
+    || (
+      !textContent(child).startsWith('For the first time')
+      && !textContent(child).startsWith('When you give a revenue team')
+    )
   ));
 }
 
@@ -650,7 +705,7 @@ function applyPricingOverrides(page) {
     pricingPlanCard({
       name: 'Starter',
       price: '$799',
-      features: ['Up to 3 users', 'Unlimited opportunities', 'Unlimited agentic actions', 'White-glove onboarding'],
+      features: ['Up to 3 users', 'Unlimited opportunities', 'Unlimited agentic actions', 'White Glove Onboarding'],
     }),
     pricingPlanCard({
       name: 'Pro',
@@ -659,7 +714,8 @@ function applyPricingOverrides(page) {
         'Up to 12 users',
         'Unlimited opportunities',
         'Unlimited agentic actions',
-        'White-glove onboarding & forward-deployed engineer',
+        'White Glove Onboarding',
+        'Forward Deployed Engineer',
         'Custom Data Connectors',
       ],
       featured: true,
@@ -671,7 +727,8 @@ function applyPricingOverrides(page) {
         'Unlimited Users',
         'Unlimited opportunities',
         'Unlimited agentic actions',
-        'White-glove onboarding & forward-deployed engineer',
+        'White Glove Onboarding',
+        'Forward Deployed Engineer',
         'Custom Data Connectors',
         'SSO',
       ],
@@ -722,8 +779,10 @@ for (const file of files) {
   page.styles = page.styles.filter((css) => !css.includes("font-family:'__nextjs-Geist'"));
   if (page.key === 'home') applyHomepageOverrides(page, legacyHero);
   if (page.key === 'pricing') applyPricingOverrides(page);
+  if (page.key === 'our-story') applyOurStoryOverrides(page);
   removeTextFragment(page.tree, 'Your data never trains a model.');
   applySitewideNavigationOverrides(page);
+  applySitewideFooterOverrides(page);
   applySitewideCtaCopy(page);
   pages[page.key] = page;
 }
