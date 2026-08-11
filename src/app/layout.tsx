@@ -32,8 +32,8 @@ export const metadata: Metadata = {
     siteName: "AgentPress",
     locale: "en_US",
     images: [{
-      url: "https://www.agent.press/agentpress_og_ai_chief_of_staff.png",
-      secureUrl: "https://www.agent.press/agentpress_og_ai_chief_of_staff.png",
+      url: "https://www.agent.press/agentpress_og_ai_chief_of_staff_v2.png",
+      secureUrl: "https://www.agent.press/agentpress_og_ai_chief_of_staff_v2.png",
       width: 1200,
       height: 630,
       type: "image/png",
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     title: "AgentPress | AI Chief of Staff for Every Deal",
     description: "Deal intelligence, tailored assets, and executional support for complex SaaS sales.",
     images: [{
-      url: "https://www.agent.press/agentpress_og_ai_chief_of_staff.png",
+      url: "https://www.agent.press/agentpress_og_ai_chief_of_staff_v2.png",
       alt: "AgentPress — AI Chief of Staff for Every Deal",
     }],
   },
