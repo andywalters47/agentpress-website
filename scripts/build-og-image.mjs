@@ -7,7 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const backgroundPath = path.join(root, "public", "agentpress_og_background.png");
 const logoPath = path.join(root, "public", "assets", "AP_landscape_for_light_bg.svg");
 const fontPath = path.join(root, "public", "fonts", "NeuSans-Book.woff2");
-const outputPath = path.join(root, "public", "agentpress_og_ai_chief_of_staff_v3.png");
+const outputPath = path.join(root, "public", "agentpress_og_ai_chief_of_staff_v4.png");
 const legacyOutputPath = path.join(root, "public", "agentpress_og_image.png");
 
 const width = 1200;
@@ -17,7 +17,7 @@ const homepageTexture = Buffer.from(`
   <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">
     <defs>
       <pattern id="dots" width="30" height="30" patternUnits="userSpaceOnUse">
-        <circle cx="2" cy="2" r="1.15" fill="#312C3D" fill-opacity="0.075"/>
+        <circle cx="2" cy="2" r="1.3" fill="#312C3D" fill-opacity="0.14"/>
       </pattern>
     </defs>
     <rect width="${width}" height="${height}" fill="url(#dots)"/>
@@ -29,7 +29,7 @@ async function renderTagline(text) {
   return sharp({
     text: {
       text: `<span foreground="#080A22" weight="400">${text}</span>`,
-      font: "NeuSans Book 44",
+      font: "NeuSans Book 50",
       fontfile: fontPath,
       dpi: 72,
       rgba: true,
@@ -55,7 +55,7 @@ await sharp(backgroundPath)
     {
       input: tagline.data,
       left: Math.round((width - tagline.info.width) / 2),
-      top: 381,
+      top: 379,
     },
   ])
   .png({ compressionLevel: 9, adaptiveFiltering: true })
