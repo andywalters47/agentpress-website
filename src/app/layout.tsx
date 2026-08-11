@@ -20,19 +20,35 @@ const neuSans = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.agent.press"),
-  title: "AgentPress | An AI Chief of Staff for Every Deal",
+  title: "AgentPress | AI Chief of Staff for Every Deal",
   description: "AgentPress proactively delivers the deal intelligence, tailored assets, and executional support enterprise sellers need to win.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
-    title: "AgentPress | An AI Chief of Staff for Every Deal",
+    title: "AgentPress | AI Chief of Staff for Every Deal",
     description: "Deal intelligence, tailored assets, and executional support for complex SaaS sales.",
-    images: [{ url: "/agentpress_og_image.png", width: 1200, height: 630, alt: "AgentPress — An AI Chief of Staff for Every Deal" }],
+    url: "https://www.agent.press/",
+    siteName: "AgentPress",
+    locale: "en_US",
+    images: [{
+      url: "https://www.agent.press/agentpress_og_ai_chief_of_staff.png",
+      secureUrl: "https://www.agent.press/agentpress_og_ai_chief_of_staff.png",
+      width: 1200,
+      height: 630,
+      type: "image/png",
+      alt: "AgentPress — AI Chief of Staff for Every Deal",
+    }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AgentPress | An AI Chief of Staff for Every Deal",
+    title: "AgentPress | AI Chief of Staff for Every Deal",
     description: "Deal intelligence, tailored assets, and executional support for complex SaaS sales.",
-    images: ["/agentpress_og_image.png"],
+    images: [{
+      url: "https://www.agent.press/agentpress_og_ai_chief_of_staff.png",
+      alt: "AgentPress — AI Chief of Staff for Every Deal",
+    }],
   },
 };
 
