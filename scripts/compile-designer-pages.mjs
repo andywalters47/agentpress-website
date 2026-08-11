@@ -709,7 +709,7 @@ function applyPricingOverrides(page) {
     }),
     pricingPlanCard({
       name: 'Pro',
-      price: '$1,599',
+      price: '$2,999',
       features: [
         'Up to 12 users',
         'Unlimited opportunities',
