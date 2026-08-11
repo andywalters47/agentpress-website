@@ -323,22 +323,6 @@ function pricingPlanCard({ name, price, features, featured = false, enterprise =
             children: [
               {
                 tag: 'span',
-                props: { class: 'h1', style: 'font-size: 30px;' },
-                children: ['$0'],
-              },
-              {
-                tag: 'span',
-                props: { style: 'font-size: 14px; line-height: 1.4; color: var(--ink-muted);' },
-                children: ['per seat, per month'],
-              },
-            ],
-          },
-          {
-            tag: 'div',
-            props: { style: 'margin-top: 12px; display: flex; align-items: baseline; flex-wrap: wrap; gap: 8px;' },
-            children: [
-              {
-                tag: 'span',
                 props: { class: 'h1', style: `font-size: ${enterprise ? '28px' : '32px'};` },
                 children: [price],
               },
@@ -651,7 +635,7 @@ function applyPricingOverrides(page) {
   if (!plansIntro) throw new Error('The resolved pricing page is missing its plans intro.');
   replaceText(
     plansIntro,
-    'Every plan is $0 per seat. Pricing is set per workspace, per month.',
+    'Pricing is set per workspace, per month.',
   );
 
   const planCards = findFirst(page.tree, (node) => hasClass(node, 'plancards'));
@@ -676,6 +660,7 @@ function applyPricingOverrides(page) {
         'Unlimited opportunities',
         'Unlimited agentic actions',
         'White-glove onboarding & forward-deployed engineer',
+        'Custom Data Connectors',
       ],
       featured: true,
     }),
@@ -683,10 +668,12 @@ function applyPricingOverrides(page) {
       name: 'Enterprise',
       price: 'Variable',
       features: [
+        'Unlimited Users',
         'Unlimited opportunities',
         'Unlimited agentic actions',
-        'SSO',
         'White-glove onboarding & forward-deployed engineer',
+        'Custom Data Connectors',
+        'SSO',
       ],
       enterprise: true,
     }),
