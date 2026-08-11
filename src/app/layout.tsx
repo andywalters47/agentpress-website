@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "AgentPress | AI Chief of Staff for Every Deal",
-    description: "Deal intelligence, tailored assets, and executional support for complex SaaS sales.",
+    description: "AgentPress proactively delivers the deal intelligence, tailored assets, and executional support enterprise sellers need to win.",
     url: "https://www.agent.press/",
     siteName: "AgentPress",
     locale: "en_US",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "AgentPress | AI Chief of Staff for Every Deal",
-    description: "Deal intelligence, tailored assets, and executional support for complex SaaS sales.",
+    description: "AgentPress proactively delivers the deal intelligence, tailored assets, and executional support enterprise sellers need to win.",
     images: [{
       url: "https://www.agent.press/agentpress_og_ai_chief_of_staff_v2.png",
       alt: "AgentPress — AI Chief of Staff for Every Deal",
