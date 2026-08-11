@@ -279,14 +279,30 @@ function installIntegrationAnimation() {
 function installTimelineAnimation() {
   const stage = document.querySelector<HTMLElement>('.ap-timeline-flight-scroll');
   const backdrop = stage?.querySelector<SVGElement>('.ap-timeline-backdrop');
+  const heading = document.querySelector<HTMLElement>('.ap-timeline-heading');
+  const sticky = stage?.querySelector<HTMLElement>('.ap-timeline-flight-sticky');
   const cards = stage ? Array.from(stage.querySelectorAll<SVGElement>('.ap-timeline-flight-card')) : [];
   if (!stage || !backdrop || !cards.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {};
+
+  // The heading is sticky for the entire scroll range, so on its own it is still
+  // pinned at the top when the next section arrives. With seven cards the last
+  // one passes the centre of the scene at roughly 0.90, so fading from here runs
+  // the section out while that card is departing rather than still arriving.
+  const sectionFadeStart = 0.94;
 
   const update = () => {
     const rect = stage.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
     const progress = clamp((viewportHeight - rect.top) / Math.max(1, rect.height));
     backdrop.style.opacity = String(keyframes(progress, [0, 0.04, 0.9, 1], [0.42, 1, 1, 0.26]));
+
+    // Read off the same progress value as the card motion so the fade cannot
+    // drift out of step with it. Applied to the heading and the pinned scene
+    // rather than their shared parent, which would put a stacking context on a
+    // 1161svh container and could reorder it against the sections around it.
+    const sectionOpacity = keyframes(progress, [sectionFadeStart, 1], [1, 0]).toFixed(3);
+    if (heading) heading.style.opacity = sectionOpacity;
+    if (sticky) sticky.style.opacity = sectionOpacity;
 
     cards.forEach((card, index) => {
       const cardStagger = 0.44;
