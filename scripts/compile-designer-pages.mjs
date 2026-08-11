@@ -30,6 +30,20 @@ const featureCopy = [
     paragraph: 'Complex opportunities require real attention, even when the pipeline is full. AgentPress handles the preparation, assets, and follow-through behind each deal, giving the same team the capacity to pursue more opportunities without lowering the standard.',
   },
 ];
+const featureArt = [
+  {
+    src: '/assets/feature-1-approval.svg',
+    label: 'Agent approval flow for a follow-up on the AlertMedia opportunity',
+  },
+  {
+    src: '/assets/feature-2-roleplay.svg',
+    label: 'Roleplay session for an upcoming enterprise meeting',
+  },
+  {
+    src: '/assets/feature-3-pipeline.svg',
+    label: 'Pipeline overview with the AlertMedia opportunity assessment',
+  },
+];
 const timelineCardTitles = [
   'Pre-call research and roleplay',
   'Deck preparation',
@@ -468,16 +482,41 @@ function applyHomepageOverrides(page, legacyHero) {
   }
   featureRows.forEach((row, index) => {
     const copy = featureCopy[index];
+    const art = featureArt[index];
     const eyebrow = findFirst(row, (node) => hasClass(node, 'eyebrow'));
     const heading = findFirst(row, (node) => node.tag === 'h2' && hasClass(node, 'h1'));
     const paragraph = findFirst(row, (node) => node.tag === 'p');
-    if (!eyebrow || !heading || !paragraph) {
+    const visual = row.children.find((node) => (
+      typeof node !== 'string'
+      && hasClass(node, 'fade')
+      && String(node.props?.style ?? '').includes('width: 640px')
+    ));
+    const background = visual && typeof visual !== 'string'
+      ? visual.children.find((node) => typeof node !== 'string' && node.tag === 'img')
+      : undefined;
+    if (!eyebrow || !heading || !paragraph || !visual || typeof visual === 'string' || !background || typeof background === 'string') {
       throw new Error(`The resolved homepage feature row ${index + 1} changed unexpectedly.`);
     }
     replaceText(eyebrow, copy.number);
     replaceText(heading, copy.title);
     replaceText(paragraph, copy.paragraph);
     paragraph.props.style = String(paragraph.props.style ?? '').replace('height: 123px;', 'height: auto;');
+    addClass(background, 'ap-feature-background');
+    visual.children = [
+      background,
+      {
+        tag: 'object',
+        props: {
+          type: 'image/svg+xml',
+          data: art.src,
+          width: '660',
+          height: '660',
+          'aria-label': art.label,
+          style: 'position: absolute; right: var(--ap-feature-art-offset, -7px); top: 50%; width: var(--ap-feature-art-size, 660px); height: var(--ap-feature-art-size, 660px); transform: translateY(-50%); max-width: none; pointer-events: none;',
+        },
+        children: [],
+      },
+    ];
   });
 
   const timelineScroll = findFirst(page.tree, (node) => hasClass(node, 'ap-timeline-flight-scroll'));

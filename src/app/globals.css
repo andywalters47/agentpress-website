@@ -745,21 +745,9 @@
     aspect-ratio: 1 / 1;
   }
 
-  .frow object {
-    position: absolute !important;
-    right: -8px !important;
-    width: 100% !important;
-    height: auto !important;
-  }
-
-  .frow .fade > img {
-    top: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
-    height: 100% !important;
-    transform: none !important;
-    object-fit: cover !important;
+  .frow .fade > .ap-lazy-svg-object {
+    --ap-feature-art-offset: -8px;
+    --ap-feature-art-size: 100%;
   }
 
   .ftext {
