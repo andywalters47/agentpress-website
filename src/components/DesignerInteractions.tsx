@@ -168,11 +168,20 @@ function installPreludeAnimation() {
   const secondBubble = hero.querySelector<HTMLElement>('.ap-hero-bubble-2');
   const headlineWords = Array.from(intro.querySelectorAll<HTMLElement>('.ap-manifesto-word'));
   const paragraphs = Array.from(intro.querySelectorAll<HTMLParagraphElement>('p'));
-  const supportingParagraphs = paragraphs.map((paragraph) => (
-    Array.from(paragraph.querySelectorAll<HTMLElement>('.ap-manifesto-supporting-word'))
-  ));
   const ink = [33, 33, 33];
   const accentGreen = [45, 196, 168];
+
+  // The designer export ships the supporting words with the per-word fade's
+  // opening frame baked into their style attribute: opacity 0, dimmed colour
+  // and an offset. Lifting them out of it was the old word-by-word animation's
+  // job, and the block fade on the paragraph cannot do it from the outside, so
+  // release them here. Until then the body copy stays hidden no matter what
+  // opacity its paragraph is given.
+  intro.querySelectorAll<HTMLElement>('.ap-manifesto-supporting-word').forEach((word) => {
+    word.style.removeProperty('opacity');
+    word.style.removeProperty('color');
+    word.style.removeProperty('transform');
+  });
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {};
 
@@ -195,15 +204,15 @@ function installPreludeAnimation() {
     });
   };
 
-  const animateSupportingBlock = (words: HTMLElement[], progress: number, blockStart: number, blockEnd: number) => {
-    const duration = blockEnd - blockStart;
-    words.forEach((word, index) => {
-      const wordStart = blockStart + ((index / Math.max(1, words.length)) * duration);
-      const wordEnd = blockStart + (((index + 1) / Math.max(1, words.length)) * duration);
-      const wordProgress = range(progress, wordStart, wordEnd);
-      word.style.color = `rgba(33, 33, 33, ${mix(0.32, 0.72, wordProgress).toFixed(3)})`;
-      word.style.opacity = String(wordProgress);
-      word.style.transform = `translateY(${mix(7, 0, wordProgress).toFixed(2)}px)`;
+  // Six lines of body copy revealed a word at a time made the reader scroll to
+  // earn each one, so the paragraphs come in together as a single block. They
+  // keep their own --ink-body colour and only opacity is animated, which lands
+  // on exactly the appearance the per-word fade used to end on.
+  const animateBodyBlock = (progress: number) => {
+    const eased = progress * progress * (3 - (2 * progress));
+    paragraphs.forEach((paragraph) => {
+      paragraph.style.opacity = String(eased);
+      paragraph.style.transform = `translateY(${mix(9, 0, eased).toFixed(2)}px)`;
     });
   };
 
@@ -212,7 +221,10 @@ function installPreludeAnimation() {
     const preludeRect = prelude.getBoundingClientRect();
     const stickyHeight = Math.max(1, viewportHeight - 80);
     const preludeProgress = clamp((-preludeRect.top) / Math.max(1, preludeRect.height - stickyHeight));
-    const primaryProgress = clamp(preludeProgress / 0.6);
+    // The section is 380svh rather than 720svh now, so the hero handover is
+    // spread over a larger share of it to keep roughly the scroll distance it
+    // used to take rather than becoming abrupt at the shorter length.
+    const primaryProgress = clamp(preludeProgress / 1.1);
     const parallaxProgress = range(primaryProgress, 0, 0.34);
     hero.style.setProperty('--ap-hero-opacity', String(keyframes(primaryProgress, [0, 0.16, 0.34], [1, 0.72, 0])));
     hero.style.setProperty('--ap-hero-filter-opacity', String(keyframes(primaryProgress, [0, 0.11, 0.24], [1, 0.42, 0])));
@@ -223,10 +235,13 @@ function installPreludeAnimation() {
     introShell.style.setProperty('--ap-manifesto-opacity', String(range(primaryProgress, 0.015, 0.16)));
     introShell.style.setProperty('--ap-manifesto-scale', String(keyframes(primaryProgress, [0.015, 0.24], [0.96, 1])));
     introShell.style.setProperty('--ap-manifesto-y', `${keyframes(primaryProgress, [0.015, 0.24], [34, 0]).toFixed(2)}vh`);
-    const introProgress = range(preludeProgress, 0.10, 0.78);
-    animateHeadlineBlock(headlineWords, introProgress, 0, 0.24);
-    animateSupportingBlock(supportingParagraphs[0] ?? [], introProgress, 0.56, 0.73);
-    animateSupportingBlock(supportingParagraphs[1] ?? [], introProgress, 0.77, 1);
+    // Retimed against the shorter section so the headline keeps its old pace of
+    // roughly a viewport per four words, the body block follows after a short
+    // beat, and the long stretch of nothing that used to run from the last word
+    // to the end of the section is gone.
+    const introProgress = range(preludeProgress, 0.20, 0.88);
+    animateHeadlineBlock(headlineWords, introProgress, 0, 0.53);
+    animateBodyBlock(range(introProgress, 0.70, 1));
   };
 
   return onScroll(update);

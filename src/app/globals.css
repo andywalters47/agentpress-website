@@ -70,7 +70,7 @@
 
 .ap-prelude-scroll {
   position: relative;
-  height: 720svh;
+  height: 380svh;
   background: #fdfaf4;
 }
 
@@ -220,7 +220,16 @@
 .ap-manifesto-supporting-word {
   display: inline-block;
   transform-origin: 50% 72%;
+}
+
+.ap-manifesto-word {
   will-change: color, opacity, text-shadow, transform;
+}
+
+/* The body copy fades in as one block rather than a word at a time, so the
+   paragraph is what gets animated and the words are left alone. */
+.ap-intro-shell .introrow p {
+  will-change: opacity, transform;
 }
 
 .ap-timeline-heading {
@@ -470,6 +479,15 @@
     opacity: 1 !important;
     text-shadow: none !important;
     transform: none !important;
+  }
+
+  /* The block fade writes opacity onto the paragraph, so it needs the same
+     release as the words. Colour is left alone: the paragraph carries
+     --ink-body inline and inheriting would drop its alpha. */
+  .ap-intro-shell .introrow p {
+    opacity: 1 !important;
+    transform: none !important;
+    will-change: auto;
   }
 
   .ap-timeline-flight-scroll {
@@ -753,6 +771,15 @@
     opacity: 1 !important;
     text-shadow: none !important;
     transform: none !important;
+  }
+
+  /* The block fade writes opacity onto the paragraph, so it needs the same
+     release as the words. Colour is left alone: the paragraph carries
+     --ink-body inline and inheriting would drop its alpha. */
+  .ap-intro-shell .introrow p {
+    opacity: 1 !important;
+    transform: none !important;
+    will-change: auto;
   }
 
   .ap-timeline-flight-scroll {
