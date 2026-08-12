@@ -277,7 +277,7 @@ function installTimelineAnimation() {
   const heading = document.querySelector<HTMLElement>('.ap-timeline-heading');
   const sticky = stage?.querySelector<HTMLElement>('.ap-timeline-flight-sticky');
   const cards = stage ? Array.from(stage.querySelectorAll<SVGElement>('.ap-timeline-flight-card')) : [];
-  if (!stage || !backdrop || !cards.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {};
+  if (!stage || !backdrop || !sticky || !cards.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {};
 
   // The heading is sticky for the entire scroll range, so on its own it is still
   // pinned at the top when the next section arrives. With seven cards the last
@@ -285,8 +285,40 @@ function installTimelineAnimation() {
   // the section out while that card is departing rather than still arriving.
   const sectionFadeStart = 0.94;
 
+  // Everything below assumes the pinned layout: a tall spacer with the scene
+  // held still inside it, where progress reaching 1 means the cards have flown
+  // and the scene is about to unpin. Neither responsive layout works that way.
+  // Between 601px and 1024px the section is display:none in favour of the
+  // static overview, so the stage measures zero and progress pins at 1. At
+  // 600px and below the scene is position:relative and the cards are a plain
+  // vertical stack, where progress reaches 1 when the section's bottom is only
+  // just level with the bottom of the viewport -- a whole viewport before the
+  // last cards have been read. Fading from 0.94 against that erased cards five
+  // onwards while they were still on screen.
+  let measuredWidth = -1;
+  let scenePinned = false;
+  const refreshLayout = () => {
+    if (window.innerWidth === measuredWidth) return;
+    measuredWidth = window.innerWidth;
+    scenePinned = window.getComputedStyle(sticky).position === 'sticky';
+  };
+
+  // Opacity is the one thing the static layouts do not override, so it is the
+  // one thing that has to be handed back when the flight does not apply. The
+  // backdrop is left as it is: it carries a meaningful starting opacity of its
+  // own and is display:none in both of those layouts.
+  const releaseSection = () => {
+    heading?.style.removeProperty('opacity');
+    sticky.style.removeProperty('opacity');
+  };
+
   const update = () => {
+    refreshLayout();
     const rect = stage.getBoundingClientRect();
+    if (!scenePinned || !rect.height) {
+      releaseSection();
+      return;
+    }
     const viewportHeight = window.innerHeight;
     const progress = clamp((viewportHeight - rect.top) / Math.max(1, rect.height));
     backdrop.style.opacity = String(keyframes(progress, [0, 0.04, 0.9, 1], [0.42, 1, 1, 0.26]));
@@ -297,7 +329,7 @@ function installTimelineAnimation() {
     // 1161svh container and could reorder it against the sections around it.
     const sectionOpacity = keyframes(progress, [sectionFadeStart, 1], [1, 0]).toFixed(3);
     if (heading) heading.style.opacity = sectionOpacity;
-    if (sticky) sticky.style.opacity = sectionOpacity;
+    sticky.style.opacity = sectionOpacity;
 
     cards.forEach((card, index) => {
       const cardStagger = 0.44;
