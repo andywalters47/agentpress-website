@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { onScroll, scrollToPosition } from '@/lib/scroll';
 
 const clamp = (value: number, minimum = 0, maximum = 1) => Math.min(maximum, Math.max(minimum, value));
 const mix = (start: number, end: number, progress: number) => start + ((end - start) * clamp(progress));
@@ -63,29 +64,19 @@ function installNavigation() {
 function installBackToTop() {
   const element = document.querySelector<HTMLElement>('a[aria-label="Back to top"]');
   if (!element) return () => {};
-  const onScroll = () => {
+  const update = () => {
     const show = window.scrollY > window.innerHeight;
     element.style.opacity = show ? '1' : '0';
     element.style.pointerEvents = show ? 'auto' : 'none';
   };
   const onClick = (event: Event) => {
     event.preventDefault();
-    const start = window.scrollY;
-    const duration = 900;
-    const startTime = performance.now();
-    const step = (now: number) => {
-      const progress = Math.min(1, (now - startTime) / duration);
-      const eased = 1 - ((1 - progress) ** 3);
-      window.scrollTo(0, start * (1 - eased));
-      if (progress < 1) requestAnimationFrame(step);
-    };
-    requestAnimationFrame(step);
+    scrollToPosition(0);
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
   element.addEventListener('click', onClick);
-  onScroll();
+  const stop = onScroll(update);
   return () => {
-    window.removeEventListener('scroll', onScroll);
+    stop();
     element.removeEventListener('click', onClick);
   };
 }
@@ -132,23 +123,36 @@ function installFeatureSection() {
     const mark = event.currentTarget as HTMLElement;
     const index = Number(mark.dataset.mark);
     const top = wrapper.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: top + (index * window.innerHeight) + 8, behavior: 'smooth' });
+    scrollToPosition(top + (index * window.innerHeight) + 8);
   };
   marks.forEach((mark) => mark.addEventListener('click', onMark));
   setStep(0);
 
+  // This was an IntersectionObserver with a -49%/-49% root margin, which asks
+  // "which sentinel covers the viewport centre". The sentinels are 100vh tall
+  // and tile the pinned range, so that is a plain scroll-position question and
+  // is answered off Lenis' frame instead: an observer fires asynchronously and
+  // would let the active step lag the panel it is meant to label.
+  const stepAtCentre = () => {
+    const centre = window.innerHeight / 2;
+    // The first sentinel still reaching past the centre line is the one over
+    // it; falling through means the section has scrolled by, leaving the last.
+    const index = sentinels.findIndex((sentinel) => sentinel.getBoundingClientRect().bottom > centre);
+    return index < 0 ? sentinels.length - 1 : index;
+  };
+
+  let current = 0;
+  const update = () => {
+    const step = stepAtCentre();
+    if (step === current) return;
+    current = step;
+    setStep(step);
+  };
+
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce), (max-width: 767px)');
-  let observer: IntersectionObserver | undefined;
-  if (!reduced.matches) {
-    observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) setStep(Number((entry.target as HTMLElement).dataset.sentinel));
-      });
-    }, { root: document, rootMargin: '-49% 0px -49% 0px', threshold: 0 });
-    sentinels.forEach((sentinel) => observer?.observe(sentinel));
-  }
+  const stop = reduced.matches ? null : onScroll(update);
   return () => {
-    observer?.disconnect();
+    stop?.();
     marks.forEach((mark) => mark.removeEventListener('click', onMark));
   };
 }
@@ -225,19 +229,7 @@ function installPreludeAnimation() {
     animateSupportingBlock(supportingParagraphs[1] ?? [], introProgress, 0.77, 1);
   };
 
-  let frame = 0;
-  const schedule = () => {
-    if (frame) return;
-    frame = requestAnimationFrame(() => { frame = 0; update(); });
-  };
-  window.addEventListener('scroll', schedule, { passive: true });
-  window.addEventListener('resize', schedule);
-  update();
-  return () => {
-    if (frame) cancelAnimationFrame(frame);
-    window.removeEventListener('scroll', schedule);
-    window.removeEventListener('resize', schedule);
-  };
+  return onScroll(update);
 }
 
 function installIntegrationAnimation() {
@@ -261,19 +253,7 @@ function installIntegrationAnimation() {
     });
   };
 
-  let frame = 0;
-  const schedule = () => {
-    if (frame) return;
-    frame = requestAnimationFrame(() => { frame = 0; update(); });
-  };
-  window.addEventListener('scroll', schedule, { passive: true });
-  window.addEventListener('resize', schedule);
-  update();
-  return () => {
-    if (frame) cancelAnimationFrame(frame);
-    window.removeEventListener('scroll', schedule);
-    window.removeEventListener('resize', schedule);
-  };
+  return onScroll(update);
 }
 
 function installTimelineAnimation() {
@@ -362,19 +342,7 @@ function installTimelineAnimation() {
     });
   };
 
-  let frame = 0;
-  const schedule = () => {
-    if (frame) return;
-    frame = requestAnimationFrame(() => { frame = 0; update(); });
-  };
-  window.addEventListener('scroll', schedule, { passive: true });
-  window.addEventListener('resize', schedule);
-  update();
-  return () => {
-    if (frame) cancelAnimationFrame(frame);
-    window.removeEventListener('scroll', schedule);
-    window.removeEventListener('resize', schedule);
-  };
+  return onScroll(update);
 }
 
 export function DesignerInteractions({ home }: { home: boolean }) {

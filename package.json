@@ -10,6 +10,7 @@
     "optimize:timeline": "node scripts/optimize-timeline-sprite.mjs"
   },
   "dependencies": {
+    "lenis": "^1.3.26",
     "motion": "^12.43.0",
     "next": "16.1.6",
     "react": "19.2.3",
