@@ -389,6 +389,12 @@ function applySitewideFooterOverrides(page) {
   const footer = findFirst(page.tree, (node) => node.props?.['data-sc-name'] === 'Footer');
   if (!footer) throw new Error(`The resolved ${page.key} page is missing its footer.`);
 
+  const copyright = findFirst(footer, (node) => (
+    textContent(node) === 'Copyright © 2026 AgentPress Labs, Inc. All rights reserved'
+  ));
+  if (!copyright) throw new Error(`The resolved ${page.key} footer is missing its copyright statement.`);
+  replaceText(copyright, 'Copyright © 2026 AgentPress, Inc. All rights reserved');
+
   // Keep the designer-authored News column in the source export while hiding
   // it from the current site.
   removeNodes(footer, (node) => (
