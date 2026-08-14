@@ -5,6 +5,7 @@ const captureDirectory = process.argv[2] ?? '/tmp/agentpress-native-capture-full
 const projectRoot = path.resolve(import.meta.dirname, '..');
 const outputPath = path.join(projectRoot, 'src/generated/designer-pages.json');
 const legacyHomepagePath = path.resolve(projectRoot, '..', 'agentpress-website-new-3.legacy-index.html');
+const demoUrl = 'https://calendar.app.google/AwUNqYVrSpUf1XeK8';
 const manifestoCopy = {
   title: 'The first AI sales agent that proactively delivers what your team needs to win',
   paragraphs: [
@@ -349,27 +350,40 @@ function pricingPlanCard({ name, price, features, featured = false, enterprise =
         tag: 'a',
         props: {
           class: enterprise ? 'pricing-contact' : featured ? 'btn-dark' : 'btn-start',
-          href: enterprise
-            ? 'https://calendar.app.google/AwUNqYVrSpUf1XeK8'
-            : 'https://console.agent.press/sign-up',
+          href: demoUrl,
           target: '_blank',
           rel: 'noopener',
           style: featured
             ? 'display: inline-flex; align-self: flex-start; align-items: center; justify-content: center; background: var(--web-dark-end); color: var(--on-dark); border-radius: 11px; padding: 15px 26px; font-size: 16px; font-weight: 500; cursor: pointer; margin-top: 32px;'
             : 'display: inline-flex; align-self: flex-start; align-items: center; justify-content: center; background: var(--brand-mint); color: rgba(33, 33, 33, 0.8); border-radius: 11px; padding: 15px 26px; font-size: 16px; font-weight: 500; cursor: pointer; margin-top: 32px;',
         },
-        children: [enterprise ? 'Schedule Demo' : 'Start Now'],
+        children: ['Schedule Demo'],
       },
     ],
   };
 }
 
-function applySitewideCtaCopy(page) {
+function applySitewideCtaOverrides(page) {
   walk(page.tree, (node) => {
-    if (node.tag !== 'a' || node.props?.href !== 'https://calendar.app.google/AwUNqYVrSpUf1XeK8') return;
-    const primary = hasClass(node, 'btn-start') || hasClass(node, 'btn-dark');
-    replaceText(node, primary ? 'Start Now' : 'Schedule Demo');
-    if (primary) node.props.href = 'https://console.agent.press/sign-up';
+    if (node.tag !== 'a' || node.props?.href !== demoUrl) return;
+    replaceText(node, 'Schedule Demo');
+    node.props.target = '_blank';
+    node.props.rel = 'noopener';
+  });
+
+  // When the source has primary and secondary conversion links side by side,
+  // retain the primary styling and remove the now-redundant second link.
+  walk(page.tree, (node) => {
+    let keptDemoCta = false;
+    node.children = (node.children ?? []).filter((child) => {
+      const isDemoCta = typeof child !== 'string'
+        && child.tag === 'a'
+        && child.props?.href === demoUrl;
+      if (!isDemoCta) return true;
+      if (keptDemoCta) return false;
+      keptDemoCta = true;
+      return true;
+    });
   });
 }
 
@@ -481,12 +495,12 @@ function applyHomepageOverrides(page, legacyHero) {
     throw new Error('The resolved homepage is missing its hero calls to action.');
   }
   primaryHeroCta.tag = 'a';
-  primaryHeroCta.props.href = 'https://console.agent.press/sign-up';
+  primaryHeroCta.props.href = demoUrl;
   primaryHeroCta.props.target = '_blank';
   primaryHeroCta.props.rel = 'noopener';
-  replaceText(primaryHeroCta, 'Start Now');
+  replaceText(primaryHeroCta, 'Schedule Demo');
   secondaryHeroCta.tag = 'a';
-  secondaryHeroCta.props.href = 'https://calendar.app.google/AwUNqYVrSpUf1XeK8';
+  secondaryHeroCta.props.href = demoUrl;
   secondaryHeroCta.props.target = '_blank';
   secondaryHeroCta.props.rel = 'noopener';
   replaceText(secondaryHeroCta, 'Schedule Demo');
@@ -801,7 +815,7 @@ for (const file of files) {
   removeTextFragment(page.tree, 'Your data never trains a model.');
   applySitewideNavigationOverrides(page);
   applySitewideFooterOverrides(page);
-  applySitewideCtaCopy(page);
+  applySitewideCtaOverrides(page);
   pages[page.key] = page;
 }
 

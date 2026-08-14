@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 export function CtaBand({
   heading = 'See it run on your own pipeline',
-  buttonLabel = 'Start Now',
-  href = 'https://console.agent.press/sign-up',
+  buttonLabel = 'Schedule Demo',
+  href = 'https://calendar.app.google/AwUNqYVrSpUf1XeK8',
 }: {
   heading?: string;
   buttonLabel?: string;
