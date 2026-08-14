@@ -72,6 +72,7 @@ const roleCopy = {
     ],
   },
   'Sales managers': {
+    title: 'Sales Directors, VPs, and CROs',
     paragraph: 'AgentPress turns the habits of your best sellers into a consistent operating standard across the team. See where every deal is strong, where it’s exposed, and what needs to happen next, while the agent works ahead to close the gaps.',
     bullets: [
       'Consistent execution across every rep',
@@ -693,6 +694,7 @@ function applyHomepageOverrides(page, legacyHero) {
     if (!roleHeading || !roleCard || !roleParagraph || roleChecks.length !== copy.bullets.length) {
       throw new Error(`The resolved homepage ${roleName} role card changed unexpectedly.`);
     }
+    replaceText(roleHeading, copy.title ?? roleName);
     replaceText(roleParagraph, copy.paragraph);
     roleChecks.forEach((check, index) => {
       const label = check.children.find((node) => typeof node !== 'string' && node.tag === 'span');
