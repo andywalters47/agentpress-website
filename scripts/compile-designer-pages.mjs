@@ -1,5 +1,6 @@
 import { mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { applyPrivacyGoogleSection } from './privacy-google-section.mjs';
 
 const captureDirectory = process.argv[2] ?? '/tmp/agentpress-native-capture-full';
 const projectRoot = path.resolve(import.meta.dirname, '..');
@@ -814,6 +815,7 @@ for (const file of files) {
   if (page.key === 'home') applyHomepageOverrides(page, legacyHero);
   if (page.key === 'pricing') applyPricingOverrides(page);
   if (page.key === 'our-story') applyOurStoryOverrides(page);
+  if (page.key === 'privacy') applyPrivacyGoogleSection(page);
   removeTextFragment(page.tree, 'Your data never trains a model.');
   applySitewideNavigationOverrides(page);
   applySitewideFooterOverrides(page);
