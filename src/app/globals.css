@@ -97,7 +97,7 @@
   .frow:has(> .ap-business-art) > .ftext { min-width: 0; }
   .frow:has(> .ap-business-art) .ftext p { width: auto !important; }
 }
-#business-capabilities, #business-audiences { scroll-margin-top: 120px; }
+#business-capabilities, #business-audiences, #business-faq { scroll-margin-top: 120px; }
 @media (max-width: 600px) {
   .ap-business-illustration--large { display: none; }
   .ap-business-illustration--compact { display: block; }

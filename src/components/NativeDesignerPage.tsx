@@ -5,6 +5,7 @@ import { RevenueWorkflowCards } from '@/components/RevenueWorkflowCards';
 import { AutomationFeatureArt } from '@/components/AutomationArtwork';
 import { updateHomepageCapabilities } from '@/components/BusinessCapabilities';
 import { updateHomepageAudiences } from '@/components/BusinessAudiences';
+import { updateHomepageFaq } from '@/components/BusinessFaq';
 import '@/components/BusinessAudiences.css';
 
 export type DesignerPageKey =
@@ -405,7 +406,7 @@ export function NativeDesignerPage({ page }: { page: DesignerPageKey }) {
       )).map((css, index) => (
         <style key={`${page}-style-${index}`} data-designer-style={page}>{css}</style>
       ))}
-      {renderNode(page === 'home' ? updateHomepageAudiences(updateHomepageCapabilities(design.tree)) : design.tree, page)}
+      {renderNode(page === 'home' ? updateHomepageFaq(updateHomepageAudiences(updateHomepageCapabilities(design.tree))) : design.tree, page)}
       <DesignerInteractions home={page === 'home'} />
     </>
   );
