@@ -18,7 +18,7 @@ export function updateBusinessSiteChrome(node: ChromeNode, inNav = false, inFoot
   const cta = inCta || node.props['data-sc-name'] === 'CtaBand';
   const classes = String(node.props.class ?? '').split(/\s+/);
   if (node.tag === 'a' && node.props.href === consultationUrl) {
-    return { ...node, children: [nav ? 'Book Consultation' : 'Book a Free Consultation'] };
+    return { ...node, children: [nav || footer || cta ? 'Book Consultation' : 'Book a Free Consultation'] };
   }
   if (cta && classes.includes('ctahead')) {
     return { ...node, children: ['Put AI to work in your business'] };
@@ -28,7 +28,7 @@ export function updateBusinessSiteChrome(node: ChromeNode, inNav = false, inFoot
       ...node,
       children: [
         { tag: 'b', props: {}, children: ['AgentPress'] },
-        { tag: 'a', props: { href: consultationUrl, target: '_blank', rel: 'noopener' }, children: ['Book a Free Consultation'] },
+        { tag: 'a', props: { href: consultationUrl, target: '_blank', rel: 'noopener' }, children: ['Book Consultation'] },
         { tag: 'a', props: { href: loginUrl, target: '_blank', rel: 'noopener' }, children: ['Login'] },
       ],
     };
