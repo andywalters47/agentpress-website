@@ -25,22 +25,21 @@
 .ap-workflow-frame { fill: var(--web-bg); stroke: var(--hairline); }
 .ap-workflow-title, .ap-workflow-ink { fill: var(--ink); }
 .ap-workflow-muted { fill: var(--ink-muted); color: var(--ink-muted); }
-.ap-workflow-purple { color: var(--action-primary); }
-.ap-workflow-positive { color: var(--status-positive-ink); }
+.ap-workflow-positive { color: var(--status-positive-glyph); }
 .ap-workflow-panel { fill: var(--app-surface); stroke: var(--hairline); }
-.ap-workflow-panel--accent { fill: var(--state-selected-bg); stroke: var(--status-engaged-border); }
-.ap-workflow-rule { stroke: var(--hairline); }
 .ap-workflow-connector { stroke: var(--ink-faint); }
 .ap-workflow-check-bg { fill: var(--status-positive-tint); }
 .ap-workflow-empty-check { fill: none; stroke: var(--ink-faint); stroke-dasharray: 2 2; }
 .ap-workflow-badge rect { stroke-width: 0.6; }
-.ap-workflow-badge--positive rect { fill: var(--brand-mint); stroke: var(--status-positive-border); }
-.ap-workflow-badge--positive text, .ap-workflow-badge--positive circle { fill: var(--ink); }
+.ap-workflow-badge--positive rect { fill: var(--status-positive-tint); stroke: var(--status-positive-border); }
+.ap-workflow-badge--positive text { fill: var(--status-positive-ink); }
+.ap-workflow-badge--positive circle { fill: var(--status-positive-glyph); }
 .ap-workflow-badge--warning rect { fill: var(--status-warning-tint); stroke: var(--status-warning-border); }
 .ap-workflow-badge--warning text { fill: var(--ink-body); }
 .ap-workflow-badge--warning circle { fill: var(--status-warning-glyph); }
 .ap-workflow-badge--purple rect { fill: var(--status-engaged-tint); stroke: var(--status-engaged-border); }
-.ap-workflow-badge--purple text, .ap-workflow-badge--purple circle { fill: var(--status-engaged-ink); }
+.ap-workflow-badge--purple text { fill: var(--status-engaged-ink); }
+.ap-workflow-badge--purple circle { fill: var(--status-engaged-glyph); }
 .ap-workflow-button { fill: var(--action-primary); }
 .ap-workflow-button-label { fill: var(--action-primary-ink); }
 
