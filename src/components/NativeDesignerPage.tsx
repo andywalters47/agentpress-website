@@ -1,6 +1,7 @@
 import { createElement, type CSSProperties, type ReactNode } from 'react';
 import designerPagesJson from '@/generated/designer-pages.json';
 import { DesignerInteractions } from '@/components/DesignerInteractions';
+import { RevenueWorkflowCards } from '@/components/RevenueWorkflowCards';
 
 export type DesignerPageKey =
   | 'home'
@@ -29,9 +30,14 @@ type DesignerPage = {
 
 const designerPages = designerPagesJson as unknown as Record<DesignerPageKey, DesignerPage>;
 
+const apfmLogoSource = 'https://www.aplaceformom.com/image/apfm-web-api/v2/static/apfm-logo-horizontal.svg';
+
 const homepageCopyOverrides: Record<string, string> = {
+  "AgentPress was built around the way enterprise deals move, by people who've run them.": 'AgentPress is built for midmarket companies looking to accelerate revenue',
+  'What AgentPress does between meetings': 'We automate the work that keeps revenue moving',
   'Win more deals with the team you already have': 'We help B2B companies automate revenue generating work',
   'AgentPress gives every complex B2B deal an AI agent that prepares your team, uncovers the business case, and does the legwork behind every close.': 'AgentPress combines AI consulting, custom engineering, and an auditable agent platform to automate your workflows, connect your existing systems, and grow revenue.',
+  'SaaS teams selling into enterprise': 'Midmarket firms using AgentPress',
 };
 
 const homepageBlockCopyOverrides: Record<string, string> = {
@@ -260,13 +266,51 @@ function renderNode(node: DesignerNode | string, nodeKey: string): ReactNode {
   if (node.tag === 'image-slot') return <NativeImageSlot key={nodeKey} node={node} nodeKey={nodeKey} />;
 
   const isHomepageNode = nodeKey.startsWith('home.');
+  const nodeClasses = String(node.props.class ?? '').split(/\s+/);
+  if (isHomepageNode && nodeClasses.includes('ap-timeline-original-overview')) return null;
+  if (isHomepageNode && nodeClasses.includes('ap-timeline-scene')) {
+    const backdrop = node.children.find((child) => typeof child !== 'string' && String(child.props.class ?? '').includes('ap-timeline-backdrop'));
+    return <div {...toReactProps(node.props)} className="ap-timeline-scene ap-revenue-scene" key={nodeKey}>
+      {backdrop ? renderNode(backdrop, `${nodeKey}.backdrop`) : null}
+      <RevenueWorkflowCards key={`${nodeKey}.cards`} />
+    </div>;
+  }
   const blockCopyOverride = isHomepageNode ? homepageBlockCopyOverrides[nodeText(node)] : undefined;
   const isHeroCta = isHomepageNode && String(node.props.class ?? '').split(/\s+/).includes('btn-dark');
+  const isCustomerLogoWall = isHomepageNode && node.children.some((child) => (
+    typeof child !== 'string'
+    && child.tag === 'img'
+    && child.props.src === '/assets/logos.svg'
+  ));
+  const hasApfmLogo = isCustomerLogoWall && node.children.some((child) => (
+    typeof child !== 'string'
+    && child.tag === 'img'
+    && child.props.src === apfmLogoSource
+  ));
+  const apfmLogoNode: DesignerNode = {
+    tag: 'img',
+    props: {
+      src: apfmLogoSource,
+      alt: 'A Place for Mom',
+      width: '493',
+      height: '169',
+      style: 'position: absolute; left: 0%; width: 18%; top: 0px; height: 100%; object-fit: contain; filter: grayscale(1) contrast(1.1);',
+    },
+    children: [],
+  };
   const childNodes = blockCopyOverride
     ? overriddenWordChildren(node, blockCopyOverride)
     : isHeroCta && nodeText(node) === 'Schedule Demo'
       ? ['Book a Free Consultation']
-      : node.children;
+      : isCustomerLogoWall && !hasApfmLogo
+        ? [apfmLogoNode, ...node.children.filter((child) => (
+          typeof child === 'string' || child.props.src !== '/assets/quivly-logo.png'
+        ))]
+        : isCustomerLogoWall
+          ? node.children.filter((child) => (
+            typeof child === 'string' || child.props.src !== '/assets/quivly-logo.png'
+          ))
+          : node.children;
 
   if (node.tag === 'object' && String(node.props.data ?? '').endsWith('.svg')) {
     const objectProps = toReactProps(node.props);
@@ -286,12 +330,33 @@ function renderNode(node: DesignerNode | string, nodeKey: string): ReactNode {
 
   const children = childNodes.map((child, index) => renderNode(child, `${nodeKey}.${index}`));
   const reactProps = toReactProps(node.props);
+  if (isHomepageNode && nodeClasses.includes('ap-timeline-heading')) {
+    reactProps.id = 'revenue-workflows';
+  }
+  if (isHomepageNode && nodeClasses.includes('ap-timeline-flight-scroll')) {
+    reactProps.className = `${reactProps.className} ap-revenue-workflows`;
+    reactProps['aria-label'] = 'Six revenue automation workflows';
+  }
+  if (isCustomerLogoWall) {
+    reactProps.style = {
+      ...(reactProps.style as CSSProperties),
+      width: '780px',
+      overflow: 'hidden',
+    };
+  }
   if (node.tag === 'img') {
     const originalSource = String(reactProps.src ?? '');
     const className = String(reactProps.className ?? '');
     const isHeroBackground = className.includes('ap-hero-background');
     const isHeroLayer = className.includes('ap-hero-layer');
     const isNavigationLogo = originalSource.includes('AP_landscape_for_light_bg.svg');
+    if (isHomepageNode && originalSource === '/assets/logos.svg') {
+      reactProps.style = {
+        ...(reactProps.style as CSSProperties),
+        width: '91.3659%',
+        marginLeft: '20%',
+      };
+    }
     reactProps.src = optimizedAssetSource(originalSource);
     if (responsiveAssetSources[originalSource]) {
       reactProps.srcSet = responsiveAssetSources[originalSource];

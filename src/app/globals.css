@@ -3,6 +3,106 @@
 @import "../../public/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/components/marketing/fig-tokens.css";
 @import "../../public/components/integrations/fig-assets.css";
 
+/* Revenue workflow illustrations share the existing app UI palette and the
+   homepage's scroll-card motion; the responsive layouts show the same art. */
+.ap-revenue-workflows.ap-timeline-flight-scroll {
+  height: 1006.96svh;
+}
+
+.ap-revenue-workflows .ap-revenue-card-anchor {
+  aspect-ratio: 360 / 320;
+}
+
+.ap-timeline-heading:has(+ .ap-revenue-workflows) {
+  scroll-margin-top: 96px;
+}
+
+.ap-revenue-card {
+  font-family: var(--font-body);
+  color: var(--ink);
+}
+
+.ap-workflow-frame { fill: var(--web-bg); stroke: var(--hairline); }
+.ap-workflow-title, .ap-workflow-ink { fill: var(--ink); }
+.ap-workflow-muted { fill: var(--ink-muted); color: var(--ink-muted); }
+.ap-workflow-purple { color: var(--action-primary); }
+.ap-workflow-positive { color: var(--status-positive-ink); }
+.ap-workflow-panel { fill: var(--app-surface); stroke: var(--hairline); }
+.ap-workflow-panel--accent { fill: var(--state-selected-bg); stroke: var(--status-engaged-border); }
+.ap-workflow-rule { stroke: var(--hairline); }
+.ap-workflow-connector { stroke: var(--ink-faint); }
+.ap-workflow-check-bg { fill: var(--status-positive-tint); }
+.ap-workflow-empty-check { fill: none; stroke: var(--ink-faint); stroke-dasharray: 2 2; }
+.ap-workflow-badge rect { stroke-width: 0.6; }
+.ap-workflow-badge--positive rect { fill: var(--brand-mint); stroke: var(--status-positive-border); }
+.ap-workflow-badge--positive text, .ap-workflow-badge--positive circle { fill: var(--ink); }
+.ap-workflow-badge--warning rect { fill: var(--status-warning-tint); stroke: var(--status-warning-border); }
+.ap-workflow-badge--warning text { fill: var(--ink-body); }
+.ap-workflow-badge--warning circle { fill: var(--status-warning-glyph); }
+.ap-workflow-badge--purple rect { fill: var(--status-engaged-tint); stroke: var(--status-engaged-border); }
+.ap-workflow-badge--purple text, .ap-workflow-badge--purple circle { fill: var(--status-engaged-ink); }
+.ap-workflow-button { fill: var(--action-primary); }
+.ap-workflow-button-label { fill: var(--action-primary-ink); }
+
+@media (max-width: 1024px), (prefers-reduced-motion: reduce) {
+  .ap-timeline-heading:has(+ .ap-revenue-workflows) {
+    position: static;
+  }
+
+  .ap-revenue-workflows.ap-timeline-flight-scroll {
+    display: block !important;
+    height: auto !important;
+    margin: 0 0 96px !important;
+    overflow: visible !important;
+  }
+
+  .ap-revenue-workflows .ap-timeline-flight-sticky {
+    position: relative !important;
+    top: auto !important;
+    height: auto !important;
+    padding: 0 24px;
+    overflow: visible !important;
+    background: none;
+  }
+
+  .ap-revenue-workflows .ap-revenue-scene {
+    position: static !important;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    width: min(100%, 900px) !important;
+    margin: 0 auto;
+    aspect-ratio: auto !important;
+    transform: none !important;
+  }
+
+  .ap-revenue-workflows .ap-timeline-backdrop { display: none; }
+
+  .ap-revenue-workflows .ap-revenue-card-anchor {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100% !important;
+    max-width: 420px;
+    margin: 0 auto;
+    transform: none !important;
+  }
+
+  .ap-revenue-workflows .ap-revenue-card {
+    transform: none !important;
+    filter: drop-shadow(0 12px 18px var(--hairline)) !important;
+    will-change: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .ap-revenue-workflows .ap-revenue-scene {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+  }
+}
+
 .agentpress-fonts {
   --font-display: var(--font-neu-sans), Arial, sans-serif;
   --font-body: var(--font-archivo), Arial, sans-serif;
