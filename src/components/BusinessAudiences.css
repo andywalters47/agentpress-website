@@ -19,13 +19,11 @@
 }
 
 .ap-business-audience-benefits {
-  margin-top: auto !important;
-  padding-top: 28px;
+  margin-top: 28px !important;
 }
 
 .ap-business-audience-benefits .check {
   align-items: flex-start;
-  min-height: 44px;
 }
 
 .ap-business-audience-benefits .check svg {
@@ -46,9 +44,6 @@
     min-height: 0;
   }
 
-  .ap-business-audience-benefits .check {
-    min-height: 0;
-  }
 }
 
 @media (max-width: 600px) {
