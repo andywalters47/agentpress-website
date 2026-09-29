@@ -3,6 +3,7 @@ import designerPagesJson from '@/generated/designer-pages.json';
 import { DesignerInteractions } from '@/components/DesignerInteractions';
 import { RevenueWorkflowCards } from '@/components/RevenueWorkflowCards';
 import { AutomationFeatureArt } from '@/components/AutomationArtwork';
+import { HeroBusinessIllustration } from '@/components/HeroBusinessIllustration';
 import { updateHomepageCapabilities } from '@/components/BusinessCapabilities';
 import { updateHomepageAudiences } from '@/components/BusinessAudiences';
 import { updateHomepageFaq } from '@/components/BusinessFaq';
@@ -281,6 +282,9 @@ function renderNode(node: DesignerNode | string, nodeKey: string): ReactNode {
 
   const isHomepageNode = nodeKey.startsWith('home.');
   const nodeClasses = String(node.props.class ?? '').split(/\s+/);
+  if (isHomepageNode && nodeClasses.includes('ap-hero-layered')) {
+    return <HeroBusinessIllustration key={nodeKey} />;
+  }
   const featureArtSources = ['/assets/feature-1-approval.svg', '/assets/feature-2-roleplay.svg', '/assets/feature-3-pipeline.svg'];
   const originalFeatureArt = isHomepageNode ? node.children.find((child) => (
     typeof child !== 'string' && child.tag === 'object' && featureArtSources.includes(child.props.data)
