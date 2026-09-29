@@ -1,0 +1,62 @@
+.ap-business-audiences .ap-business-audience-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px !important;
+}
+
+.ap-business-audience-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 32px;
+  background: var(--web-bg-alt);
+  border: 1px solid var(--hairline);
+  border-radius: 24px;
+}
+
+.ap-business-audience-card > .h1 {
+  min-height: 2.4em;
+}
+
+.ap-business-audience-benefits {
+  margin-top: auto !important;
+  padding-top: 28px;
+}
+
+.ap-business-audience-benefits .check {
+  align-items: flex-start;
+  min-height: 44px;
+}
+
+.ap-business-audience-benefits .check svg {
+  margin-top: 3px;
+}
+
+.ap-business-audience-benefits .check span {
+  min-width: 0;
+  line-height: 1.45;
+}
+
+@media (max-width: 1024px) {
+  .ap-business-audiences .ap-business-audience-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ap-business-audience-card > .h1 {
+    min-height: 0;
+  }
+
+  .ap-business-audience-benefits .check {
+    min-height: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .ap-business-audiences {
+    padding: 20px 16px 72px !important;
+  }
+
+  .ap-business-audience-card {
+    padding: 28px 24px;
+  }
+}

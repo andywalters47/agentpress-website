@@ -2,6 +2,7 @@
 @import "../../public/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/tokens/app-color-semantics.css";
 @import "../../public/_ds/agentpress-design-system-a7a079c6-bf40-4b95-80cd-57e0caa9d6ac/components/marketing/fig-tokens.css";
 @import "../../public/components/integrations/fig-assets.css";
+@import "../../public/_ds/current/semantics.css";
 
 /* Revenue workflow illustrations share the existing app UI palette and the
    homepage's scroll-card motion; the responsive layouts show the same art. */
@@ -19,29 +20,90 @@
 
 .ap-revenue-card {
   font-family: var(--font-body);
-  color: var(--ink);
+  color: var(--ap-content-300);
 }
 
 .ap-workflow-frame { fill: var(--web-bg); stroke: var(--hairline); }
-.ap-workflow-title, .ap-workflow-ink { fill: var(--ink); }
-.ap-workflow-muted { fill: var(--ink-muted); color: var(--ink-muted); }
-.ap-workflow-positive { color: var(--status-positive-glyph); }
-.ap-workflow-panel { fill: var(--app-surface); stroke: var(--hairline); }
-.ap-workflow-connector { stroke: var(--ink-faint); }
-.ap-workflow-check-bg { fill: var(--status-positive-tint); }
-.ap-workflow-empty-check { fill: none; stroke: var(--ink-faint); stroke-dasharray: 2 2; }
-.ap-workflow-badge rect { stroke-width: 0.6; }
-.ap-workflow-badge--positive rect { fill: var(--status-positive-tint); stroke: var(--status-positive-border); }
-.ap-workflow-badge--positive text { fill: var(--status-positive-ink); }
-.ap-workflow-badge--positive circle { fill: var(--status-positive-glyph); }
-.ap-workflow-badge--warning rect { fill: var(--status-warning-tint); stroke: var(--status-warning-border); }
-.ap-workflow-badge--warning text { fill: var(--ink-body); }
-.ap-workflow-badge--warning circle { fill: var(--status-warning-glyph); }
-.ap-workflow-badge--purple rect { fill: var(--status-engaged-tint); stroke: var(--status-engaged-border); }
-.ap-workflow-badge--purple text { fill: var(--status-engaged-ink); }
-.ap-workflow-badge--purple circle { fill: var(--status-engaged-glyph); }
-.ap-workflow-button { fill: var(--action-primary); }
-.ap-workflow-button-label { fill: var(--action-primary-ink); }
+.ap-workflow-title {
+  fill: var(--ink);
+  font-family: var(--font-display);
+  font-weight: var(--ap-font-weight-regular);
+}
+
+.ap-art-panel { fill: var(--ap-surface-card); stroke: var(--ap-hairline); }
+.ap-art-label, .ap-art-meta { font-size: 13px; fill: var(--ap-content-300); }
+.ap-art-meta { fill: var(--ap-content-200); }
+.ap-art-connector { stroke: var(--ap-content-100); }
+.ap-art-placeholder { stroke: var(--ap-content-100); stroke-width: 2; stroke-linecap: round; }
+.ap-art-check { color: var(--ap-success-content); }
+.ap-art-check-ground { fill: var(--ap-success-soft); }
+.ap-art-success { color: var(--ap-success-content); }
+.ap-art-success > rect {
+  fill: var(--ap-success-soft);
+  stroke: color-mix(in oklch, var(--ap-success) 30%, transparent);
+}
+.ap-art-status-label { fill: var(--ap-content-300); font-size: 11px; font-weight: var(--ap-font-weight-regular); }
+.ap-art-control { fill: none; stroke: var(--ap-hairline); }
+.ap-art-control-label { fill: var(--ap-content); font-size: 13px; font-weight: var(--ap-font-weight-medium); }
+.ap-art-flag { color: var(--ap-warning-content); }
+.ap-art-pending rect {
+  fill: var(--ap-warning-soft);
+  stroke: color-mix(in oklch, var(--ap-warning) 55%, transparent);
+}
+.ap-art-pending circle { fill: var(--ap-warning); }
+.ap-art-divider { stroke: var(--ap-hairline); fill: none; }
+.ap-art-step { color: var(--ap-success-content); }
+.ap-art-step rect { fill: var(--ap-success-soft); stroke: color-mix(in oklch, var(--ap-success) 30%, transparent); }
+.ap-art-step--1 { animation: ap-process-one 6s ease-out infinite; }
+.ap-art-step--2 { animation: ap-process-two 6s ease-out infinite; }
+.ap-art-step--3 { animation: ap-process-three 6s ease-out infinite; }
+.ap-art-step--4 { animation: ap-process-four 6s ease-out infinite; }
+.ap-art-process-result { animation: ap-process-complete 6s ease-out infinite; }
+@keyframes ap-process-one { 0%, 8%, 100% { opacity: .25; } 16%, 90% { opacity: 1; } }
+@keyframes ap-process-two { 0%, 24%, 100% { opacity: .25; } 32%, 90% { opacity: 1; } }
+@keyframes ap-process-three { 0%, 40%, 100% { opacity: .25; } 48%, 90% { opacity: 1; } }
+@keyframes ap-process-four { 0%, 56%, 100% { opacity: .25; } 64%, 90% { opacity: 1; } }
+@keyframes ap-process-complete { 0%, 64%, 100% { opacity: 0; } 72%, 90% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .ap-art-step, .ap-art-process-result { animation: none; opacity: 1; }
+}
+
+.ap-business-art { background: var(--web-bg-alt); }
+.ap-business-illustration {
+  display: block;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-body);
+  color: var(--ap-content-300);
+}
+.ap-business-illustration--compact { display: none; }
+.ap-feature-art-heading { fill: var(--ap-content); font-size: 20px; font-weight: var(--ap-font-weight-medium); }
+.ap-feature-art-label { fill: var(--ap-content-300); font-size: 18px; font-weight: var(--ap-font-weight-regular); }
+.ap-art-growth-line { stroke: var(--ap-chart-1); }
+.ap-art-growth-label { fill: var(--ap-chart-1); }
+.ap-art-team-line { stroke: var(--ap-content-200); }
+@media (min-width: 1025px) {
+  .frow:has(> .ap-business-art) {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    gap: 64px;
+    width: 100%;
+  }
+  .frow > .ap-business-art {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 1 / 1;
+  }
+  .frow:has(> .ap-business-art) > .ftext { min-width: 0; }
+  .frow:has(> .ap-business-art) .ftext p { width: auto !important; }
+}
+#business-capabilities, #business-audiences { scroll-margin-top: 120px; }
+@media (max-width: 600px) {
+  .ap-business-illustration--large { display: none; }
+  .ap-business-illustration--compact { display: block; }
+  .ap-feature-art-row-label { font-size: 16px; }
+  .ap-business-illustration--compact .ap-art-status-label { font-size: 14px; }
+}
 
 @media (max-width: 1024px), (prefers-reduced-motion: reduce) {
   .ap-timeline-heading:has(+ .ap-revenue-workflows) {

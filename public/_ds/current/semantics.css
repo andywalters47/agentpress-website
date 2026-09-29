@@ -1,0 +1,112 @@
+/*
+ * Semantic layer for @agentpress/design-system.
+ *
+ * Layer 2: meaning over the values in tokens.css. A component states a role —
+ * a surface, a measurement, a radius — and this file decides which primitive
+ * that role resolves to.
+ *
+ * Carries no Tailwind directives. Roles keep the `--ap-*` prefix so the whole
+ * contract is one namespace; theme.css is the only file that introduces
+ * Tailwind's `--color-*` / `--text-*` key names, and it does so in
+ * `@theme inline`, which emits no `:root` declaration of its own.
+ *
+ * Declared on `:root, :host`. Inside a shadow root `:root` matches nothing, so
+ * the `:host` selector is what reaches the embed widgets.
+ *
+ * Every value reads an `--ap-*` primitive, never another role. Charts are the
+ * one exception to the prefix: `--chart-*` is consumed directly by chart
+ * libraries that expect that name.
+ */
+
+@import "./tokens.css";
+
+:root,
+:host {
+  /* ==========================================================================
+     SURFACES
+     ========================================================================= */
+  --ap-surface-card: var(--ap-surface); /* cards, popovers, inputs */
+  --ap-surface-canvas: var(--ap-surface-200); /* canvas, topbar */
+  --ap-surface-sidebar: var(--ap-surface-300); /* sidebar, rail, filter well */
+  --ap-surface-inset: var(--ap-surface-400); /* sunken fill */
+
+  /* ==========================================================================
+     LAYOUT
+     ========================================================================= */
+  --ap-sidebar-w: 14.5rem; /* 232px */
+  --ap-content-w: 77.5rem; /* 1240px */
+  --ap-rail-w: 20.75rem; /* 332px */
+  --ap-rail-collapsed-w: 2.875rem; /* 46px */
+
+  --ap-item-h: 2rem; /* 32px */
+  --ap-menu-item-h: 1.625rem; /* 26px */
+  --ap-row-h: 3rem; /* 48px */
+  --ap-row-h-sm: 2.25rem; /* 36px */
+  --ap-doc-w: 60rem; /* 960px */
+
+  --ap-field-size: 2rem; /* 32px */
+  --ap-selector-size: 1rem; /* 16px */
+
+  --ap-content-p: 2rem; /* 32px */
+  --ap-card-p: 1.125rem; /* 18px */
+
+  /* ==========================================================================
+     RADII
+     ========================================================================= */
+  --ap-radius-selector: var(--ap-radius-xs); /* checkbox, toggle, badge */
+  --ap-radius-field: var(--ap-radius-sm); /* button, input, select, tab */
+  --ap-radius-item: var(--ap-radius-md); /* list row, item */
+  --ap-radius-box: var(--ap-radius-lg); /* card, modal, alert */
+
+  /* ==========================================================================
+     EDGES
+     ========================================================================= */
+  --ap-border-box: var(--ap-border);
+  --ap-border-selector: var(--ap-border-1\.5);
+  --ap-border-field: var(--ap-border-1\.5);
+
+  /* ==========================================================================
+     ICONS
+     ========================================================================= */
+  --ap-icon-xs: 0.625rem;
+  --ap-icon-sm: 0.875rem;
+  --ap-icon-md: 1rem;
+  --ap-icon-lg: 1.125rem;
+  --ap-icon-xl: 1.25rem;
+
+  --ap-spinner-xs: calc(var(--ap-icon-xs) * 1.5);
+  --ap-spinner-sm: calc(var(--ap-icon-sm) * 1.5);
+  --ap-spinner-md: calc(var(--ap-icon-md) * 1.5);
+  --ap-spinner-lg: calc(var(--ap-icon-lg) * 1.5);
+  --ap-spinner-xl: calc(var(--ap-icon-xl) * 1.5);
+
+  /* ==========================================================================
+     CHARTS
+     ========================================================================= */
+  --ap-chart-1: var(--ap-hue-purple);
+  --ap-chart-1-fill: oklch(from var(--ap-hue-purple) l c h / 20%);
+  --ap-chart-2: var(--ap-hue-teal);
+  --ap-chart-2-fill: oklch(from var(--ap-hue-teal) l c h / 20%);
+  --ap-chart-3: var(--ap-hue-blue);
+  --ap-chart-3-fill: oklch(from var(--ap-hue-blue) l c h / 20%);
+  --ap-chart-4: var(--ap-hue-amber);
+  --ap-chart-4-fill: oklch(from var(--ap-hue-amber) l c h / 20%);
+  --ap-chart-5: var(--ap-hue-violet);
+  --ap-chart-5-fill: oklch(from var(--ap-hue-violet) l c h / 20%);
+  --ap-chart-negative: var(--ap-hue-red);
+  --ap-chart-negative-fill: oklch(from var(--ap-hue-red) l c h / 20%);
+  --ap-chart-total: var(--ap-content-100);
+  --ap-chart-total-fill: oklch(from var(--ap-content-100) l c h / 20%);
+  --ap-chart-grid: oklch(from var(--ap-content-100) l c h / 10%);
+  --ap-chart-connector: oklch(from var(--ap-content-100) l c h / 20%);
+  --ap-chart-label-ink: oklch(from var(--ap-content-100) l c h / 55%);
+
+  --ap-chart-seq-100: var(--ap-primary);
+  --ap-chart-seq-70: oklch(from var(--ap-primary) l c h / 70%);
+  --ap-chart-seq-40: oklch(from var(--ap-primary) l c h / 40%);
+
+  --ap-chart-stroke: 1.5px;
+  --ap-chart-line-stroke: 1.75px;
+  --ap-chart-fill-alpha-min: 0.18;
+  --ap-chart-fill-alpha-max: 0.3;
+}

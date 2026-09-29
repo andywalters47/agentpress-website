@@ -1,0 +1,196 @@
+/*
+ * Design tokens for @agentpress/design-system.
+ *
+ * Layer 1: raw values, no meaning attached. Carries no Tailwind directives —
+ * import this alone to take the token contract without a build. semantics.css
+ * names roles over these values; theme.css bridges both into utilities.
+ *
+ * Colors here are `--ap-<family>`, sized families run 100–400, and the numeric
+ * direction is stated at each group: surfaces recede as the number rises, so
+ * `--ap-surface` is the highest surface, while content recedes as the number
+ * falls, so `--ap-content-400` is the strongest ink.
+ *
+ * Declared on `:root, :host`. Inside a shadow root `:root` matches nothing, so
+ * the `:host` selector is what reaches the embed widgets.
+ *
+ * Override any `--ap-*` value on an ancestor. Do not reference component
+ * implementation classes.
+ */
+
+:root,
+:host {
+  /* ==========================================================================
+     TYPOGRAPHY
+     ========================================================================= */
+  --ap-font-family-sans: "Archivo Variable", sans-serif;
+  --ap-font-family-mono: "IBM Plex Mono", monospace;
+
+  --ap-text-overline: 0.625rem; /* 10px */
+  --ap-text-label: 0.6875rem; /* 11px */
+  --ap-text-caption: 0.78125rem; /* 12.5px */
+  --ap-text-tab: 0.8125rem; /* 13px */
+  --ap-text-footnote: 0.84375rem; /* 13.5px */
+  --ap-text-body: 0.875rem; /* 14px */
+  --ap-text-title: 1rem; /* 16px */
+  --ap-text-headline-sm: 1.0625rem; /* 17px */
+  --ap-text-headline: 1.25rem; /* 20px */
+  --ap-text-headline-lg: 1.5rem; /* 24px */
+  --ap-text-display-sm: 1.75rem; /* 28px */
+  --ap-text-display: 2.125rem; /* 34px */
+  --ap-text-display-lg: 2.75rem; /* 44px */
+
+  /* Line height */
+  --ap-leading-none: 1;
+  --ap-leading-tight: 1.15;
+  --ap-leading-snug: 1.3;
+  --ap-leading-normal: 1.4;
+  --ap-leading-relaxed: 1.6;
+  --ap-leading-loose: 1.75;
+
+  /* Letter spacing */
+  --ap-tracking-tighter: -0.05em;
+  --ap-tracking-tight: -0.025em;
+  --ap-tracking-normal: 0em;
+  --ap-tracking-wide: 0.025em;
+  --ap-tracking-wider: 0.05em;
+  --ap-tracking-widest: 0.1em;
+
+  /* Font weight */
+  --ap-font-weight-regular: 400;
+  --ap-font-weight-medium: 500;
+  --ap-font-weight-semibold: 600;
+  --ap-font-weight-bold: 700;
+
+  /* ==========================================================================
+     ABSOLUTES
+     ========================================================================= */
+  --ap-black: oklch(0 0 0);
+  --ap-white: oklch(0.9943 0.0028 84.56);
+
+  /* ==========================================================================
+     SURFACES
+
+     The number rises as the surface recedes:
+     100 is the lightest, 400 the darkest.
+     ========================================================================= */
+  --ap-surface: oklch(0.9858 0.0045 78.3);
+  --ap-surface-100: var(--ap-surface);
+  --ap-surface-200: oklch(0.9679 0.0045 78.3);
+  --ap-surface-300: oklch(0.9498 0.0046 78.3);
+  --ap-surface-400: oklch(0.9317 0.0046 78.3);
+  --ap-surface-muted: var(--ap-surface-200);
+
+  /* Inverted surfaces */
+  --ap-surface-inverse-100: oklch(0.3366 0.1146 286.49);
+  --ap-surface-inverse-200: oklch(0.3006 0.0994 287.58);
+  --ap-surface-inverse-300: oklch(0.2644 0.0821 287.4);
+  --ap-surface-inverse: oklch(0.2261 0.0654 289.31);
+  --ap-surface-inverse-400: var(--ap-surface-inverse);
+  --ap-surface-inverse-muted: var(--ap-surface-inverse-300);
+
+  /* ==========================================================================
+     CONTENT
+
+     The number lowers as the content recedes:
+     400 is the darkest, 100 the lightest.
+     ========================================================================= */
+  --ap-content: oklch(0.2478 0 0);
+  --ap-content-400: var(--ap-content);
+  --ap-content-300: oklch(from var(--ap-content-400) l c h / 72%);
+  --ap-content-200: oklch(from var(--ap-content-400) l c h / 55%);
+  --ap-content-100: oklch(from var(--ap-content-400) l c h / 35%);
+  --ap-content-muted: oklch(0.7283 0.0044 91.46);
+
+  /* Inverted content */
+  --ap-content-inverse: var(--ap-surface);
+  --ap-content-inverse-100: var(--ap-content-inverse);
+  --ap-content-inverse-200: oklch(from var(--ap-content-inverse) l c h / 72%);
+  --ap-content-inverse-300: oklch(from var(--ap-content-inverse) l c h / 55%);
+  --ap-content-inverse-400: oklch(from var(--ap-content-inverse) l c h / 35%);
+  --ap-content-inverse-muted: oklch(0.492 0.044 289.31);
+
+  /* ==========================================================================
+     ACTIONS
+     ========================================================================= */
+  --ap-primary-soft: oklch(0.5531 0.2132 295.65 / 10%);
+  --ap-primary-100: oklch(0.6744 0.1865 298.44);
+  --ap-primary: oklch(0.5531 0.2132 295.65);
+  --ap-primary-200: var(--ap-primary);
+  --ap-primary-300: oklch(0.4871 0.1957 294.54);
+  --ap-primary-content: oklch(0.389 0.1619 294.65);
+
+  --ap-secondary-soft: oklch(0.7767 0.1198 170.96 / 15%);
+  --ap-secondary: oklch(0.9068 0.0908 156.72);
+  --ap-secondary-100: var(--ap-secondary);
+  --ap-secondary-200: oklch(0.7379 0.1278 176.61);
+  --ap-secondary-300: oklch(0.662229 0.12377 176.038);
+  --ap-secondary-content: oklch(0.5373 0.0977 178.16);
+
+  /* ==========================================================================
+     STATUSES
+     ========================================================================= */
+  --ap-success: var(--ap-secondary-300);
+  --ap-success-soft: oklch(from var(--ap-success) l c h / 10%);
+  --ap-success-content: var(--ap-secondary-content);
+
+  --ap-error: oklch(0.6612 0.2025 33.16);
+  --ap-error-soft: oklch(from var(--ap-error) l c h / 10%);
+  --ap-error-content: oklch(0.4624 0.1667 31.95);
+
+  --ap-error-inverse: oklch(0.7891 0.1237 33.88);
+  --ap-error-inverse-soft: oklch(from var(--ap-error-inverse) l c h / 10%);
+  --ap-error-inverse-content: oklch(0.6793 0.1945 34.55);
+
+  --ap-info: oklch(0.5977 0.1787 253.84);
+  --ap-info-soft: oklch(from var(--ap-info) l c h / 10%);
+  --ap-info-content: oklch(0.4989 0.1473 254.97);
+
+  --ap-warning: oklch(0.7756 0.1393 65.5);
+  --ap-warning-soft: oklch(from var(--ap-warning) l c h / 10%);
+  --ap-warning-content: #895c2a;
+
+  /* ==========================================================================
+     HUE SPECTRUM
+
+     Identity color for charts, avatars and badges.
+     Never a status or an action; those are named above.
+     ========================================================================= */
+  --ap-hue-red: oklch(0.6507 0.2281 25.331);
+  --ap-hue-orange: oklch(0.6526 0.1789 47.604);
+  --ap-hue-amber: oklch(0.6436 0.1394 70.08);
+  --ap-hue-yellow: oklch(0.6372 0.1305 86.047);
+  --ap-hue-lime: oklch(0.6192 0.1689 130.85);
+  --ap-hue-green: oklch(0.6117 0.1702 149.579);
+  --ap-hue-emerald: oklch(0.6065 0.1321 162.48);
+  --ap-hue-teal: oklch(0.5985 0.1069 182.503);
+  --ap-hue-cyan: oklch(0.5854 0.1036 215.221);
+  --ap-hue-sky: oklch(0.5765 0.1266 237.323);
+  --ap-hue-blue: oklch(0.5675 0.2154 259.815);
+  --ap-hue-indigo: oklch(0.5605 0.2143 277.117);
+  --ap-hue-violet: oklch(0.5531 0.2132 295.65);
+  --ap-hue-purple: oklch(0.5621 0.2146 303.9);
+  --ap-hue-fuchsia: oklch(0.5819 0.2176 322.15);
+  --ap-hue-pink: oklch(0.6169 0.2229 354.308);
+  --ap-hue-rose: oklch(0.641 0.2266 16.439);
+  --ap-hue-grey: oklch(0.6058 0 0);
+
+  /* ==========================================================================
+     EDGES
+     ========================================================================= */
+  --ap-border: 1px;
+  --ap-border-1\.5: 1.5px;
+  --ap-ring-w: 1.5px;
+
+  --ap-hairline: oklch(from var(--ap-content) l c h / 10%);
+  --ap-input: oklch(from var(--ap-content) l c h / 15%);
+  --ap-ring: var(--ap-primary);
+
+  /* ==========================================================================
+     RADII
+     ========================================================================= */
+  --ap-radius-xs: 0.375rem; /* 6px */
+  --ap-radius-sm: 0.5rem; /* 8px */
+  --ap-radius-md: 0.625rem; /* 10px */
+  --ap-radius-lg: 0.75rem; /* 12px */
+  --ap-radius-xl: 1rem; /* 16px */
+}

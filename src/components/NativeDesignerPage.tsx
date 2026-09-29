@@ -2,6 +2,10 @@ import { createElement, type CSSProperties, type ReactNode } from 'react';
 import designerPagesJson from '@/generated/designer-pages.json';
 import { DesignerInteractions } from '@/components/DesignerInteractions';
 import { RevenueWorkflowCards } from '@/components/RevenueWorkflowCards';
+import { AutomationFeatureArt } from '@/components/AutomationArtwork';
+import { updateHomepageCapabilities } from '@/components/BusinessCapabilities';
+import { updateHomepageAudiences } from '@/components/BusinessAudiences';
+import '@/components/BusinessAudiences.css';
 
 export type DesignerPageKey =
   | 'home'
@@ -33,6 +37,13 @@ const designerPages = designerPagesJson as unknown as Record<DesignerPageKey, De
 const apfmLogoSource = 'https://www.aplaceformom.com/image/apfm-web-api/v2/static/apfm-logo-horizontal.svg';
 
 const homepageCopyOverrides: Record<string, string> = {
+  'Keep every deal moving': 'AI built around your business',
+  'Complex deals rarely stall in meetings. They stall between them, waiting on a follow-up, a deck, a business case, or a next step no one has pushed forward. AgentPress delivers what the opportunity needs next before momentum disappears.': 'We identify where AI can create the most value, then build agents around your workflows, business rules, and existing systems.',
+  'Make great execution repeatable': 'Automate with control and visibility',
+  'Your best sellers prepare deeply, uncover value, build champions, and follow through. AgentPress turns those behaviors into a consistent operating standard across the team, so every rep executes every opportunity with the same discipline.': 'Set permissions, review exceptions, and trace agent actions. Self-hosting lets you run AgentPress in your own environment.',
+  'Your best sellers prepare deeply, uncover value, build champions, and follow through. AgentPress turns those behaviors into a consistent operating standard, so every rep executes every opportunity with the same discipline.': 'Set permissions, review exceptions, and trace agent actions. Self-hosting lets you run AgentPress in your own environment.',
+  'More deals with the same team': 'Grow without scaling headcount',
+  'Complex opportunities require real attention, even when the pipeline is full. AgentPress handles the preparation, assets, and follow-through behind each deal, giving the same team the capacity to pursue more opportunities without lowering the standard.': 'Give your team more capacity by automating the work that slows them down. We build and evolve your agents as your business grows.',
   "AgentPress was built around the way enterprise deals move, by people who've run them.": 'AgentPress is built for midmarket companies looking to accelerate revenue',
   'What AgentPress does between meetings': 'We automate the work that keeps revenue moving',
   'Win more deals with the team you already have': 'We help B2B companies automate revenue generating work',
@@ -267,6 +278,15 @@ function renderNode(node: DesignerNode | string, nodeKey: string): ReactNode {
 
   const isHomepageNode = nodeKey.startsWith('home.');
   const nodeClasses = String(node.props.class ?? '').split(/\s+/);
+  const featureArtSources = ['/assets/feature-1-approval.svg', '/assets/feature-2-roleplay.svg', '/assets/feature-3-pipeline.svg'];
+  const originalFeatureArt = isHomepageNode ? node.children.find((child) => (
+    typeof child !== 'string' && child.tag === 'object' && featureArtSources.includes(child.props.data)
+  )) : undefined;
+  if (originalFeatureArt && typeof originalFeatureArt !== 'string') {
+    return <div {...toReactProps(node.props)} className={`${node.props.class ?? ''} ap-business-art`} key={nodeKey}>
+      <AutomationFeatureArt step={featureArtSources.indexOf(originalFeatureArt.props.data)} />
+    </div>;
+  }
   if (isHomepageNode && nodeClasses.includes('ap-timeline-original-overview')) return null;
   if (isHomepageNode && nodeClasses.includes('ap-timeline-scene')) {
     const backdrop = node.children.find((child) => typeof child !== 'string' && String(child.props.class ?? '').includes('ap-timeline-backdrop'));
@@ -385,7 +405,7 @@ export function NativeDesignerPage({ page }: { page: DesignerPageKey }) {
       )).map((css, index) => (
         <style key={`${page}-style-${index}`} data-designer-style={page}>{css}</style>
       ))}
-      {renderNode(design.tree, page)}
+      {renderNode(page === 'home' ? updateHomepageAudiences(updateHomepageCapabilities(design.tree)) : design.tree, page)}
       <DesignerInteractions home={page === 'home'} />
     </>
   );
