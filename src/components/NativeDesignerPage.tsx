@@ -29,6 +29,11 @@ type DesignerPage = {
 
 const designerPages = designerPagesJson as unknown as Record<DesignerPageKey, DesignerPage>;
 
+const homepageCopyOverrides: Record<string, string> = {
+  'Win more deals with the team you already have': 'We help B2B companies automate revenue generating work',
+  'AgentPress gives every complex B2B deal an AI agent that prepares your team, uncovers the business case, and does the legwork behind every close.': 'AgentPress combines AI consulting, custom engineering, and an auditable agent platform to automate your workflows, connect your existing systems, and grow revenue.',
+};
+
 const reactAttributeNames: Record<string, string> = {
   class: 'className',
   for: 'htmlFor',
@@ -229,7 +234,9 @@ function NativeImageSlot({ node, nodeKey }: { node: DesignerNode; nodeKey: strin
 }
 
 function renderNode(node: DesignerNode | string, nodeKey: string): ReactNode {
-  if (typeof node === 'string') return node;
+  if (typeof node === 'string') {
+    return nodeKey.startsWith('home.') ? (homepageCopyOverrides[node] ?? node) : node;
+  }
   if (node.tag === 'image-slot') return <NativeImageSlot key={nodeKey} node={node} nodeKey={nodeKey} />;
 
   if (node.tag === 'object' && String(node.props.data ?? '').endsWith('.svg')) {

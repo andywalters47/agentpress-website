@@ -14,7 +14,8 @@ const manifestoCopy = {
     "But a great agent is not a chatbot bolted to a CRM. It's a chief of staff that understands complex B2B deals and constantly works ahead to deliver the guidance, assets, and follow-through great execution requires.",
   ],
 };
-const heroDescription = 'AgentPress gives every complex B2B deal an AI agent that prepares your team, uncovers the business case, and does the legwork behind every close.';
+const heroHeadline = 'We help B2B companies automate revenue generating work';
+const heroDescription = 'AgentPress combines AI consulting, custom engineering, and an auditable agent platform to automate your workflows, connect your existing systems, and grow revenue.';
 const featureCopy = [
   {
     number: '01',
@@ -480,9 +481,7 @@ function applyHomepageOverrides(page, legacyHero) {
   ));
   if (!heroTitle) throw new Error('The resolved homepage is missing its hero heading.');
   heroTitle.props.style = legacyHero.heroStyle;
-  // The hero wording comes from the legacy homepage rather than being authored
-  // here, so the trailing period is dropped on the way through.
-  heroTitle.children = [legacyHero.heroTitle.replace(/\.$/, '')];
+  heroTitle.children = [heroHeadline];
 
   const heroParagraph = findFirst(page.tree, (node) => (
     node.tag === 'p' && textContent(node).startsWith('AgentPress gives every deal an AI agent')
