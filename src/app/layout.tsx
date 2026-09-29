@@ -20,36 +20,41 @@ const neuSans = localFont({
   fallback: ["Arial", "sans-serif"],
 });
 
+const siteTitle = "AgentPress | Automate Revenue Generating Work";
+const siteDescription = "AgentPress combines AI consulting, custom engineering, and an auditable agent platform to automate your workflows, connect your existing systems, and grow revenue.";
+const socialImage = "https://www.agent.press/agentpress_og_revenue_automation_v1.png";
+const socialImageAlt = "AgentPress helps B2B companies automate revenue generating work.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.agent.press"),
-  title: "AgentPress | AI Chief of Staff for Every Deal",
-  description: "AgentPress proactively delivers the deal intelligence, tailored assets, and executional support enterprise sellers need to win.",
+  title: siteTitle,
+  description: siteDescription,
   alternates: {
     canonical: "/",
   },
   openGraph: {
-    title: "AgentPress | AI Chief of Staff for Every Deal",
-    description: "AgentPress proactively delivers the deal intelligence, tailored assets, and executional support enterprise sellers need to win.",
+    title: siteTitle,
+    description: siteDescription,
     url: "https://www.agent.press/",
     siteName: "AgentPress",
     locale: "en_US",
     images: [{
-      url: "https://www.agent.press/agentpress_og_ai_chief_of_staff_v4.png",
-      secureUrl: "https://www.agent.press/agentpress_og_ai_chief_of_staff_v4.png",
+      url: socialImage,
+      secureUrl: socialImage,
       width: 1200,
       height: 630,
       type: "image/png",
-      alt: "AgentPress — AI Chief of Staff for Every Deal",
+      alt: socialImageAlt,
     }],
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "AgentPress | AI Chief of Staff for Every Deal",
-    description: "AgentPress proactively delivers the deal intelligence, tailored assets, and executional support enterprise sellers need to win.",
+    title: siteTitle,
+    description: siteDescription,
     images: [{
-      url: "https://www.agent.press/agentpress_og_ai_chief_of_staff_v4.png",
-      alt: "AgentPress — AI Chief of Staff for Every Deal",
+      url: socialImage,
+      alt: socialImageAlt,
     }],
   },
 };

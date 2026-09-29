@@ -7,7 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const backgroundPath = path.join(root, "public", "agentpress_og_background.png");
 const logoPath = path.join(root, "public", "assets", "AP_landscape_for_light_bg.svg");
 const fontPath = path.join(root, "public", "fonts", "NeuSans-Book.woff2");
-const outputPath = path.join(root, "public", "agentpress_og_ai_chief_of_staff_v4.png");
+const outputPath = path.join(root, "public", "agentpress_og_revenue_automation_v1.png");
 const legacyOutputPath = path.join(root, "public", "agentpress_og_image.png");
 
 const width = 1200;
@@ -31,6 +31,8 @@ async function renderTagline(text) {
       text: `<span foreground="#080A22" weight="400">${text}</span>`,
       font: "NeuSans Book 50",
       fontfile: fontPath,
+      align: "centre",
+      spacing: 10,
       dpi: 72,
       rgba: true,
     },
@@ -39,7 +41,7 @@ async function renderTagline(text) {
     .toBuffer({ resolveWithObject: true });
 }
 
-const tagline = await renderTagline("AI Chief of Staff for Every Deal");
+const tagline = await renderTagline("We help B2B companies automate\nrevenue generating work");
 
 const logo = await sharp(logoPath)
   .resize({ width: 720 })
@@ -51,11 +53,11 @@ await sharp(backgroundPath)
   .modulate({ saturation: 0.92, brightness: 0.99 })
   .composite([
     { input: homepageTexture, left: 0, top: 0 },
-    { input: logo, left: 240, top: 209 },
+    { input: logo, left: 240, top: 160 },
     {
       input: tagline.data,
       left: Math.round((width - tagline.info.width) / 2),
-      top: 379,
+      top: 350,
     },
   ])
   .png({ compressionLevel: 9, adaptiveFiltering: true })
