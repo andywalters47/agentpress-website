@@ -8,10 +8,10 @@ const outputPath = path.join(projectRoot, 'src/generated/designer-pages.json');
 const legacyHomepagePath = path.resolve(projectRoot, '..', 'agentpress-website-new-3.legacy-index.html');
 const demoUrl = 'https://calendar.app.google/AwUNqYVrSpUf1XeK8';
 const manifestoCopy = {
-  title: 'The first AI sales agent that proactively delivers what your team needs to win',
+  title: 'Your business has its own way of working. Your AI should understand it.',
   paragraphs: [
-    'The next generation of great sellers will have great agents.',
-    "But a great agent is not a chatbot bolted to a CRM. It's a chief of staff that understands complex B2B deals and constantly works ahead to deliver the guidance, assets, and follow-through great execution requires.",
+    'Your systems, processes, and people reflect years of experience. Putting AI to work starts with understanding how your business actually runs.',
+    'We work alongside your team to find the highest-value opportunities, build automation around your workflows, and keep it delivering as your business evolves.',
   ],
 };
 const heroHeadline = 'We help B2B companies automate revenue generating work';
@@ -499,12 +499,12 @@ function applyHomepageOverrides(page, legacyHero) {
   primaryHeroCta.props.href = demoUrl;
   primaryHeroCta.props.target = '_blank';
   primaryHeroCta.props.rel = 'noopener';
-  replaceText(primaryHeroCta, 'Schedule Demo');
+  replaceText(primaryHeroCta, 'Book a Free Consultation');
   secondaryHeroCta.tag = 'a';
   secondaryHeroCta.props.href = demoUrl;
   secondaryHeroCta.props.target = '_blank';
   secondaryHeroCta.props.rel = 'noopener';
-  replaceText(secondaryHeroCta, 'Schedule Demo');
+  replaceText(secondaryHeroCta, 'Book a Free Consultation');
 
   const intro = findFirst(page.tree, (node) => (
     node.tag === 'div' && String(node.props?.class ?? '').split(/\s+/).includes('introrow')

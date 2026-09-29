@@ -34,6 +34,26 @@ const homepageCopyOverrides: Record<string, string> = {
   'AgentPress gives every complex B2B deal an AI agent that prepares your team, uncovers the business case, and does the legwork behind every close.': 'AgentPress combines AI consulting, custom engineering, and an auditable agent platform to automate your workflows, connect your existing systems, and grow revenue.',
 };
 
+const homepageBlockCopyOverrides: Record<string, string> = {
+  'The first AI sales agent that proactively delivers what your team needs to win': 'Your business has its own way of working. Your AI should understand it.',
+  'The next generation of great sellers will have great agents.': 'Your systems, processes, and people reflect years of experience. Putting AI to work starts with understanding how your business actually runs.',
+  "But a great agent is not a chatbot bolted to a CRM. It's a chief of staff that understands complex B2B deals and constantly works ahead to deliver the guidance, assets, and follow-through great execution requires.": 'We work alongside your team to find the highest-value opportunities, build automation around your workflows, and keep it delivering as your business evolves.',
+};
+
+function nodeText(node: DesignerNode | string): string {
+  return typeof node === 'string' ? node : node.children.map(nodeText).join('');
+}
+
+function overriddenWordChildren(node: DesignerNode, copy: string): Array<DesignerNode | string> {
+  const template = node.children.find((child): child is DesignerNode => typeof child !== 'string');
+  if (!template) return [copy];
+
+  return copy.split(/\s+/).flatMap((word, index, words) => [
+    { ...template, props: { ...template.props }, children: [word] },
+    ...(index < words.length - 1 ? [' '] : []),
+  ]);
+}
+
 const reactAttributeNames: Record<string, string> = {
   class: 'className',
   for: 'htmlFor',
@@ -239,6 +259,15 @@ function renderNode(node: DesignerNode | string, nodeKey: string): ReactNode {
   }
   if (node.tag === 'image-slot') return <NativeImageSlot key={nodeKey} node={node} nodeKey={nodeKey} />;
 
+  const isHomepageNode = nodeKey.startsWith('home.');
+  const blockCopyOverride = isHomepageNode ? homepageBlockCopyOverrides[nodeText(node)] : undefined;
+  const isHeroCta = isHomepageNode && String(node.props.class ?? '').split(/\s+/).includes('btn-dark');
+  const childNodes = blockCopyOverride
+    ? overriddenWordChildren(node, blockCopyOverride)
+    : isHeroCta && nodeText(node) === 'Schedule Demo'
+      ? ['Book a Free Consultation']
+      : node.children;
+
   if (node.tag === 'object' && String(node.props.data ?? '').endsWith('.svg')) {
     const objectProps = toReactProps(node.props);
     delete objectProps.data;
@@ -255,7 +284,7 @@ function renderNode(node: DesignerNode | string, nodeKey: string): ReactNode {
     });
   }
 
-  const children = node.children.map((child, index) => renderNode(child, `${nodeKey}.${index}`));
+  const children = childNodes.map((child, index) => renderNode(child, `${nodeKey}.${index}`));
   const reactProps = toReactProps(node.props);
   if (node.tag === 'img') {
     const originalSource = String(reactProps.src ?? '');
