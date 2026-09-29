@@ -82,14 +82,17 @@ function installBackToTop() {
 }
 
 function installLogoScale() {
-  const inner = Array.from(document.querySelectorAll<HTMLElement>('div')).find((element) => (
-    element.style.width === '1188px' && element.style.height.startsWith('177.09')
-  ));
+  const inner = document.querySelector<HTMLElement>('.ap-integrations-grid');
   const outer = inner?.parentElement;
   if (!inner || !outer) return () => {};
   const width = 1188;
-  const height = 177.095;
+  const height = Number.parseFloat(inner.style.height) || inner.clientHeight;
   const apply = () => {
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      inner.style.removeProperty('transform');
+      outer.style.removeProperty('height');
+      return;
+    }
     const availableWidth = outer.clientWidth || width;
     const scale = Math.min(1, availableWidth / width);
     inner.style.transform = `translateX(${((availableWidth - (width * scale)) / 2).toFixed(2)}px) scale(${scale.toFixed(4)})`;

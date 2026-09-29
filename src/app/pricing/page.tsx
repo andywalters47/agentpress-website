@@ -1,11 +1,6 @@
-import type { Metadata } from 'next';
-import { NativeDesignerPage } from '@/components/NativeDesignerPage';
+import { permanentRedirect } from 'next/navigation';
 
-export const metadata: Metadata = {
-  title: 'Pricing | AgentPress',
-  description: 'Simple pricing for enterprise sales teams.',
-};
-
+// Pricing is retired. Preserve old inbound links without serving stale offers.
 export default function PricingPage() {
-  return <NativeDesignerPage page="pricing" />;
+  permanentRedirect('/');
 }

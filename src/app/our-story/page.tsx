@@ -3,7 +3,7 @@ import { NativeDesignerPage } from '@/components/NativeDesignerPage';
 
 export const metadata: Metadata = {
   title: 'The AgentPress Story | AgentPress',
-  description: 'How a standing ovation changed everything.',
+  description: 'What customer work taught us about building useful AI around real business workflows.',
 };
 
 export default function OurStoryPage() {

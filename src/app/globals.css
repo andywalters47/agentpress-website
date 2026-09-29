@@ -97,7 +97,7 @@
   .frow:has(> .ap-business-art) > .ftext { min-width: 0; }
   .frow:has(> .ap-business-art) .ftext p { width: auto !important; }
 }
-#business-capabilities, #business-audiences, #business-faq { scroll-margin-top: 120px; }
+#business-capabilities, #business-audiences, #business-faq, #business-integrations { scroll-margin-top: 120px; }
 @media (max-width: 600px) {
   .ap-business-illustration--large { display: none; }
   .ap-business-illustration--compact { display: block; }
@@ -482,6 +482,11 @@
   width: max-content;
 }
 
+.ap-integration-tool--microsoft {
+  flex-direction: column;
+  gap: 2px;
+}
+
 /* The three pin-scroll panels stack in one grid cell, and the text column is
    centred against a fixed 640px art block. Centring only holds the eyebrow and
    headline still if the column is the same height on every panel, which is what
@@ -560,6 +565,37 @@
 }
 
 @media (max-width: 767px) {
+  .ap-integrations-viewport,
+  .ap-integrations-grid {
+    height: auto !important;
+  }
+
+  .ap-integrations-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100% !important;
+    gap: 14px !important;
+    transform: none !important;
+  }
+
+  .ap-integrations-row {
+    display: contents !important;
+  }
+
+  .ap-integrations-row > :first-child {
+    display: none !important;
+  }
+
+  .ap-integrations-row .ap-integration-tool {
+    width: 100% !important;
+    height: 72px !important;
+  }
+
+  .ap-integrations-row img {
+    max-width: 90%;
+    height: auto;
+  }
+
   .ap-timeline-flight-scroll {
     height: 910.91svh;
   }

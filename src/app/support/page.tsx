@@ -30,7 +30,7 @@ const supportOptions = [
     eyebrow: 'Sales & onboarding',
     title: 'Plan your rollout',
     body: 'Talk with us about bringing AgentPress to your team, connecting your systems, or expanding an existing deployment.',
-    label: 'Schedule Demo',
+    label: 'Book a Free Consultation',
     href: 'https://calendar.app.google/AwUNqYVrSpUf1XeK8',
   },
 ];

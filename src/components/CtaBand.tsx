@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
 export function CtaBand({
-  heading = 'See it run on your own pipeline',
-  buttonLabel = 'Schedule Demo',
+  heading = 'Put AI to work in your business',
+  buttonLabel = 'Book a Free Consultation',
   href = 'https://calendar.app.google/AwUNqYVrSpUf1XeK8',
 }: {
   heading?: string;

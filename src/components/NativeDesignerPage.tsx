@@ -6,11 +6,13 @@ import { AutomationFeatureArt } from '@/components/AutomationArtwork';
 import { updateHomepageCapabilities } from '@/components/BusinessCapabilities';
 import { updateHomepageAudiences } from '@/components/BusinessAudiences';
 import { updateHomepageFaq } from '@/components/BusinessFaq';
+import { updateHomepageIntegrations } from '@/components/BusinessIntegrations';
+import { updateBusinessSiteChrome } from '@/components/BusinessSiteChrome';
+import { updateBusinessStory } from '@/components/BusinessStory';
 import '@/components/BusinessAudiences.css';
 
 export type DesignerPageKey =
   | 'home'
-  | 'pricing'
   | 'resources'
   | 'article'
   | 'our-story'
@@ -406,7 +408,9 @@ export function NativeDesignerPage({ page }: { page: DesignerPageKey }) {
       )).map((css, index) => (
         <style key={`${page}-style-${index}`} data-designer-style={page}>{css}</style>
       ))}
-      {renderNode(page === 'home' ? updateHomepageFaq(updateHomepageAudiences(updateHomepageCapabilities(design.tree))) : design.tree, page)}
+      {renderNode(updateBusinessSiteChrome(page === 'home'
+        ? updateHomepageIntegrations(updateHomepageFaq(updateHomepageAudiences(updateHomepageCapabilities(design.tree))))
+        : page === 'our-story' ? updateBusinessStory(design.tree) : design.tree), page)}
       <DesignerInteractions home={page === 'home'} />
     </>
   );
