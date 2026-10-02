@@ -20,10 +20,10 @@ const neuSans = localFont({
   fallback: ["Arial", "sans-serif"],
 });
 
-const siteTitle = "AgentPress | Automate Revenue Generating Work";
+const siteTitle = "AgentPress | Automate High-ROI Workflows";
 const siteDescription = "AgentPress combines AI consulting, custom engineering, and an auditable agent platform to automate your workflows, connect your existing systems, and grow revenue.";
-const socialImage = "https://www.agent.press/agentpress_og_revenue_automation_v2.png";
-const socialImageAlt = "AgentPress: Automate revenue generating work with AI agents.";
+const socialImage = "https://www.agent.press/agentpress_og_midmarket_workflows_v1.png";
+const socialImageAlt = "AgentPress: We help midmarket companies automate high-ROI workflows.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.agent.press"),

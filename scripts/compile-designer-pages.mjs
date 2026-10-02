@@ -14,7 +14,7 @@ const manifestoCopy = {
     'We work alongside your team to find the highest-value opportunities, build automation around your workflows, and keep it delivering as your business evolves.',
   ],
 };
-const heroHeadline = 'We help B2B companies automate revenue generating work';
+const heroHeadline = 'We help midmarket companies automate high-ROI workflows';
 const heroDescription = 'AgentPress combines AI consulting, custom engineering, and an auditable agent platform to automate your workflows, connect your existing systems, and grow revenue.';
 const featureCopy = [
   {

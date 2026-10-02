@@ -7,7 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const backgroundPath = path.join(root, "public", "agentpress_og_background.png");
 const logoPath = path.join(root, "public", "assets", "AP_landscape_for_light_bg.svg");
 const fontPath = path.join(root, "public", "fonts", "NeuSans-Book.woff2");
-const outputPath = path.join(root, "public", "agentpress_og_revenue_automation_v2.png");
+const outputPath = path.join(root, "public", "agentpress_og_midmarket_workflows_v1.png");
 const legacyOutputPath = path.join(root, "public", "agentpress_og_image.png");
 
 const width = 1200;
@@ -41,7 +41,7 @@ async function renderTagline(text) {
     .toBuffer({ resolveWithObject: true });
 }
 
-const tagline = await renderTagline("Automate revenue generating work\nwith AI agents");
+const tagline = await renderTagline("We help midmarket companies\nautomate high-ROI workflows");
 
 const logo = await sharp(logoPath)
   .resize({ width: 720 })

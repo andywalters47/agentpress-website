@@ -50,7 +50,7 @@ const homepageCopyOverrides: Record<string, string> = {
   'Complex opportunities require real attention, even when the pipeline is full. AgentPress handles the preparation, assets, and follow-through behind each deal, giving the same team the capacity to pursue more opportunities without lowering the standard.': 'Give your team more capacity by automating the work that slows them down. We build and evolve your agents as your business grows.',
   "AgentPress was built around the way enterprise deals move, by people who've run them.": 'AgentPress is built for midmarket companies looking to accelerate revenue',
   'What AgentPress does between meetings': 'We automate the work that keeps revenue moving',
-  'Win more deals with the team you already have': 'We help B2B companies automate revenue generating work',
+  'Win more deals with the team you already have': 'We help midmarket companies automate high-ROI workflows',
   'AgentPress gives every complex B2B deal an AI agent that prepares your team, uncovers the business case, and does the legwork behind every close.': 'AgentPress combines AI consulting, custom engineering, and an auditable agent platform to automate your workflows, connect your existing systems, and grow revenue.',
   'SaaS teams selling into enterprise': 'Midmarket firms using AgentPress',
 };
