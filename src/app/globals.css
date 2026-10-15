@@ -482,7 +482,7 @@
   width: max-content;
 }
 
-.ap-integration-tool--microsoft {
+.ap-integration-tool--labeled {
   flex-direction: column;
   gap: 2px;
 }

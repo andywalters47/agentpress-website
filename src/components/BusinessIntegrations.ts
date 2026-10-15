@@ -17,11 +17,13 @@ const addedIntegrations = [
   { alt: 'Read AI', src: '/assets/logos/read-ai.svg' },
   { alt: 'Microsoft Dynamics 365', src: '/assets/logos/microsoft-dynamics-365.svg' },
   { alt: 'SharePoint', src: '/assets/logos/sharepoint-online.svg' },
+  { alt: 'SAP S/4HANA Cloud', src: '/assets/logos/sap.svg' },
+  { alt: 'NetSuite', src: '/assets/logos/netsuite.svg' },
 ];
 
 const rows = [
-  ['Salesforce', 'HubSpot', 'Microsoft Dynamics 365', 'monday.com', 'Apollo', 'CrustData', 'Clay'],
-  ['HeyReach', 'Instantly', 'Aimfox', 'Gmail', 'Google Calendar', 'Outlook'],
+  ['Salesforce', 'HubSpot', 'Microsoft Dynamics 365', 'SAP S/4HANA Cloud', 'NetSuite', 'monday.com', 'Apollo', 'CrustData'],
+  ['HeyReach', 'Instantly', 'Aimfox', 'Gmail', 'Google Calendar', 'Outlook', 'Clay'],
   ['Slack', 'Confluence', 'SharePoint', 'Fireflies.ai', 'Gong', 'Granola', 'Read AI'],
 ];
 
@@ -52,11 +54,11 @@ function restoreGrid(section: IntegrationNode): IntegrationNode {
   if (!template) throw new Error('Homepage is missing its integration card template.');
   addedIntegrations.forEach(({ alt, src }) => cards.set(alt, {
     ...template,
-    props: { ...template.props, class: `ap-integration-tool${alt === 'Microsoft Dynamics 365' || alt === 'SharePoint' ? ' ap-integration-tool--microsoft' : ''}` },
-    children: alt === 'Microsoft Dynamics 365' || alt === 'SharePoint'
+    props: { ...template.props, class: `ap-integration-tool${['Microsoft Dynamics 365', 'SharePoint', 'SAP S/4HANA Cloud', 'NetSuite'].includes(alt) ? ' ap-integration-tool--labeled' : ''}` },
+    children: ['Microsoft Dynamics 365', 'SharePoint', 'SAP S/4HANA Cloud', 'NetSuite'].includes(alt)
       ? [
-        { tag: 'img', props: { src, alt, style: 'width: 42px; height: 42px; display: block;' }, children: [] },
-        { tag: 'span', props: { 'aria-hidden': 'true', style: 'font-size: 11px; line-height: 1.2; color: var(--ink-body);' }, children: [alt === 'SharePoint' ? 'SharePoint' : 'Dynamics 365'] },
+        { tag: 'img', props: { src, alt, style: 'width: 42px; height: 42px; object-fit: contain; display: block;' }, children: [] },
+        { tag: 'span', props: { 'aria-hidden': 'true', style: 'max-width: calc(100% - 8px); text-align: center; font-size: 11px; line-height: 1.2; color: var(--ink-body);' }, children: [alt === 'Microsoft Dynamics 365' ? 'Dynamics 365' : alt] },
       ]
       : [{ tag: 'img', props: { src, alt, style: 'width: 88.6px; display: block;' }, children: [] }],
   }));
