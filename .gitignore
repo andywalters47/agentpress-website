@@ -40,3 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+
+# Generated deployment artifact and public revision marker
+/.deployment/
+/public/__deployment.json

@@ -1,0 +1,83 @@
+name: Deploy website to AWS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: agentpress-production
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - name: Check deployment scripts
+        run: for script in ops/deploy/*.sh; do bash -n "$script"; done
+      - name: Build production release and check TypeScript
+        run: bash ops/deploy/build-release.sh
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: website-release
+          path: |
+            .deployment/release.tar.gz
+            .deployment/release.sha256
+          retention-days: 7
+          include-hidden-files: true
+          compression-level: 0
+          if-no-files-found: error
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AWS_REGION: us-east-1
+      AWS_PAGER: ''
+      LIGHTSAIL_INSTANCE: ${{ vars.LIGHTSAIL_INSTANCE }}
+      DEPLOY_HOST: ${{ vars.DEPLOY_HOST }}
+      DEPLOY_SSH_KNOWN_HOSTS: ${{ vars.DEPLOY_SSH_KNOWN_HOSTS }}
+      PRODUCTION_URL: https://www.agent.press
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: website-release
+          path: .deployment
+      - name: Obtain short-lived AWS credentials
+        uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a # v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: us-east-1
+          role-duration-seconds: 900
+          role-session-name: website-${{ github.run_id }}
+      - name: Deploy candidate, verify production, and roll back on failure
+        timeout-minutes: 8
+        run: bash ops/deploy/deploy-release.sh
+      - name: Remove temporary runner SSH access if interrupted
+        if: always() && env.DEPLOY_RUNNER_CIDR != ''
+        run: |
+          aws lightsail close-instance-public-ports             --instance-name "$LIGHTSAIL_INSTANCE"             --port-info "{\"fromPort\":22,\"toPort\":22,\"protocol\":\"tcp\",\"cidrs\":[\"$DEPLOY_RUNNER_CIDR\"]}" >/dev/null
+      - name: Upload deployment verification
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: production-verification
+          path: .deployment/*verification.json
+          retention-days: 14
+          include-hidden-files: true
+          if-no-files-found: ignore
