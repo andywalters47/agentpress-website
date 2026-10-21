@@ -1,36 +1,24 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AgentPress website
 
-## Getting Started
+Production: https://www.agent.press
 
-First, run the development server:
+The website runs as a full Next.js / React application on AWS, with a standalone Node server behind Caddy and CloudFront.
+
+## Development
+
+Use Node.js 24 and run:
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Production deployment
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Push or merge to `main` to deploy.** [Deploy website to AWS](https://github.com/andywalters47/agentpress-website/actions/workflows/deploy.yml) starts automatically for every main push.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+GitHub Actions builds the application, checks TypeScript, starts a candidate release, switches traffic after health checks, and verifies the public website. A failed build keeps the current release; failed production verification restores the previous release. The deployed commit is available at https://www.agent.press/__deployment.json.
 
-## Learn More
+Watch the workflow's build and deploy jobs in the Actions tab. No local deploy command or operator laptop is required. Feature-branch pushes do not deploy production.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deployment uses short-lived GitHub OIDC credentials restricted to the website instance. The workflow has no DNS permissions. See [deployment details](ops/deploy/README.md) for configuration and recovery behavior.
