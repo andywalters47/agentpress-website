@@ -36,7 +36,7 @@
 .screen { background: #edf4eb; border-left: 2px solid #6caa89; border-radius: 0 10px 10px 0; padding: 23px 26px; margin-top: 26px; }
 .screen h3 { font-size: 11px; text-transform: uppercase; letter-spacing: .09em; margin: 0 0 12px; color: #456753; font-weight: 600; }
 .screen p { margin: 0; font-size: 16px; line-height: 1.8; }
-.article ul { padding-left: 22px; margin: 20px 0 0; }
+.article ul, .article ol { padding-left: 22px; margin: 20px 0 0; }
 .article li { padding-left: 6px; margin-bottom: 20px; }
 .article li::marker { color: #6caa89; }
 .article strong { font-weight: 600; color: #1b1536; }

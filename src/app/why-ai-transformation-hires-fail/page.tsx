@@ -9,7 +9,7 @@ const description = 'Five predictable AI transformation failures, the qualities 
 const path = '/why-ai-transformation-hires-fail';
 const image = '/agentpress_og_ai_transformation_hires.png';
 const consultation = 'https://calendar.app.google/AwUNqYVrSpUf1XeK8';
-const labels = ['Confidence before deployment', 'Workflows you can inspect', 'Coherent data', 'Change management', 'Executive buy-in', 'Security realism', 'Agencies versus hires', 'The takeaway'];
+const labels = ['Agree on the ROI', 'Verify and inspect', 'Coherent data', 'Change management', 'Executive buy-in', 'Agencies versus hires', 'The takeaway'];
 
 export const metadata: Metadata = {
   title: `${title} | AgentPress`,
@@ -37,7 +37,7 @@ export default function TransformationArticle() {
         <div className={styles.hero}>
           <div className={styles.eyebrow}><span /> AI transformation · Field notes</div>
           <h1>Why AI transformation hires fail <span>(and how to screen for it)</span></h1>
-          <div className={styles.meta}><span>By Andy Walters</span><span aria-hidden="true">/</span><span>7 min read</span></div>
+          <div className={styles.meta}><span>By Andy Walters</span><span aria-hidden="true">/</span><span>6 min read</span></div>
         </div>
         <div className={styles.layout}>
           <aside className={styles.sidebar} aria-label="In this article">
@@ -52,11 +52,14 @@ export default function TransformationArticle() {
             {sections.map((section, index) => {
               const numbered = section.heading.match(/^Failure mode (\d): (.+)$/);
               const bullets = section.paragraphs.filter((paragraph) => paragraph.startsWith('- '));
+              const numberedItems = section.paragraphs.filter((paragraph) => /^\d+\. /.test(paragraph));
               return (
                 <section key={section.heading} id={`section-${index + 1}`} className={styles.section}>
                   {numbered && <div className={styles.sectionLabel}>Failure mode {numbered[1]} <span aria-hidden="true" /></div>}
                   <h2>{numbered ? numbered[2] : section.heading}</h2>
-                  {section.paragraphs.filter((paragraph) => !paragraph.startsWith('- ')).map((paragraph) => paragraph.startsWith('What to look for: ')
+                  {section.paragraphs.filter((paragraph) => !paragraph.startsWith('- ')).map((paragraph) => /^\d+\. /.test(paragraph)
+                    ? (paragraph === numberedItems[0] ? <ol key="capacity-paths">{numberedItems.map((item) => <li key={item}>{item.replace(/^\d+\. /, '')}</li>)}</ol> : null)
+                    : paragraph.startsWith('What to look for: ')
                     ? <div className={styles.screen} key={paragraph}><h3>What to look for</h3><p>{paragraph.slice('What to look for: '.length)}</p></div>
                     : <p key={paragraph}>{paragraph}</p>)}
                   {bullets.length > 0 && <ul>{bullets.map((paragraph) => {
