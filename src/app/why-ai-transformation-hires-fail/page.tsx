@@ -74,7 +74,7 @@ export default function TransformationArticle() {
         </div>
         <section className={styles.cta} aria-labelledby="cta-heading"><div className={styles.eyebrow}>From strategy to working systems</div><h2 id="cta-heading">Put AI to work in your business.</h2><a className={styles.button} href={consultation} target="_blank" rel="noopener noreferrer">Book a Free Consultation <span aria-hidden="true">↗</span></a></section>
       </main>
-      <footer className={styles.footer}><Link href="/">agent.press</Link><span>© {new Date().getFullYear()} AgentPress AI, LLC</span><div><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></div></footer>
+      <footer className={styles.footer}><Link href="/">agent.press</Link><span>© {new Date().getFullYear()} AgentPress, Inc.</span><div><Link href="/privacy">Privacy</Link><Link href="/terms">Terms</Link></div></footer>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({ '@context': 'https://schema.org', '@type': 'BlogPosting', headline: title, description, image: `https://www.agent.press${image}`, author: { '@type': 'Person', name: 'Andy Walters' }, publisher: { '@type': 'Organization', name: 'AgentPress', url: 'https://www.agent.press' }, mainEntityOfPage: `https://www.agent.press${path}` }) }} />
     </div>
   );
