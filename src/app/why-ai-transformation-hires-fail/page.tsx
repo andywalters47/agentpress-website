@@ -86,7 +86,7 @@ export default function TransformationArticle() {
                 <p className={styles.authorRole}>Founder &amp; CEO, AgentPress</p>
                 <p>Andy Walters is the founder and CEO of AgentPress. He helps midmarket companies identify where AI can create the most value, then turn those opportunities into working automation built around their existing systems, business rules, and teams.</p>
                 <p>His work brings together AI consulting, custom engineering, and an auditable agent platform. He writes about the practical side of AI transformation: choosing workflows with a clear return, building agents people can inspect and trust, and making organizational change stick.</p>
-                <a className={styles.authorLink} href={authorProfile} target="_blank" rel="noopener noreferrer">Connect with Andy on LinkedIn <span aria-hidden="true">↗</span></a>
+                <a className={styles.authorLink} href={consultation} target="_blank" rel="noopener noreferrer">Schedule a call with Andy <span aria-hidden="true">↗</span></a>
               </div>
             </section>
           </article>
