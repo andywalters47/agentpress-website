@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 
 const archivo = localFont({
   src: "../../public/fonts/ArchivoVariable.woff2",
@@ -74,6 +75,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <GoogleAnalytics />
         <SmoothScroll />
         {children}
       </body>
