@@ -1,12 +1,13 @@
+import { pageMetadata } from '@/lib/site-metadata';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { CtaBand } from '@/components/CtaBand';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/support", {
   title: 'Support | AgentPress',
   description: 'Get help with your AgentPress workspace, integrations, and deal workflows.',
-};
+});
 
 const supportOptions = [
   {

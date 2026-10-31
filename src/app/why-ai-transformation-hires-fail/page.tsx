@@ -1,3 +1,4 @@
+import { pageMetadata } from '@/lib/site-metadata';
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -13,7 +14,7 @@ const authorProfile = 'https://www.linkedin.com/in/andywalters';
 const consultation = 'https://calendar.app.google/AwUNqYVrSpUf1XeK8';
 const labels = ['Agree on the ROI', 'Verify and inspect', 'Coherent data', 'Change management', 'Executive buy-in', 'Agencies versus hires', 'The takeaway'];
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/why-ai-transformation-hires-fail", {
   title: `${title} | AgentPress`,
   description,
   authors: [{ name: 'Andy Walters', url: authorProfile }],
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
     images: [{ url: image, width: 1200, height: 630, type: 'image/png', alt: title }],
   },
   twitter: { card: 'summary_large_image', title, description, images: [{ url: image, alt: title }] },
-};
+});
 
 export default function TransformationArticle() {
   return (

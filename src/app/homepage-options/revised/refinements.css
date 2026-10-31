@@ -1,0 +1,348 @@
+/* Only the three earlier treatments explicitly requested again, plus the
+   requested optical logo alignment and process numerals. Native site CSS is
+   unchanged; these rules apply only to this local homepage comp. */
+[data-homepage-preview] .hp-restored-container, [data-homepage-preview] .hp-restored-container * { box-sizing:border-box; }
+[data-homepage-preview] .hp-restored-container { width:100%; max-width:var(--web-max-w-wide); margin-inline:auto; padding-inline:56px; }
+[data-homepage-preview] .hp-restored-section { padding-block:85px; scroll-margin-top:110px; }
+[data-homepage-preview] .hp-hero-market { white-space:nowrap; }
+[data-homepage-preview] .hp-case h2, [data-homepage-preview] .hp-offer h2 { margin:0; font:400 clamp(32px,3.2vw,42px)/1.16 var(--font-display); letter-spacing:-.02em; text-wrap:balance; }
+[data-homepage-preview] .hp-case { padding-block:144px; background:url('/assets/sub-footer.webp') center bottom / cover no-repeat,var(--web-gradient-footer); color:var(--on-brand-purple); }
+[data-homepage-preview] .hp-case-layout { display:grid; grid-template-columns:.85fr 1.15fr; align-items:center; gap:90px; }
+[data-homepage-preview] .hp-case-metric img { display:block; width:200px; height:auto; filter:brightness(0) invert(1); }
+[data-homepage-preview] .hp-case-metric strong { display:block; margin-top:35px; color:var(--brand-mint); font:400 clamp(82px,9vw,122px)/1 var(--font-display); letter-spacing:-.06em; }
+[data-homepage-preview] .hp-case-metric-label { margin:14px 0 0; color:var(--on-dark-body); font:400 20px/1.4 var(--font-body); }
+[data-homepage-preview] .hp-case h2 { margin:0; color:var(--on-brand-purple); }
+[data-homepage-preview] .hp-case-outcomes { margin:28px 0 0; padding:0; list-style:none; }
+[data-homepage-preview] .hp-case-outcomes li { padding:16px 0; border-bottom:1px solid rgba(255,255,255,.18); color:var(--on-dark-body); font:400 18px/1.5 var(--font-body); }
+[data-homepage-preview] .hp-case-outcomes li:last-child { border-bottom:0; padding-bottom:0; }
+[data-homepage-preview] .hp-case-outcomes .check { display:flex; align-items:center; gap:12px; }
+[data-homepage-preview] .hp-case-outcomes .check span { color:inherit; font:inherit; }
+[data-homepage-preview] .hp-case-outcome-compact { display:none; }
+[data-homepage-preview] .hp-offer { background:var(--web-bg-alt); padding-inline:40px; }
+[data-homepage-preview] .hp-offer-panel { display:grid; grid-template-columns:1fr 1fr; gap:35px 80px; border:0; border-radius:0; background:transparent; padding:0; }
+[data-homepage-preview] .hp-offer-intro h2 { font-size:37px; }
+[data-homepage-preview] .hp-offer-intro .btn-dark { margin-top:30px; }
+[data-homepage-preview] .hp-offer-includes .check { align-items:center; gap:17px; padding-block:12px; border-bottom:1px solid var(--hairline); }
+[data-homepage-preview] .hp-offer-includes .check span { font-size:16px; line-height:1.6; }
+[data-homepage-preview] .hp-offer-includes .check strong { color:var(--ink); font-weight:600; }
+[data-homepage-preview] .hp-offer-includes .check svg { flex-shrink:0; }
+[data-homepage-preview] .hp-offer-price { display:flex; align-items:last baseline; gap:24px; padding-top:28px; }
+[data-homepage-preview] .hp-offer-price strong { font:400 43px/1.1 var(--font-display); letter-spacing:-.035em; }
+[data-homepage-preview] .hp-offer-price p { margin:0; max-width:250px; color:var(--ink-body); font:400 16px/1.5 var(--font-body); }
+[data-homepage-preview] .introrow { align-items:center !important; }
+[data-homepage-preview] .hp-manifesto-roi, [data-homepage-preview] .hp-manifesto-number, [data-homepage-preview] .hp-manifesto-benefit { color:var(--raw-teal-700) !important; }
+[data-homepage-preview] .hp-manifesto-roi { position:relative; text-decoration:none; }
+[data-homepage-preview] .hp-roi-underline { position:absolute; left:-5%; bottom:-.06em; width:110%; height:.3em; overflow:visible; pointer-events:none; }
+[data-homepage-preview] .hp-roi-underline path { fill:none; stroke:currentColor; stroke-width:5; stroke-linecap:round; stroke-dasharray:1; stroke-dashoffset:var(--hp-roi-stroke,1); }
+[data-homepage-preview] .hp-roi-underline .hp-roi-stroke-tail { stroke-width:2.4; stroke-dashoffset:var(--hp-roi-stroke-tail,1); opacity:.5; }
+[data-homepage-preview] .hp-manifesto-results { margin:20px 0 0; padding-left:1em; list-style:disc; }
+[data-homepage-preview] .hp-manifesto-results > li { padding-left:.15em; }
+[data-homepage-preview] .hp-manifesto-results > li::marker { color:rgb(33 33 33 / var(--hp-marker-opacity,0)); font-size:.62em; }
+@media (max-width:1024px), (prefers-reduced-motion:reduce) {
+ [data-homepage-preview] .hp-manifesto-results > li::marker { color:var(--ink); }
+}
+[data-homepage-preview] .hp-customer-logos { display:flex; flex-direction:column; align-items:center; width:100%; gap:30px; }
+[data-homepage-preview] .hp-logo-frame { position:relative; width:100%; min-width:0; height:56px; }
+[data-homepage-preview] .hp-logo-frame img { position:absolute; left:50%; top:50%; width:var(--logo-width); height:auto; max-width:none; display:block; transform:translate(-50%,-50%) translate(var(--logo-x),var(--logo-y)); }
+[data-homepage-preview] .ap-business-hero-art { container-type:inline-size; }
+@media (min-width:601px) {
+ [data-homepage-preview] .ap-hero-context-mini svg { width:clamp(72px,18cqw,104px); height:clamp(72px,18cqw,104px); }
+ [data-homepage-preview] .ap-hero-context-mini span { font-size:clamp(13px,2.8cqw,16px); }
+}
+[data-homepage-preview] .hp-initial-engagement { background:var(--web-bg-alt); border-top:1px solid var(--hairline); }
+[data-homepage-preview] .hp-process-intro { padding:80px 40px 32px !important; }
+[data-homepage-preview] .hp-process-experience { --hp-process-top:108px; --hp-nav-height:124px; --hp-panel-height:calc(100svh - var(--hp-process-top) - var(--hp-nav-height) - 12px); position:relative; }
+[data-homepage-preview] .hp-process-nav { box-sizing:border-box; height:var(--hp-nav-height); background:var(--web-bg-alt); z-index:25; }
+[data-homepage-preview] .hp-process-nav ol { box-sizing:border-box; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:24px; height:100%; max-width:var(--web-max-w-wide); margin:0 auto; padding:8px 40px; list-style:none; }
+[data-homepage-preview] .hp-process-nav li { min-width:0; }
+[data-homepage-preview] .hp-process-nav a { --hp-step-emphasis:0; box-sizing:border-box; display:flex; flex-direction:column; align-items:flex-start; gap:8px; height:100%; padding:4px 0 8px; border:0; text-align:left; color:color-mix(in oklch,var(--ink-50),var(--ink) calc(var(--hp-step-emphasis) * 100%)); font:400 24px/1.2 var(--font-display); }
+[data-homepage-preview] .hp-process-nav a[aria-current='step'] { --hp-step-emphasis:1; }
+[data-homepage-preview] .hp-process-nav a:focus-visible { outline:3px solid var(--brand-purple); outline-offset:4px; border-radius:8px; }
+[data-homepage-preview] .hp-process-nav-number { display:flex; flex:0 0 auto; align-items:center; justify-content:center; width:58px; height:58px; border-radius:14px; background:color-mix(in oklch,color-mix(in oklch,var(--ink) 7%,var(--web-bg-alt)),var(--brand-mint) calc(var(--hp-step-emphasis) * 100%)); color:inherit; font:400 36px/1 var(--font-display); }
+[data-homepage-preview] .hp-process-inline-number { display:none; }
+[data-homepage-preview] .hp-process-sticky { position:relative; }
+[data-homepage-preview] .hp-process-panel .ap-business-art { aspect-ratio:1276 / 1233 !important; border-radius:3.135% / 3.244% !important; overflow:hidden; }
+[data-homepage-preview] .hp-roi-background { display:none; }
+[data-homepage-preview] .hp-process-nav { position:sticky; top:var(--hp-process-top); }
+[data-homepage-preview] #discovery, [data-homepage-preview] #evaluation, [data-homepage-preview] #deliverables { scroll-margin-top:calc(var(--hp-process-top) + var(--hp-nav-height) + 20px); }
+[data-homepage-preview] .hp-platform { background:var(--web-bg-alt); border-top:1px solid var(--hairline); }
+[data-homepage-preview] .hp-platform-summary { padding-block:88px; }
+[data-homepage-preview] .hp-platform-summary > .hp-restored-container { display:flex; flex-direction:column; gap:64px; }
+[data-homepage-preview] .hp-platform-summary h2 { width:72%; max-width:760px; margin:0; font:400 42px/1.15 var(--font-display); letter-spacing:-.025em; text-wrap:balance; }
+[data-homepage-preview] .hp-platform-summary h3 { margin:0; font:400 24px/1.25 var(--font-display); letter-spacing:-.015em; }
+[data-homepage-preview] .hp-platform-foundations { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:64px; }
+[data-homepage-preview] .hp-platform-foundation { display:flex; align-items:center; gap:24px; }
+[data-homepage-preview] .hp-platform-visual { display:grid; place-items:center; width:80px; height:88px; flex:0 0 80px; }
+[data-homepage-preview] .hp-platform-visual img { display:block; max-width:100%; height:auto; object-fit:contain; }
+[data-homepage-preview] .hp-platform-visual .hp-platform-soc-badge { width:80px; height:80px; max-width:none; max-height:none; }
+[data-homepage-preview] .hp-platform-visual--deployment { position:relative; width:112px; flex-basis:112px; }
+[data-homepage-preview] .hp-platform-visual .hp-platform-server-circle { position:absolute; top:0; right:0; width:80px; height:80px; }
+[data-homepage-preview] .hp-platform-aws-circle { position:absolute; top:8px; left:0; width:80px; height:80px; border:2px solid var(--web-bg-alt); border-radius:50%; overflow:hidden; background:#232f3e; }
+[data-homepage-preview] .hp-platform-aws-circle img { position:absolute; left:50%; top:50%; width:176px; max-width:none; height:auto; transform:translate(-50%,-50%); }
+[data-homepage-preview] .hp-platform-integrations { position:relative; text-align:center; }
+[data-homepage-preview] .hp-platform-integrations::before { content:''; position:absolute; inset-inline:0; top:-32px; border-top:1px solid var(--hairline); pointer-events:none; }
+[data-homepage-preview] .hp-platform-logos { display:flex; justify-content:space-between; align-items:center; gap:24px; }
+[data-homepage-preview] .hp-platform-logo { display:flex; align-items:center; justify-content:center; min-width:0; height:56px; flex:0 0 auto; }
+[data-homepage-preview] .hp-platform-logo img { display:block; width:var(--platform-logo-width); max-width:100%; height:auto; max-height:56px; object-fit:contain; }
+[data-homepage-preview] .hp-platform-logo--salesforce { --platform-logo-width:80px; }
+[data-homepage-preview] .hp-platform-logo--dynamics { --platform-logo-width:148px; }
+[data-homepage-preview] .hp-platform-logo--sap { --platform-logo-width:76px; }
+[data-homepage-preview] .hp-platform-logo--netsuite { --platform-logo-width:124px; }
+[data-homepage-preview] .hp-platform-logo--outlook { --platform-logo-width:132px; }
+[data-homepage-preview] .hp-platform-logo--workday { --platform-logo-width:116px; }
+@media (max-width:1100px) {
+ [data-homepage-preview] .hp-restored-container { padding-inline:36px; }
+ [data-homepage-preview] .hp-case-layout { gap:40px; }
+ [data-homepage-preview] .hp-offer-panel { gap:30px 40px; }
+}
+@media (max-width:1024px) {
+ [data-homepage-preview] .hp-manifesto-all-headline > div:first-child { width:100% !important; max-width:100% !important; min-width:0; }
+ [data-homepage-preview] .hp-customer-logos { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:26px 16px; }
+ [data-homepage-preview] .hp-logo-frame img { max-width:calc(100% - 8px); }
+ [data-homepage-preview] .hp-customer-logos > .hp-logo-frame:last-child { grid-column:2; }
+ [data-homepage-preview] .hp-offer { padding-inline:0; }
+ [data-homepage-preview] .hp-offer > .hp-restored-container { padding-inline:32px; }
+ [data-homepage-preview] .hp-offer-panel { grid-template-columns:1fr; gap:32px; }
+ [data-homepage-preview] .hp-offer-intro h2 { max-width:720px; font-size:36px; }
+ [data-homepage-preview] .hp-platform-summary h2 { font-size:36px; }
+ [data-homepage-preview] .hp-platform-foundations { grid-template-columns:1fr; gap:32px; }
+ [data-homepage-preview] .hp-platform-foundation { justify-content:center; }
+ [data-homepage-preview] .hp-platform-logos { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); width:100%; max-width:420px; margin-inline:auto; gap:28px 44px; }
+}
+@media (max-width:767px) {
+ [data-homepage-preview] .heroartcol { display:none !important; }
+ [data-homepage-preview] .herorow { padding-bottom:40px !important; gap:0 !important; }
+ [data-homepage-preview] .ap-intro-shell { padding-top:32px !important; padding-bottom:48px !important; }
+ [data-homepage-preview] .ap-intro-shell::before { display:none; }
+ [data-homepage-preview] .ap-intro-shell .introrow { gap:20px !important; }
+ [data-homepage-preview] .hp-manifesto-statement { font-size:clamp(24px,6.4vw,27px) !important; line-height:1.3 !important; }
+ [data-homepage-preview] .hp-manifesto-results { margin-top:16px; }
+ [data-homepage-preview] .footcols { display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)); width:100%; gap:24px !important; }
+ [data-homepage-preview] .fcol { width:auto !important; min-width:0; }
+ [data-homepage-preview] .footbar { display:grid !important; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start !important; gap:16px 24px !important; }
+ [data-homepage-preview] .footbar > :first-child { grid-column:1 / -1; line-height:1.5; }
+ [data-homepage-preview] .hp-restored-container { padding-inline:24px; }
+ [data-homepage-preview] .hp-restored-section { padding-block:60px; }
+ [data-homepage-preview] .hp-case { padding-block:88px; }
+ [data-homepage-preview] .hp-case-layout { grid-template-columns:1fr; gap:34px; }
+ [data-homepage-preview] .hp-case-metric img { width:180px; }
+ [data-homepage-preview] .hp-case-metric strong { margin-top:30px; font-size:92px; }
+ [data-homepage-preview] .hp-case-metric-label { margin-top:10px; font-size:14px; }
+ [data-homepage-preview] .hp-case h2 { font-size:32px; }
+ [data-homepage-preview] .hp-case-outcomes li { font-size:clamp(13px,3.6vw,15px); }
+ [data-homepage-preview] .hp-case-outcomes .check { align-items:center; gap:10px; padding-block:14px; }
+ [data-homepage-preview] .hp-case-outcomes .check svg { display:block; align-self:center; margin:0; }
+ [data-homepage-preview] .hp-case-outcome-full { display:none; }
+ [data-homepage-preview] .hp-case-outcome-compact { display:inline; white-space:nowrap; }
+ [data-homepage-preview] .hp-offer h2 { font-size:32px; }
+ [data-homepage-preview] .hp-platform-summary { padding-block:56px; }
+ [data-homepage-preview] .hp-platform-summary > .hp-restored-container { gap:48px; }
+ [data-homepage-preview] .hp-platform-integrations::before { top:-24px; }
+ [data-homepage-preview] .hp-platform-summary h2 { width:100%; max-width:560px; font-size:34px; }
+ [data-homepage-preview] .hp-platform-foundations { grid-template-columns:1fr; gap:24px; width:100%; max-width:320px; margin-inline:auto; }
+ [data-homepage-preview] .hp-platform-foundation { justify-content:flex-start; gap:16px; }
+ [data-homepage-preview] .hp-platform-foundation h3 { font-size:clamp(18px,4.7vw,21px); }
+ [data-homepage-preview] .hp-platform-visual { width:72px; height:72px; flex-basis:72px; }
+ [data-homepage-preview] .hp-platform-visual--deployment { width:72px; flex-basis:72px; }
+ [data-homepage-preview] .hp-platform-visual img { max-height:72px; }
+ [data-homepage-preview] .hp-platform-visual .hp-platform-soc-badge { width:64px; height:64px; }
+ [data-homepage-preview] .hp-platform-visual .hp-platform-server-circle { width:46px; height:46px; top:4px; }
+ [data-homepage-preview] .hp-platform-aws-circle { width:46px; height:46px; top:12px; }
+ [data-homepage-preview] .hp-platform-aws-circle img { width:104px; max-height:none; }
+ [data-homepage-preview] .hp-platform-logos { grid-template-columns:repeat(3,minmax(0,1fr)); max-width:330px; gap:16px 18px; }
+ [data-homepage-preview] .hp-platform-logo { height:44px; }
+ [data-homepage-preview] .hp-platform-logo img { max-height:40px; }
+ [data-homepage-preview] .hp-platform-logo--salesforce { --platform-logo-width:60px; }
+ [data-homepage-preview] .hp-platform-logo--dynamics { --platform-logo-width:96px; }
+ [data-homepage-preview] .hp-platform-logo--sap { --platform-logo-width:56px; }
+ [data-homepage-preview] .hp-platform-logo--netsuite { --platform-logo-width:88px; }
+ [data-homepage-preview] .hp-platform-logo--outlook { --platform-logo-width:96px; }
+ [data-homepage-preview] .hp-platform-logo--workday { --platform-logo-width:84px; }
+ [data-homepage-preview] .hp-offer { padding-inline:0; }
+ [data-homepage-preview] .hp-offer > .hp-restored-container { padding-inline:24px; }
+ [data-homepage-preview] .hp-offer-panel { grid-template-columns:1fr; gap:30px; }
+ [data-homepage-preview] .hp-offer-includes .check span { font-size:15px; }
+ [data-homepage-preview] .hp-offer-price { flex-direction:column; align-items:flex-start; gap:8px; }
+ [data-homepage-preview] .hp-offer-price strong { font-size:35px; }
+ [data-homepage-preview] .hp-offer-price p { max-width:none !important; font-size:14px; white-space:nowrap; }
+ [data-homepage-preview] .hp-customer-logos { grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+ [data-homepage-preview] .hp-customer-logos > .hp-logo-frame:nth-child(4) { display:none; }
+ [data-homepage-preview] .hp-customer-logos > .hp-logo-frame:last-child { grid-column:auto; }
+ [data-homepage-preview] .hp-customer-logos .hp-logo-frame { height:40px; }
+ [data-homepage-preview] .hp-logo-frame img { width:calc(var(--logo-width) * .55); transform:translate(-50%,-50%) translate(calc(var(--logo-x) * .55),calc(var(--logo-y) * .55)); }
+ [data-homepage-preview] .hp-logo-frame:nth-child(5) img,
+ [data-homepage-preview] .hp-logo-frame:last-child img { width:calc(var(--logo-width) * .5); }
+ [data-homepage-preview] #faq { padding:56px 0 !important; }
+ [data-homepage-preview] #faq > div { box-sizing:border-box; width:100%; padding:0 !important; }
+ [data-homepage-preview] #business-faq { padding-inline:24px !important; gap:32px !important; }
+ [data-homepage-preview] #business-faq > div:first-child { display:flex; flex-direction:column; align-items:flex-start; gap:0 !important; }
+ [data-homepage-preview] #business-faq h2 { font-size:32px !important; }
+ [data-homepage-preview] #business-faq > div:first-child > div { margin-top:24px !important; }
+ [data-homepage-preview] #business-faq .btn-dark { margin-top:0 !important; }
+}
+@media (max-width:359px) {
+ [data-homepage-preview] .hp-offer-price strong { font-size:32px; }
+ [data-homepage-preview] .hp-offer-price p { max-width:125px; font-size:14px; }
+}
+@media (max-width:600px) {
+ [data-homepage-preview] .herocol h1 { font-size:clamp(34px,9.25vw,40px) !important; }
+}
+
+/* The headline reuses the hero type scale. Symmetric breathing room and a
+   shared entrance keep the headline and steps composed as one scroll scene. */
+@media (min-width:1025px) {
+ [data-homepage-preview] .herorow { box-sizing:border-box; display:grid !important; grid-template-columns:minmax(0,1.18fr) minmax(0,1fr); }
+ [data-homepage-preview] .herocol { width:auto !important; min-width:0; }
+ [data-homepage-preview] .herocol h1 { width:100% !important; max-width:590px; font-size:clamp(38px,3.6vw,46px) !important; }
+ [data-homepage-preview] .herocol p { width:100% !important; max-width:550px !important; font-size:clamp(16px,1.55vw,18px) !important; }
+ [data-homepage-preview] .heroartcol { width:auto !important; min-width:0; justify-content:center !important; }
+ [data-homepage-preview] .ap-business-hero-art { min-height:500px; }
+ [data-homepage-preview] .hp-manifesto-all-headline { box-sizing:border-box; width:min(1320px,100%) !important; max-width:1320px !important; gap:clamp(64px,7.5vw,112px) !important; }
+ [data-homepage-preview] .hp-manifesto-all-headline > div:first-child { width:clamp(190px,20vw,280px) !important; }
+ [data-homepage-preview] .hp-manifesto-all-headline .hp-logo-frame img { width:calc(var(--logo-width) * .9); transform:translate(-50%,-50%) translate(calc(var(--logo-x) * .9),calc(var(--logo-y) * .9)); }
+ [data-homepage-preview] .hp-manifesto-all-headline > div:last-child { min-width:0; max-width:none !important; }
+ [data-homepage-preview] #hp-initial-engagement-heading { max-width:1080px; margin:0; font-size:46px !important; line-height:1.16 !important; text-wrap:balance; }
+}
+
+/* Short desktop windows need ordinary scrolling so the hero cannot be cut off. */
+@media (min-width:1025px) and (max-height:719px) {
+ [data-homepage-preview] .ap-prelude-scroll { height:auto !important; }
+ [data-homepage-preview] .ap-prelude-sticky { position:relative !important; top:auto; height:auto; overflow:visible; clip-path:none; }
+ [data-homepage-preview] .ap-prelude-sticky > .heropinwrap,
+ [data-homepage-preview] .ap-prelude-sticky > .ap-intro-shell { position:relative; inset:auto; height:auto !important; }
+ [data-homepage-preview] .ap-prelude-sticky .herostage { position:relative !important; inset:auto; height:auto; min-height:0; }
+ [data-homepage-preview] .ap-hero-motion { opacity:1 !important; filter:none; transform:none !important; }
+ [data-homepage-preview] .ap-intro-shell { padding:72px 0; opacity:1; transform:none; }
+ [data-homepage-preview] .ap-intro-shell::before { display:none; }
+ [data-homepage-preview] .ap-intro-shell .introrow { transform:none; }
+ [data-homepage-preview] .ap-manifesto-word { opacity:1 !important; text-shadow:none !important; transform:none !important; }
+ [data-homepage-preview] .hp-manifesto-results > li::marker { color:var(--ink); }
+}
+
+/* One pinned process stage: the content fades out, then in beneath a stable
+   numbered row. The original floating menu is completely independent. */
+@media (min-width:1280px) and (min-height:720px) and (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) {
+ [data-homepage-preview] .hp-process-experience { height:920svh; }
+ [data-homepage-preview] .hp-process-sticky { position:sticky; top:var(--hp-process-top); height:calc(100svh - var(--hp-process-top)); overflow:visible; clip-path:inset(calc(-1 * var(--hp-process-top)) 0 0); }
+ [data-homepage-preview] .hp-process-nav { position:absolute; top:0; width:100%; opacity:var(--hp-nav-opacity,1); transform:translateY(var(--hp-nav-y,340px)); will-change:opacity,transform; }
+ [data-homepage-preview] .hp-process-nav ol { transform:translateY(8px); }
+ [data-homepage-preview] .hp-process-overview-heading { position:absolute; inset:0 0 auto; opacity:var(--hp-overview-opacity,1); transform:translateY(var(--hp-overview-y,140px)); will-change:opacity,transform; }
+ [data-homepage-preview] .hp-process-overview-heading .hp-process-intro { padding:0 40px !important; }
+ [data-homepage-preview] .hp-process-panels { position:absolute; top:calc(var(--hp-nav-height) + 12px); width:100%; height:var(--hp-panel-height); overflow:clip; }
+ [data-homepage-preview] .hp-process-panel { position:absolute; inset:0; opacity:var(--hp-panel-opacity,0); transform:translateY(var(--hp-panel-offset,0)); will-change:opacity,transform; }
+ [data-homepage-preview] .hp-process-panel:first-child { --hp-panel-opacity:0; }
+ [data-homepage-preview] .hp-process-panel[aria-hidden='true'] { pointer-events:none; }
+ [data-homepage-preview] .hp-process-panel > div { height:100%; }
+ [data-homepage-preview] .hp-process-panel #discovery, [data-homepage-preview] .hp-process-panel #deliverables { box-sizing:border-box; padding:0 40px !important; }
+ [data-homepage-preview] .hp-process-panel .fstage { display:grid !important; position:relative !important; height:100% !important; }
+ [data-homepage-preview] .hp-process-panel .frow { display:grid !important; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); align-items:center; gap:56px; height:100%; width:100%; }
+ [data-homepage-preview] .hp-process-panel .ap-business-art { width:min(100%,var(--hp-panel-height)) !important; height:auto !important; max-height:100%; aspect-ratio:1; justify-self:center; }
+ [data-homepage-preview] .hp-process-panel .ftext { min-width:0; }
+ [data-homepage-preview] .hp-process-panel .ftext h2 { font-size:clamp(29px,2.6vw,42px) !important; }
+ [data-homepage-preview] .hp-process-panel .ftext p { font-size:18px !important; line-height:1.6 !important; }
+ [data-homepage-preview] .hp-process-panel #evaluation { position:relative; }
+ [data-homepage-preview] .hp-process-panel #evaluation > .hp-roi-content { box-sizing:border-box; position:relative; z-index:1; height:100%; width:100%; max-width:var(--web-max-w-wide); margin-inline:auto; padding-inline:40px; background:transparent !important; }
+ [data-homepage-preview] .hp-process-panel #evaluation > .hp-roi-content > div { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.1fr); grid-template-rows:minmax(0,1fr); align-items:center; gap:56px; width:100%; height:100%; text-align:left !important; }
+ [data-homepage-preview] .hp-roi-background { display:block; position:absolute; inset:0; overflow:clip; pointer-events:none; background:radial-gradient(780px 500px at var(--hp-roi-center,70%) 50%,rgba(174,243,200,.14),transparent 70%); mask-image:linear-gradient(to bottom,transparent,#000 10%,#000 90%,transparent); }
+ [data-homepage-preview] .hp-roi-background .ap-timeline-backdrop { inset:auto; left:var(--hp-roi-center,70%); top:50%; width:max(1500px,100vw); max-width:none; height:auto; aspect-ratio:1400/711; transform:translate(-50%,-50%); mask-image:linear-gradient(to right,transparent,#000 8%,#000 92%,transparent); }
+ [data-homepage-preview] .hp-process-panel .ap-timeline-heading { grid-column:1; grid-row:1; position:static; padding:0; margin:0; text-align:left; }
+ [data-homepage-preview] .hp-process-panel .ap-timeline-heading h2 { margin:0 !important; font-size:clamp(29px,2.6vw,42px) !important; text-wrap:balance; }
+ [data-homepage-preview] .hp-process-panel .ap-timeline-flight-scroll { grid-column:2; grid-row:1; width:calc(100% + 56px); margin-left:-56px; height:100% !important; overflow:clip; mask-image:linear-gradient(to right,transparent,#000 64px,#000 calc(100% - 48px),transparent); }
+ [data-homepage-preview] .hp-process-panel .ap-timeline-flight-sticky { position:relative; top:0; height:100%; background:none; }
+ [data-homepage-preview] .hp-process-panel .ap-timeline-scene { top:50%; width:1500px; }
+ [data-homepage-preview] .hp-process-panel .ap-revenue-card-anchor { width:390px; }
+}
+
+/* Tablets use a composed reading layout instead of the pinned desktop scene.
+   The step index stays in flow, so it cannot cover an image while scrolling. */
+@media (max-width:1279px), (max-height:719px), (hover:none), (pointer:coarse), (prefers-reduced-motion:reduce) {
+ [data-homepage-preview] .hp-process-experience { height:auto; --hp-process-top:104px; }
+ [data-homepage-preview] .hp-process-sticky { position:static; height:auto; clip-path:none; }
+ [data-homepage-preview] .hp-process-overview-heading { position:static; opacity:1; transform:none; }
+ [data-homepage-preview] .hp-process-intro { padding:72px 32px 36px !important; }
+ [data-homepage-preview] #hp-initial-engagement-heading { max-width:880px; margin:0; font-size:clamp(32px,4.3vw,42px) !important; line-height:1.16 !important; text-wrap:balance; }
+ [data-homepage-preview] .hp-process-nav { display:none; }
+ [data-homepage-preview] .hp-process-inline-number.hp-process-nav-number { display:flex; width:44px; height:44px; margin-bottom:20px; border-radius:11px; background:var(--brand-mint); color:var(--ink); font-size:30px; }
+ [data-homepage-preview] .hp-process-nav ol { gap:20px; padding:18px 0; }
+ [data-homepage-preview] .hp-process-nav a { --hp-step-emphasis:1 !important; flex-direction:row; align-items:center; height:auto; padding:0; gap:12px; font-size:16px; line-height:1.3; }
+ [data-homepage-preview] .hp-process-nav-number { width:36px; height:36px; border-radius:9px; background:color-mix(in oklch,var(--ink) 7%,var(--web-bg-alt)); color:var(--ink); font-size:23px; }
+ [data-homepage-preview] .hp-process-nav a[aria-current='step'] .hp-process-nav-number { background:var(--brand-mint); }
+ [data-homepage-preview] .hp-process-panels { position:static; height:auto; overflow:visible; }
+ [data-homepage-preview] .hp-process-panel { position:static; opacity:1 !important; transform:none !important; }
+ [data-homepage-preview] .hp-process-panel #discovery, [data-homepage-preview] .hp-process-panel #deliverables { box-sizing:border-box; padding:48px 32px 64px !important; scroll-margin-top:104px; }
+ [data-homepage-preview] .hp-process-panel .fstage { position:static !important; display:block !important; height:auto !important; padding:0 !important; }
+ [data-homepage-preview] .hp-process-panel .frow { display:grid !important; grid-template-columns:minmax(0,1fr) minmax(0,1.05fr); align-items:center !important; gap:32px !important; width:100% !important; height:auto !important; }
+ [data-homepage-preview] .hp-process-panel .ap-business-art { width:100% !important; max-width:100% !important; height:auto !important; aspect-ratio:1; justify-self:center; }
+ [data-homepage-preview] .hp-process-panel .ftext { min-width:0; }
+ [data-homepage-preview] .hp-process-panel .ftext h2, [data-homepage-preview] .hp-process-panel .ap-timeline-heading h2 { margin:0 0 18px !important; font-size:clamp(28px,3.3vw,36px) !important; line-height:1.16 !important; text-wrap:balance; }
+ [data-homepage-preview] .hp-process-panel .ftext p, [data-homepage-preview] .hp-process-panel .ap-timeline-heading p { width:auto !important; height:auto !important; margin:0 !important; font-size:17px !important; line-height:1.6 !important; }
+ [data-homepage-preview] .hp-process-panel #evaluation { box-sizing:border-box; padding:56px 32px 64px !important; scroll-margin-top:104px; background:transparent !important; }
+ [data-homepage-preview] .hp-process-panel #evaluation > .hp-roi-content { box-sizing:border-box; position:relative; width:100%; max-width:100%; padding:0 !important; margin:0 auto; background:transparent !important; }
+ [data-homepage-preview] .hp-process-panel #evaluation > .hp-roi-content > div { display:grid !important; grid-template-columns:minmax(0,1fr); gap:32px; padding:0 !important; text-align:left !important; }
+ [data-homepage-preview] .hp-process-panel .ap-timeline-heading { position:static; max-width:700px; padding:0 !important; margin:0 !important; text-align:left !important; }
+ [data-homepage-preview] .hp-process-panel .ap-timeline-flight-scroll { display:block !important; width:100%; height:auto !important; padding:0 !important; margin:0 !important; overflow:visible; mask-image:none; }
+ [data-homepage-preview] .hp-process-panel .ap-timeline-flight-sticky { position:static !important; top:auto; height:auto !important; padding:0 !important; overflow:visible; background:none; }
+ [data-homepage-preview] .hp-process-panel .ap-revenue-scene { position:static !important; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; width:min(100%,700px) !important; margin:0 auto; aspect-ratio:auto !important; transform:none !important; }
+ [data-homepage-preview] .hp-process-panel .ap-timeline-backdrop { display:none; }
+ [data-homepage-preview] .hp-process-panel .ap-revenue-card-anchor { position:relative !important; top:auto !important; left:auto !important; width:100% !important; max-width:340px; margin:0 auto; transform:none !important; }
+ [data-homepage-preview] .hp-process-panel .ap-revenue-card { transform:none !important; filter:drop-shadow(0 12px 18px var(--hairline)) !important; }
+}
+@media (max-width:767px) {
+ [data-homepage-preview] .hp-process-intro { padding:56px 24px 28px !important; }
+ [data-homepage-preview] .hp-process-nav { margin:0 24px 8px; }
+ [data-homepage-preview] .hp-process-nav ol { gap:12px; padding:16px 0; }
+ [data-homepage-preview] .hp-process-nav a { flex-direction:column; align-items:flex-start; gap:8px; font-size:13px; }
+ [data-homepage-preview] .hp-process-nav-number { width:30px; height:30px; border-radius:8px; font-size:21px; }
+ [data-homepage-preview] .hp-process-panel #discovery, [data-homepage-preview] .hp-process-panel #deliverables, [data-homepage-preview] .hp-process-panel #evaluation { padding:40px 24px 48px !important; }
+ [data-homepage-preview] .hp-process-panel .frow { grid-template-columns:minmax(0,1fr); gap:28px !important; }
+ [data-homepage-preview] .hp-process-panel .ftext { grid-row:1; }
+ [data-homepage-preview] .hp-process-panel .ap-business-art { grid-row:2; max-width:480px !important; }
+ [data-homepage-preview] .hp-process-panel .ap-revenue-scene { gap:16px; }
+}
+@media (max-width:600px) {
+ [data-homepage-preview] .hp-process-panel .ap-revenue-scene { grid-template-columns:minmax(0,1fr); }
+}
+@media (max-width:1024px) {
+ [data-homepage-preview] .hp-roi-underline path { stroke-dashoffset:0 !important; }
+}
+@media (prefers-reduced-motion:reduce) {
+ [data-homepage-preview] .hp-roi-underline path { stroke-dashoffset:0 !important; }
+}
+
+/* Native marketing section anatomy, held as one viewport like the prelude. */
+[data-homepage-preview] .hp-screen-track { position:relative; }
+[data-homepage-preview] .hp-implementation-native { padding:85px 0; }
+[data-homepage-preview] .hp-implementation-native .faqrow { margin-inline:auto; }
+@media (min-width:1025px) {
+ [data-homepage-preview] .hp-offer-intro h2 { max-width:400px; }
+}
+[data-homepage-preview] .hp-implementation-option { padding:26px 0; border-bottom:1px solid var(--hairline); }
+[data-homepage-preview] .hp-implementation-option:first-child { padding-top:0; }
+[data-homepage-preview] .hp-implementation-option:last-child { padding-bottom:0; border-bottom:0; }
+[data-homepage-preview] .hp-implementation-option h3 { margin:0; font:400 24px/1.25 var(--font-display); letter-spacing:-.02em; }
+[data-homepage-preview] .hp-implementation-option p { margin:12px 0 0; font:400 18px/1.6 var(--font-body); color:var(--ink-body); }
+[data-homepage-preview] .hp-implementation-option--agentpress h3 { color:var(--ink); }
+[data-homepage-preview] .hp-inline-wordmark { display:inline-block; width:auto; height:1em; vertical-align:-.26em; }
+[data-homepage-preview] .hp-implementation-option--agentpress { padding-bottom:0; border-bottom:0; }
+[data-homepage-preview] .hp-roadmap-report-art { width:100%; height:100%; }
+[data-homepage-preview] .hp-roadmap-report-art svg { display:block; width:100%; height:100%; }
+@media (min-width:1025px) and (min-height:720px) {
+ [data-homepage-preview] .hp-screen-stage { box-sizing:border-box; display:flex; flex-direction:column; justify-content:center; height:100svh; min-height:100svh; padding:112px 40px 64px !important; scroll-margin-top:0; }
+ [data-homepage-preview] .hp-screen-case-study { padding-inline:0 !important; }
+ [data-homepage-preview] .hp-screen-implementation, [data-homepage-preview] .hp-implementation-native.hp-screen-stage { padding-inline:0 !important; }
+ [data-homepage-preview] .hp-screen-platform { padding-inline:0 !important; }
+ [data-homepage-preview] .hp-platform-summary > .hp-restored-container { height:auto; gap:64px; }
+}
+@media (min-width:1025px) and (min-height:720px) and (prefers-reduced-motion:no-preference) {
+ [data-homepage-preview] .hp-screen-track { height:160svh; }
+ [data-homepage-preview] .hp-screen-stage { position:sticky; top:0; }
+}
+@media (max-width:1024px) {
+ [data-homepage-preview] .hp-implementation-native .faqrow { padding-inline:24px !important; }
+ [data-homepage-preview] .hp-implementation-native .faqrow > div:first-child { width:auto !important; }
+}
+@media (max-width:767px) {
+ [data-homepage-preview] .hp-implementation-native { padding-block:72px; }
+ [data-homepage-preview] .hp-implementation-option h3 { font-size:24px; }
+ [data-homepage-preview] .hp-implementation-option p { font-size:17px; }
+}

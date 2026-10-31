@@ -16,6 +16,11 @@ const nextConfig: NextConfig = {
       { key: "Cache-Control", value: "public, max-age=604800, stale-while-revalidate=2592000" },
     ];
     return [
+      { source: "/llms.txt", headers: [{ key: "Content-Type", value: "text/plain; charset=utf-8" }, { key: "Cache-Control", value: "public, max-age=3600, stale-while-revalidate=86400" }] },
+      ...["index", "assessment", "platform", "implementation"].map(document => ({
+        source: `/${document}.md`,
+        headers: [{ key: "Content-Type", value: "text/markdown; charset=utf-8" }, { key: "Link", value: '</llms.txt>; rel="describedby"' }],
+      })),
       { source: "/assets/:path*", headers: cacheHeaders },
       { source: "/v3/assets/:path*", headers: cacheHeaders },
       { source: "/fonts/:path*", headers: cacheHeaders },

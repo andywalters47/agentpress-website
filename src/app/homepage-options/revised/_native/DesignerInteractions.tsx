@@ -1,0 +1,437 @@
+'use client';
+
+import { useEffect } from 'react';
+import { onScroll, scrollToPosition } from './scroll';
+
+const clamp = (value: number, minimum = 0, maximum = 1) => Math.min(maximum, Math.max(minimum, value));
+const mix = (start: number, end: number, progress: number) => start + ((end - start) * clamp(progress));
+
+function range(value: number, start: number, end: number) {
+  if (start === end) return value >= end ? 1 : 0;
+  return clamp((value - start) / (end - start));
+}
+
+function keyframes(value: number, inputs: number[], outputs: number[]) {
+  if (value <= inputs[0]) return outputs[0];
+  if (value >= inputs[inputs.length - 1]) return outputs[outputs.length - 1];
+  for (let index = 0; index < inputs.length - 1; index += 1) {
+    if (value <= inputs[index + 1]) {
+      return mix(outputs[index], outputs[index + 1], range(value, inputs[index], inputs[index + 1]));
+    }
+  }
+  return outputs[outputs.length - 1];
+}
+
+function cubicHermite(start: number, end: number, startSlope: number, endSlope: number, progress: number) {
+  const squared = progress ** 2;
+  const cubed = progress ** 3;
+  return (((2 * cubed) - (3 * squared) + 1) * start)
+    + ((cubed - (2 * squared) + progress) * startSlope)
+    + (((-2 * cubed) + (3 * squared)) * end)
+    + ((cubed - squared) * endSlope);
+}
+
+function mixColor(start: number[], end: number[], progress: number) {
+  const channels = start.map((channel, index) => Math.round(mix(channel, end[index], progress)));
+  return `rgb(${channels.join(', ')})`;
+}
+
+function installNavigation() {
+  const toggle = document.querySelector<HTMLButtonElement>('.navtoggle');
+  const panel = document.querySelector<HTMLElement>('.navpanel');
+  if (!toggle || !panel) return () => {};
+
+  const icon = toggle.querySelector<HTMLElement>('i');
+  const setOpen = (open: boolean) => {
+    panel.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    icon?.classList.toggle('ti-menu-2', !open);
+    icon?.classList.toggle('ti-x', open);
+  };
+  const onToggle = () => setOpen(!panel.classList.contains('open'));
+  const onPanelClick = (event: Event) => {
+    if ((event.target as Element).closest('a')) setOpen(false);
+  };
+  toggle.addEventListener('click', onToggle);
+  panel.addEventListener('click', onPanelClick);
+  return () => {
+    toggle.removeEventListener('click', onToggle);
+    panel.removeEventListener('click', onPanelClick);
+  };
+}
+
+function installBackToTop() {
+  const element = document.querySelector<HTMLElement>('a[aria-label="Back to top"]');
+  if (!element) return () => {};
+  const update = () => {
+    const show = window.scrollY > window.innerHeight;
+    element.style.opacity = show ? '1' : '0';
+    element.style.pointerEvents = show ? 'auto' : 'none';
+  };
+  const onClick = (event: Event) => {
+    event.preventDefault();
+    scrollToPosition(0);
+  };
+  element.addEventListener('click', onClick);
+  const stop = onScroll(update);
+  return () => {
+    stop();
+    element.removeEventListener('click', onClick);
+  };
+}
+
+function installLogoScale() {
+  const inner = document.querySelector<HTMLElement>('.ap-integrations-grid');
+  const outer = inner?.parentElement;
+  if (!inner || !outer) return () => {};
+  const width = 1188;
+  const height = Number.parseFloat(inner.style.height) || inner.clientHeight;
+  const apply = () => {
+    if (window.matchMedia('(max-width: 767px)').matches) {
+      inner.style.removeProperty('transform');
+      outer.style.removeProperty('height');
+      return;
+    }
+    const availableWidth = outer.clientWidth || width;
+    const scale = Math.min(1, availableWidth / width);
+    inner.style.transform = `translateX(${((availableWidth - (width * scale)) / 2).toFixed(2)}px) scale(${scale.toFixed(4)})`;
+    outer.style.height = `${(height * scale).toFixed(2)}px`;
+  };
+  if (window.ResizeObserver) {
+    const observer = new ResizeObserver(apply);
+    observer.observe(outer);
+    apply();
+    return () => observer.disconnect();
+  }
+  window.addEventListener('resize', apply);
+  apply();
+  return () => window.removeEventListener('resize', apply);
+}
+
+function installFeatureSection() {
+  const wrapper = document.querySelector<HTMLElement>('.featpin');
+  if (!wrapper) return () => {};
+  const sentinels = Array.from(wrapper.querySelectorAll<HTMLElement>('.fsent'));
+  const rows = Array.from(wrapper.querySelectorAll<HTMLElement>('.frow'));
+  const marks = Array.from(wrapper.querySelectorAll<HTMLButtonElement>('.fmark'));
+  wrapper.style.height = `${sentinels.length * 100}vh`;
+  sentinels.forEach((sentinel, index) => { sentinel.style.top = `${index * 100}vh`; });
+
+  const setStep = (index: number) => {
+    rows.forEach((row) => row.classList.toggle('on', Number(row.dataset.step) === index));
+    marks.forEach((mark) => mark.classList.toggle('on', Number(mark.dataset.mark) === index));
+  };
+  const onMark = (event: Event) => {
+    const mark = event.currentTarget as HTMLElement;
+    const index = Number(mark.dataset.mark);
+    const top = wrapper.getBoundingClientRect().top + window.scrollY;
+    scrollToPosition(top + (index * window.innerHeight) + 8);
+  };
+  marks.forEach((mark) => mark.addEventListener('click', onMark));
+  setStep(0);
+
+  // This was an IntersectionObserver with a -49%/-49% root margin, which asks
+  // "which sentinel covers the viewport centre". The sentinels are 100vh tall
+  // and tile the pinned range, so that is a plain scroll-position question and
+  // is answered off Lenis' frame instead: an observer fires asynchronously and
+  // would let the active step lag the panel it is meant to label.
+  const stepAtCentre = () => {
+    const centre = window.innerHeight / 2;
+    // The first sentinel still reaching past the centre line is the one over
+    // it; falling through means the section has scrolled by, leaving the last.
+    const index = sentinels.findIndex((sentinel) => sentinel.getBoundingClientRect().bottom > centre);
+    return index < 0 ? sentinels.length - 1 : index;
+  };
+
+  let current = 0;
+  const update = () => {
+    const step = stepAtCentre();
+    if (step === current) return;
+    current = step;
+    setStep(step);
+  };
+
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce), (max-width: 767px)');
+  const stop = reduced.matches ? null : onScroll(update);
+  return () => {
+    stop?.();
+    marks.forEach((mark) => mark.removeEventListener('click', onMark));
+  };
+}
+
+function installPreludeAnimation() {
+  const hero = document.querySelector<HTMLElement>('.heropin');
+  const prelude = document.querySelector<HTMLElement>('.ap-prelude-scroll');
+  const intro = document.querySelector<HTMLElement>('.introrow');
+  const introShell = intro?.parentElement;
+  if (!hero || !prelude || !intro || !introShell) return () => {};
+
+  const firstBubble = hero.querySelector<HTMLElement>('.ap-hero-bubble-1');
+  const secondBubble = hero.querySelector<HTMLElement>('.ap-hero-bubble-2');
+  const headlineWords = Array.from(intro.querySelectorAll<HTMLElement>('.ap-manifesto-word'));
+  const resultMarkers = Array.from(intro.querySelectorAll<HTMLElement>('.hp-manifesto-results > li')).map((item) => ({
+    item,
+    firstWord: item.querySelector<HTMLElement>('.ap-manifesto-word'),
+  }));
+  const headlineOnly = intro.classList.contains('hp-manifesto-all-headline');
+  const paragraphs = Array.from(intro.querySelectorAll<HTMLParagraphElement>('p'));
+  const ink = [33, 33, 33];
+  const accentGreen = [45, 196, 168];
+
+  // The designer export ships the supporting words with the per-word fade's
+  // opening frame baked into their style attribute: opacity 0, dimmed colour
+  // and an offset. Lifting them out of it was the old word-by-word animation's
+  // job, and the block fade on the paragraph cannot do it from the outside, so
+  // release them here. Until then the body copy stays hidden no matter what
+  // opacity its paragraph is given.
+  intro.querySelectorAll<HTMLElement>('.ap-manifesto-supporting-word').forEach((word) => {
+    word.style.removeProperty('opacity');
+    word.style.removeProperty('color');
+    word.style.removeProperty('transform');
+  });
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {};
+
+  const animateHeadlineBlock = (words: HTMLElement[], progress: number, blockStart: number, blockEnd: number) => {
+    const duration = blockEnd - blockStart;
+    words.forEach((word, index) => {
+      const wordStart = blockStart + ((index / Math.max(1, words.length)) * duration);
+      const wordEnd = blockStart + (((index + 1) / Math.max(1, words.length)) * duration);
+      const wordProgress = range(progress, wordStart, wordEnd);
+      const focus = 0.48;
+      const towardGreen = range(wordProgress, 0, focus);
+      const awayFromGreen = range(wordProgress, focus, 1);
+      word.style.color = headlineOnly ? 'rgb(33, 33, 33)' : wordProgress <= focus
+        ? mixColor(ink, accentGreen, towardGreen)
+        : mixColor(accentGreen, ink, awayFromGreen);
+      const glow = headlineOnly ? 0 : wordProgress <= focus ? mix(0, 0.88, towardGreen) : mix(0.88, 0, awayFromGreen);
+      word.style.opacity = String(range(wordProgress, 0, 0.34));
+      if (word.classList.contains('hp-manifesto-roi')) {
+        const wordDuration = wordEnd - wordStart;
+        word.style.setProperty('--hp-roi-stroke', String(1 - range(progress, wordStart + .25 * wordDuration, wordEnd + 1.1 * wordDuration)));
+        word.style.setProperty('--hp-roi-stroke-tail', String(1 - range(progress, wordStart + .9 * wordDuration, wordEnd + 1.8 * wordDuration)));
+      }
+      word.style.textShadow = `0 0 26px rgba(174, 243, 200, ${glow.toFixed(3)})`;
+      word.style.transform = `translateY(${mix(8, 0, wordProgress).toFixed(2)}px) scale(${keyframes(wordProgress, [0, focus, 1], [0.97, 1.035, 1]).toFixed(4)})`;
+    });
+  };
+
+  // Six lines of body copy revealed a word at a time made the reader scroll to
+  // earn each one, so the paragraphs come in together as a single block. They
+  // keep their own --ink-body colour and only opacity is animated, which lands
+  // on exactly the appearance the per-word fade used to end on.
+  const animateBodyBlock = (progress: number) => {
+    const eased = progress * progress * (3 - (2 * progress));
+    paragraphs.forEach((paragraph) => {
+      paragraph.style.opacity = String(eased);
+      paragraph.style.transform = `translateY(${mix(9, 0, eased).toFixed(2)}px)`;
+    });
+  };
+
+  const update = () => {
+    const viewportHeight = window.innerHeight;
+    const preludeRect = prelude.getBoundingClientRect();
+    const stickyHeight = Math.max(1, viewportHeight - 80);
+    const preludeProgress = clamp((-preludeRect.top) / Math.max(1, preludeRect.height - stickyHeight));
+    // The section is 380svh rather than 720svh now, so the hero handover is
+    // spread over a larger share of it to keep roughly the scroll distance it
+    // used to take rather than becoming abrupt at the shorter length.
+    const primaryProgress = clamp(preludeProgress / 1.1);
+    const parallaxProgress = range(primaryProgress, 0, 0.34);
+    hero.style.setProperty('--ap-hero-opacity', String(keyframes(primaryProgress, [0, 0.16, 0.34], [1, 0.72, 0])));
+    hero.style.setProperty('--ap-hero-filter-opacity', String(keyframes(primaryProgress, [0, 0.11, 0.24], [1, 0.42, 0])));
+    hero.style.setProperty('--ap-hero-scale', String(keyframes(primaryProgress, [0, 0.34], [1, 0.945])));
+    hero.style.setProperty('--ap-hero-y', `${keyframes(primaryProgress, [0, 0.34], [0, -120]).toFixed(2)}px`);
+    firstBubble?.style.setProperty('--ap-bubble-y', `${mix(0, -86, parallaxProgress).toFixed(2)}px`);
+    secondBubble?.style.setProperty('--ap-bubble-y', `${mix(0, -138, parallaxProgress).toFixed(2)}px`);
+    introShell.style.setProperty('--ap-manifesto-opacity', String(range(primaryProgress, 0.015, 0.16)));
+    introShell.style.setProperty('--ap-manifesto-scale', String(keyframes(primaryProgress, [0.015, 0.24], [0.96, 1])));
+    introShell.style.setProperty('--ap-manifesto-y', `${keyframes(primaryProgress, [0.015, 0.24], [34, 0]).toFixed(2)}vh`);
+    // Retimed against the shorter section so the headline keeps its old pace of
+    // roughly a viewport per four words, the body block follows after a short
+    // beat, and the long stretch of nothing that used to run from the last word
+    // to the end of the section is gone.
+    const introProgress = range(preludeProgress, 0.20, 0.88);
+    animateHeadlineBlock(headlineWords, introProgress, 0, headlineOnly ? 1 : 0.53);
+    // List markers must follow their first word in both scroll directions;
+    // native markers otherwise remain visible before their text is revealed.
+    resultMarkers.forEach(({ item, firstWord }) => {
+      item.style.setProperty('--hp-marker-opacity', firstWord?.style.opacity || '0');
+    });
+    if (!headlineOnly) animateBodyBlock(range(introProgress, 0.70, 1));
+  };
+
+  return onScroll(update);
+}
+
+function installIntegrationAnimation() {
+  const section = document.querySelector<HTMLElement>('.ap-integrations-section');
+  const tools = section ? Array.from(section.querySelectorAll<HTMLElement>('.ap-integration-tool')) : [];
+  if (!section || !tools.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {};
+
+  const update = () => {
+    const viewportHeight = window.innerHeight;
+    const firstToolTop = tools[0].getBoundingClientRect().top;
+    const progress = clamp(((viewportHeight * 0.92) - firstToolTop) / (viewportHeight * 0.62));
+    const staggerSpan = 0.585;
+    const revealDuration = 0.25;
+
+    tools.forEach((tool, index) => {
+      const start = (index / Math.max(1, tools.length - 1)) * staggerSpan;
+      const toolProgress = range(progress, start, start + revealDuration);
+      const scale = keyframes(toolProgress, [0, 0.72, 1], [0.9, 1.04, 1]);
+      tool.style.opacity = '1';
+      tool.style.transform = `scale(${scale.toFixed(4)})`;
+    });
+  };
+
+  return onScroll(update);
+}
+
+function installTimelineAnimation() {
+  const stage = document.querySelector<HTMLElement>('.ap-timeline-flight-scroll');
+  const backdrop = stage?.querySelector<SVGElement>('.ap-timeline-backdrop')
+    ?? stage?.closest('#evaluation')?.querySelector<SVGElement>('.ap-timeline-backdrop');
+  const heading = document.querySelector<HTMLElement>('.ap-timeline-heading');
+  const sticky = stage?.querySelector<HTMLElement>('.ap-timeline-flight-sticky');
+  const cards = stage ? Array.from(stage.querySelectorAll<SVGElement>('.ap-timeline-flight-card')) : [];
+  const process = stage?.closest<HTMLElement>('.hp-process-experience');
+  if (!stage || !backdrop || !sticky || !cards.length || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {};
+
+  // The heading is sticky for the entire scroll range, so on its own it is still
+  // pinned at the top when the next section arrives. With seven cards the last
+  // one passes the centre of the scene at roughly 0.90, so fading from here runs
+  // the section out while that card is departing rather than still arriving.
+  const sectionFadeStart = 0.94;
+
+  // Everything below assumes the pinned layout: a tall spacer with the scene
+  // held still inside it, where progress reaching 1 means the cards have flown
+  // and the scene is about to unpin. Neither responsive layout works that way.
+  // Between 601px and 1024px the section is display:none in favour of the
+  // static overview, so the stage measures zero and progress pins at 1. At
+  // 600px and below the scene is position:relative and the cards are a plain
+  // vertical stack, where progress reaches 1 when the section's bottom is only
+  // just level with the bottom of the viewport -- a whole viewport before the
+  // last cards have been read. Fading from 0.94 against that erased cards five
+  // onwards while they were still on screen.
+  let measuredWidth = -1;
+  let scenePinned = false;
+  const refreshLayout = () => {
+    if (process) {
+      scenePinned = process.dataset.enhanced === 'true';
+      return;
+    }
+    if (window.innerWidth === measuredWidth) return;
+    measuredWidth = window.innerWidth;
+    scenePinned = window.getComputedStyle(sticky).position === 'sticky';
+  };
+
+  // Opacity is the one thing the static layouts do not override, so it is the
+  // one thing that has to be handed back when the flight does not apply. The
+  // backdrop is left as it is: it carries a meaningful starting opacity of its
+  // own and is display:none in both of those layouts.
+  const releaseSection = () => {
+    heading?.style.removeProperty('opacity');
+    sticky.style.removeProperty('opacity');
+  };
+
+  const update = () => {
+    refreshLayout();
+    const rect = stage.getBoundingClientRect();
+    if (!scenePinned || !rect.height) {
+      releaseSection();
+      return;
+    }
+    const viewportHeight = window.innerHeight;
+    const progress = process?.dataset.enhanced === 'true'
+      ? Number(process.dataset.roiProgress ?? .06)
+      : clamp((viewportHeight - rect.top) / Math.max(1, rect.height));
+    backdrop.style.opacity = String(keyframes(progress, [0, 0.04, 0.9, 1], [0.42, 1, 1, 0.26]));
+
+    // Read off the same progress value as the card motion so the fade cannot
+    // drift out of step with it. Applied to the heading and the pinned scene
+    // rather than their shared parent, which would put a stacking context on a
+    // 1161svh container and could reorder it against the sections around it.
+    const sectionOpacity = process ? '1' : keyframes(progress, [sectionFadeStart, 1], [1, 0]).toFixed(3);
+    if (heading) heading.style.opacity = sectionOpacity;
+    sticky.style.opacity = sectionOpacity;
+
+    cards.forEach((card, index) => {
+      const cardStagger = 0.44;
+      const finalCardReleasePoint = 0.66;
+      const travelDuration = 1 / (((cards.length - 1) * cardStagger) + finalCardReleasePoint);
+      const stageInterval = travelDuration * cardStagger;
+      const stageIn = index * stageInterval;
+      const completedArrival = stageIn + travelDuration;
+      const queueX = -50 - (index * 0.8);
+      const queueY = 0;
+      const completedX = 57.2 - (index * 0.8);
+      const completedY = 0;
+      const approachShare = 1 / 3;
+      const center = stageIn + (travelDuration * approachShare);
+      let x = queueX;
+      if (progress >= completedArrival) {
+        x = completedX;
+      } else if (progress > stageIn) {
+        const travelProgress = (progress - stageIn) / travelDuration;
+        const centerVelocity = 3;
+        if (travelProgress <= approachShare) {
+          x = cubicHermite(queueX, 0, 0, centerVelocity * approachShare, travelProgress / approachShare);
+        } else {
+          const departureShare = 1 - approachShare;
+          x = cubicHermite(0, completedX, centerVelocity * departureShare, 0, (travelProgress - approachShare) / departureShare);
+        }
+      }
+
+      const y = keyframes(progress, [stageIn, center, completedArrival], [queueY, 0, completedY]);
+      const travelProgress = clamp((progress - stageIn) / travelDuration);
+      const edgeScale = 0.96;
+      const centerScale = 1.14;
+      const segmentProgress = travelProgress <= approachShare
+        ? range(travelProgress, 0, approachShare)
+        : range(travelProgress, approachShare, 1);
+      const easedScale = segmentProgress * segmentProgress * (3 - (2 * segmentProgress));
+      const scale = travelProgress <= approachShare
+        ? mix(edgeScale, centerScale, easedScale)
+        : mix(centerScale, edgeScale, easedScale);
+      const perspectiveAmount = keyframes(travelProgress, [0, 1 / 6, 1 / 2, 1], [1, 0, 0, 1]);
+      let blur = 0.625;
+      let shadowY = 16;
+      let shadowBlur = 22;
+      let shadowAlpha = 0.08;
+      if (progress > stageIn && progress < completedArrival) {
+        const edgeBand = 0.16;
+        const entranceBlur = travelProgress < edgeBand ? 0.625 * (1 - (travelProgress / edgeBand)) : 0;
+        const exitBlur = travelProgress > (1 - edgeBand) ? 0.625 * ((travelProgress - (1 - edgeBand)) / edgeBand) : 0;
+        const focus = 1 - Math.min(1, Math.abs(travelProgress - 0.44) / 0.38);
+        blur = Math.max(entranceBlur, exitBlur);
+        shadowY = 16 + (12 * focus);
+        shadowBlur = 22 + (12 * focus);
+        shadowAlpha = 0.08 + (0.12 * focus);
+      }
+      card.style.filter = `blur(${blur.toFixed(3)}px) drop-shadow(0 ${shadowY.toFixed(2)}px ${shadowBlur.toFixed(2)}px rgba(39, 30, 83, ${shadowAlpha.toFixed(3)}))`;
+      card.style.transform = `translate3d(${x.toFixed(4)}vw, ${y.toFixed(2)}px, 0) perspective(1500px) rotateX(${(5.25 * perspectiveAmount).toFixed(3)}deg) rotateY(${(-15 * perspectiveAmount).toFixed(3)}deg) skewY(${(-10 * perspectiveAmount).toFixed(3)}deg) scale(${scale.toFixed(4)})`;
+    });
+  };
+
+  return onScroll(update);
+}
+
+export function DesignerInteractions({ home }: { home: boolean }) {
+  useEffect(() => {
+    const cleanups = [installNavigation(), installBackToTop()];
+    if (home) {
+      cleanups.push(
+        installLogoScale(),
+        installFeatureSection(),
+        installPreludeAnimation(),
+        installIntegrationAnimation(),
+        installTimelineAnimation(),
+      );
+    }
+    return () => cleanups.forEach((cleanup) => cleanup());
+  }, [home]);
+
+  return null;
+}

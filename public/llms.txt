@@ -1,0 +1,25 @@
+# AgentPress
+
+> AgentPress helps mid-market companies grow revenue and reduce costs with AI. We identify valuable workflows, validate the business case with the client, and build and support the automation.
+
+This is the official AgentPress website. The Markdown pages below describe our current services and assessment. ROI estimates are planning assumptions, not guarantees; production implementation is scoped separately from the assessment.
+
+## Services
+
+- [Company and service overview](https://www.agent.press/index.md): Homepage content, business outcomes and common questions.
+- [AI transformation assessment](https://www.agent.press/assessment.md): Three-week engagement, five deliverables, scope, price and first-build credit.
+- [Implementation options](https://www.agent.press/implementation.md): Build internally using the findings or have AgentPress implement.
+- [Platform and integrations](https://www.agent.press/platform.md): Deployment, security and back-office system connections.
+
+## Company
+
+- [Our story](https://www.agent.press/our-story): Background and approach.
+- [Contact and consultation](https://www.agent.press/consultation): Book a consultation with AgentPress.
+- [Support](https://www.agent.press/support): Help for existing customers.
+
+## Optional
+
+- [Resources](https://www.agent.press/resources): Articles and practical guidance.
+- [Careers](https://www.agent.press/careers): Current roles.
+- [Privacy policy](https://www.agent.press/privacy): How personal information is handled.
+- [Terms of service](https://www.agent.press/terms): Service and website terms.

@@ -1,10 +1,11 @@
+import { pageMetadata } from '@/lib/site-metadata';
 import type { Metadata } from 'next';
 import { NativeDesignerPage } from '@/components/NativeDesignerPage';
 
 const title = 'Full-Stack AI Engineer | AgentPress';
 const description = 'AgentPress is hiring a full-time Full-Stack AI Engineer to build full-stack product, AI agent orchestration systems, and enterprise integrations.';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata("/careers/full-stack-ai-engineer", {
   title,
   description,
   openGraph: {
@@ -24,7 +25,7 @@ export const metadata: Metadata = {
     description,
     images: ['/agentpress_full_stack_ai_engineer_og_image.png'],
   },
-};
+});
 
 export default function FullStackAiEngineerPage() {
   return <NativeDesignerPage page="full-stack-ai-engineer" />;
