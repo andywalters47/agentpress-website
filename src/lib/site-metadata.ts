@@ -3,8 +3,8 @@ import type { Metadata } from 'next';
 export const siteUrl = 'https://www.agent.press';
 export const siteTitle = 'AgentPress | AI Automation for Mid-Market Companies';
 export const siteDescription = 'Grow revenue and reduce costs with AI. AgentPress finds high-value workflows, validates the business case, and builds and supports your automation.';
-export const socialImage = `${siteUrl}/agentpress_og_ai_automation_v1.png`;
-export const socialImageAlt = 'AgentPress — Grow revenue. Reduce costs with AI';
+export const socialImage = `${siteUrl}/agentpress_og_ai_automation_v2.png`;
+export const socialImageAlt = 'We help mid-market companies grow revenue and reduce costs with AI';
 
 const routeDescriptions: Record<string, string> = {
   '/privacy': 'How AgentPress collects, uses and protects personal information.',
