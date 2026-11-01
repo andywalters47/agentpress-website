@@ -59,7 +59,7 @@ export function buildRevisedHomepage(original: Node): Node {
   h1.children = ['We help ', element('span', { class: 'hp-hero-market' }, ['mid-market']), ' companies grow revenue and reduce costs with AI'];
   h1.props.style = h1.props.style.replace('font-size: 50px', 'font-size: 46px');
   const heroParagraph = find(prelude, node => node.tag === 'p');
-  heroParagraph.children = ['Improve cash flow, grow margins, and cut manual work. We identify the workflows worth automating, validate the business case with your team, then build and support the solution.'];
+  heroParagraph.children = ['Improve cash flow, grow margins, and cut manual work. We identify the right opportunities, then customize our prebuilt AI workflows and software for your business.'];
   heroParagraph.props.style = heroParagraph.props.style.replace('font-size: 20px', 'font-size: 18px');
   const heroCta = find(prelude, node => hasClass(node, 'btn-dark'));
   heroCta.children = ['Book a consultation'];
@@ -88,7 +88,7 @@ export function buildRevisedHomepage(original: Node): Node {
     'Our clients choose us because we put ROI first.',
     'reduce expenses with streamlined operations, support, and HR',
     'grow revenue with automated invoicing and collections',
-    'and more, customized for your business',
+    'and more prebuilt AI workflows, customized for your business',
   ];
   const manifestoColumn = intro.children[1] as Node;
   const manifestoTemplate = find(manifestoColumn, node => node.props['data-ap-words-wrapped'] === 'true');

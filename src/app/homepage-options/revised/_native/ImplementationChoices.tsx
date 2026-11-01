@@ -1,19 +1,20 @@
+import { PrebuiltWorkflowGraphic } from './PrebuiltWorkflows';
+
 const choices = [
   { label: 'Build internally', copy: 'Give your team the workflow requirements, business case and implementation plan to guide the build.' },
-  { label: 'Build with AgentPress', copy: 'Our engineers build on our agent platform, integrations and workflow components, configuring them around your systems and approval rules.' },
+  { label: 'Build with AgentPress', copy: 'We customize our prebuilt AI workflows, software and integrations around your systems and approval rules. That means less development time and lower build costs.' },
 ];
 
-/** The existing marketing FAQ's two-column anatomy, with static editorial
- * rows instead of introducing a separate tab/card design language. */
+/** Two implementation options, with the prebuilt workflow illustration
+ * belonging to the AgentPress option rather than a separate section. */
 export function ImplementationChoices() {
-  return <section className="hp-implementation-native hp-screen-stage" id="implementation">
-    <div className="faqrow" style={{boxSizing:'border-box',width:1376,maxWidth:'100%',padding:'0 56px',display:'flex',justifyContent:'space-between',gap:'clamp(96px,10vw,160px)'}}>
-      <div style={{width:340,maxWidth:'100%',flex:'0 0 auto'}}>
-        <h2 className="h1" style={{fontSize:'var(--web-size-h2)',margin:0,letterSpacing:0}}>Use the findings with your own team, or have us implement</h2>
-      </div>
-      <div className="hp-implementation-options" style={{flex:'1 1 0%',maxWidth:560}}>
+  return <section className="hp-implementation-native hp-screen-stage" id="implementation" aria-labelledby="hp-implementation-heading">
+    <div className="hp-restored-container hp-implementation-layout">
+      <h2 className="hp-implementation-heading" id="hp-implementation-heading">Implement the findings internally, or hire <img className="hp-inline-wordmark" src="/assets/agentpress-wordmark.svg" alt="AgentPress" /> to customize prebuilt AI workflows for your business</h2>
+      <div className="hp-implementation-options">
         {choices.map((choice, index) => <div className={`hp-implementation-option${index === 1 ? ' hp-implementation-option--agentpress' : ''}`} key={choice.label}>
           <h3>{index === 1 ? <>Build with <img className="hp-inline-wordmark" src="/assets/agentpress-wordmark.svg" alt="AgentPress" /></> : choice.label}</h3><p>{choice.copy}</p>
+          {index === 1 && <PrebuiltWorkflowGraphic />}
         </div>)}
       </div>
     </div>

@@ -2,13 +2,13 @@
 
 > We help mid-market companies grow revenue and reduce costs with AI.
 
-Improve cash flow, grow margins, and cut manual work. We identify the workflows worth automating, validate the business case with your team, then build and support the solution.
+Improve cash flow, grow margins, and cut manual work. We identify the right opportunities, then customize our prebuilt AI workflows and software for your business.
 
 ## What we automate
 
 - Reduce expenses with streamlined operations, support, and HR.
 - Grow revenue with automated invoicing and collections.
-- Other workflows customized for your business.
+- More prebuilt AI workflows, customized for your business.
 
 ## A Place for Mom case study
 
@@ -27,6 +27,12 @@ We deliver prioritized workflows, estimated business value, a phased implementat
 Get a board-ready AI transformation plan and working prototype before committing to a full build. The assessment costs $15,000, with 50% credited to the first build. Production builds are scoped separately.
 
 See [assessment details](https://www.agent.press/assessment.md), [implementation options](https://www.agent.press/implementation.md), and [platform capabilities](https://www.agent.press/platform.md).
+
+## Implementation options
+
+Implement the findings internally, or hire AgentPress to customize prebuilt AI workflows for your business.
+
+Your team can use the workflow requirements, business case and implementation plan to guide the build. Or AgentPress can customize prebuilt AI workflows, software and integrations around your systems and approval rules, reducing development time and build costs.
 
 ## Frequently asked questions
 
